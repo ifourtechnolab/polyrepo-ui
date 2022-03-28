@@ -1,26 +1,23 @@
 <div class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="\assets\images\image3.jpg" alt="App Name" height=30px>
+            <img src="\assets\images\app_logo.png" alt="App Name" height=55px>
             <a href="#" class="navbar-app">App Name</a>
         </div>
-        <div>
+        <div class="container">
             <form [formGroup]="loginForm">
 
                 <!--Token Input-->
-                <input type="text" placeholder="Token" formControlName="token" (blur)="getToken()"><br>
-                <span *ngIf="token && token.invalid && token.touched" style="color: red">Enter valid Token</span><br>
+                <input type="text" placeholder="Token" formControlName="token" (blur)="getToken()">
 
                 <!--Search Organization-->
-                <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()"><br>
+                <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()">
                 <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
                     <mat-option *ngFor="let x of organizationsData" [value]="x.node.name" >
                         <p>{{x.node.name}}</p>
                     </mat-option>
                 </mat-autocomplete>
-                <span *ngIf="organizationName && organizationName.invalid && organizationName.touched" style="color: red">Select valid Organization</span><br>
-
-
+                
                 <!--Submit-->
                 <button class="btn btn-primary" [disabled]="loginForm.invalid">
                     Search

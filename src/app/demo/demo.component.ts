@@ -16,7 +16,7 @@ export class DemoComponent implements OnInit {
 
   loginForm = new FormGroup({
     token: new FormControl('', [Validators.required]),
-    organizationName: new FormControl('', [Validators.required]),
+    organizationName: new FormControl({value:'', disabled: true}, [Validators.required]),
   });
 
   filterOrganization!: Observable<string[]>;
@@ -35,9 +35,11 @@ export class DemoComponent implements OnInit {
         console.log(validationData.message);
         if (validationData.message === 'Valid Token') {
           localStorage.setItem('token', this.tokenValue);
+          this.loginForm.controls['organizationName'].enable();
         } else {
           localStorage.removeItem('token');
           alert('Please entered Valid token');
+          this.loginForm.controls['organizationName'].disable();
         }
       });
   }

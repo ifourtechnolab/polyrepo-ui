@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from '../shared/http.service';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
@@ -22,7 +23,7 @@ export class DemoComponent implements OnInit {
   filterOrganization!: Observable<string[]>;
   organizationsData: any;
 
-  constructor(private http: HttpService) {}
+  constructor(private http: HttpService, public router: Router) {}
 
   ngOnInit() {}
 
@@ -63,5 +64,9 @@ export class DemoComponent implements OnInit {
 
   get organizationName() {
     return this.loginForm.get('organizationName');
+  }
+
+  routeToRepository(){
+    this.router.navigate(['/repository-page']);    
   }
 }

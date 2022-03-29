@@ -1,6 +1,6 @@
-.container{
+.containerDemo{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     vertical-align: middle;
 }
 
@@ -29,10 +29,6 @@ input{
     font-size: 1.2em;
 }
 
-.anavbar-nav {
-    color: white
-}
-
 #home_search,
 #home_token {
     margin-right: 10px;
@@ -43,3 +39,42 @@ input{
 .btn-home {
     margin-bottom: 8px;
 }
+
+/* body */
+.a{
+    text-align: center;
+    font-family: bahnschrift;
+    font-size: 68px;
+    padding-top: 150px;
+}
+.b{
+    padding-top: 10px;
+}
+
+.containerBody{
+    display: flax;
+}
+
+/* cards */
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+  }
+
+  .block {
+    margin-left: 2rem;
+    color:black;
+    height: 350px;
+    border: 1.2px solid rgb(230, 230, 230);
+  }
+
+  .block:hover{
+    transform: scale(1.05);
+    box-shadow: 10px 10px 15px rgba(216, 216, 216, 0.9);
+  }
+  
+  .containerCards{
+      padding-bottom: 5%;
+  }

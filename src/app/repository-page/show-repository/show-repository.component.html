@@ -1,0 +1,11 @@
+<!-- <div class="cheese">
+    <input class="repoSearch" type="text" placeholder="repository">
+</div> -->
+
+<ng-multiselect-dropdown
+  [settings]="dropdownSettings"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)">
+</ng-multiselect-dropdown>

@@ -12,13 +12,15 @@ import * as _ from 'lodash';
 export class DemoComponent implements OnInit {
   tokenValue: any;
   orgName: any;
+  orgLogin: any;
   authToken: any;
+  orgProfileData: any;
   isdisable:boolean=true;
   loginForm = new FormGroup({
     token: new FormControl('', [Validators.required]),
     organizationName: new FormControl({value:'', disabled: true}, [Validators.required]),
   });
-
+  login: any;
   filterOrganization!: Observable<string[]>;
   organizationsData: any;
 
@@ -78,5 +80,24 @@ export class DemoComponent implements OnInit {
 
   get organizationName() {
     return this.loginForm.get('organizationName');
+  }
+
+  search(){
+    
+    
+    this.authToken = localStorage.getItem('token');
+    this.orgLogin=localStorage.getItem('orgLogin');
+    this.http
+        .getOrgProfile(this.authToken, this.orgLogin)
+        .subscribe((orgProfile: any) => {
+          console.log(orgProfile.organization.avatarUrl);
+          this.orgProfileData = orgProfile;
+        });
+    
+  }
+  changeName(event: any){
+   
+    this.login = this.organizationsData[event].node.login;
+    localStorage.setItem('orgLogin', this.login);
   }
 }

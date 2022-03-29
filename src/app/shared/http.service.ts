@@ -6,13 +6,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HttpService {
   private URL = '';
-  private tokenURL = 'http://192.168.0.181:8080/polyrepo/analyser/auth/';
+  private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
 
   constructor(private http: HttpClient) {}
 
   getData(authToken: any, orgName: any) 
   {
-    this.URL = 'http://192.168.0.181:8080/polyrepo/analyser/org/' + orgName;
+    this.URL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgName;
     return this.http.get(this.URL, {
       headers: new HttpHeaders({
         Authorization: authToken,

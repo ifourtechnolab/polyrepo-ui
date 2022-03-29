@@ -13,7 +13,7 @@ export class DemoComponent implements OnInit {
   tokenValue: any;
   orgName: any;
   authToken: any;
-
+  isdisable:boolean=true;
   loginForm = new FormGroup({
     token: new FormControl('', [Validators.required]),
     organizationName: new FormControl({value:'', disabled: true}, [Validators.required]),
@@ -33,13 +33,20 @@ export class DemoComponent implements OnInit {
       .getAuthentication(this.tokenValue)
       .subscribe((validationData: any) => {
         console.log(validationData.message);
-        if (validationData.message === 'Valid Token') {
+        if (validationData.message === 'Valid Token') 
+        {
           localStorage.setItem('token', this.tokenValue);
           this.loginForm.controls['organizationName'].enable();
-        } else {
+          this.isdisable=false;
+        }
+        else 
+        {
           localStorage.removeItem('token');
           alert('Please entered Valid token');
           this.loginForm.controls['organizationName'].disable();
+          this.loginForm.controls['organizationName'].reset();
+          this.isdisable=true;
+          
         }
       });
   }

@@ -25,7 +25,7 @@ export class DemoComponent implements OnInit {
   constructor(private http: HttpService) {}
 
   ngOnInit() {}
-
+  
   public getToken() {
     this.tokenValue = this.loginForm.value.token;
 
@@ -37,7 +37,6 @@ export class DemoComponent implements OnInit {
         {
           localStorage.setItem('token', this.tokenValue);
           this.loginForm.controls['organizationName'].enable();
-          this.isdisable=false;
         }
         else 
         {
@@ -46,7 +45,6 @@ export class DemoComponent implements OnInit {
           this.loginForm.controls['organizationName'].disable();
           this.loginForm.controls['organizationName'].reset();
           this.isdisable=true;
-          
         }
       });
   }
@@ -63,7 +61,17 @@ export class DemoComponent implements OnInit {
         });
     }
   }
-
+  public searchvisibility()
+  {
+    if(this.orgName=='')
+    {
+      this.isdisable=true;
+    }
+    else
+    {
+      this.isdisable=false;
+    }
+  }
   get token() {
     return this.loginForm.get('token');
   }

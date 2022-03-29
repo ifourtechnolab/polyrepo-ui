@@ -11,7 +11,7 @@
                 <input type="text" placeholder="Token" formControlName="token" (blur)="getToken()">
 
                 <!--Search Organization-->
-                <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" >
+                <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()">
                 <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
                     <mat-option *ngFor="let x of organizationsData" [value]="x.node.name" >
                         <p>{{x.node.name}}</p>

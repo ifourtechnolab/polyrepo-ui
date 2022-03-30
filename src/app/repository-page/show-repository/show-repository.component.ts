@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../shared/http.service';
 import * as _ from 'lodash';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-show-repository',
@@ -37,6 +36,7 @@ export class ShowRepositoryComponent implements OnInit {
     this.getRecords();
   }
 
+  // get Data from API
   getRecords() {
     this.http
       .getRepoList(this.authToken, this.orgLogin)
@@ -51,6 +51,7 @@ export class ShowRepositoryComponent implements OnInit {
       });
   }
 
+  // selected values
   onItemSelect(item: any) {
     this.selectedI+=JSON.stringify(item);
     console.log(this.selectedI);
@@ -59,7 +60,5 @@ export class ShowRepositoryComponent implements OnInit {
   onSelectAll(items: any) {
     console.log(items);
   }
-
-
 
 }

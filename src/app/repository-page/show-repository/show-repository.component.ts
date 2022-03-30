@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../../shared/http.service';
+import * as _ from 'lodash';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-show-repository',
@@ -7,42 +10,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowRepositoryComponent implements OnInit {
 
-  dropdownList:any= [];
-  selectedItems:any = [];
+  dropdownList: any = [];
+  selectedItems: any = [];
   dropdownSettings = {};
-  tokenValue:any;
-  products:any;
+  tokenValue: any;
+  products: any;
+  repoNameList: any;
+  orgLogin: any;
+  authToken: any;
+  selectedI:any = [];
 
-  constructor() {}
+  constructor(private http: HttpService) { }
 
-  ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Repo1' },
-      { item_id: 2, item_text: 'Repo2' },
-      { item_id: 3, item_text: 'Repo3' },
-      { item_id: 4, item_text: 'Repo4' },
-      { item_id: 5, item_text: 'Repo5' },
-      { item_id: 6, item_text: 'Repo6' },
-      { item_id: 7, item_text: 'Repo7' },
-      { item_id: 8, item_text: 'Repo8' },
-      { item_id: 9, item_text: 'Repo9' },
-      { item_id: 10, item_text: 'Repo10' }
-    ];
-    this.dropdownSettings= {
+  ngOnInit(): void {
+    this.authToken = localStorage.getItem('token');
+    this.orgLogin = localStorage.getItem('orgLogin');
+    this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
-      textField: 'item_text',
+      textField: 'item_name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      allowSearchFilter: true
+      itemsShowLimit: 2,
+      allowSearchFilter: false
     };
+    this.getRecords();
+  }
+
+  getRecords() {
+    this.http
+      .getRepoList(this.authToken, this.orgLogin)
+      .subscribe((RepoList: any) => {
+        console.log(RepoList);
+        this.repoNameList = RepoList.edges.map((x: any) => {
+          return {
+            item_id: x.repository.name,
+            item_name: x.repository.name
+          }
+        });
+      });
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+    this.selectedI+=JSON.stringify(item);
+    console.log(this.selectedI);
   }
+
   onSelectAll(items: any) {
     console.log(items);
   }
+
+
 
 }

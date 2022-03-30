@@ -7,10 +7,10 @@
         <div class="navbar-header">
             <div class="container">
                 <div class="containerA">
-                    <a href="#" class="navbar-app" id="orgName">Organization name</a><br>
-                    <a href="#" class="navbar-app" id="orgURL">Organization URl</a>
+                    <a href="{{orgProfileData.organization.url}}" class="navbar-app" id="orgName">{{orgProfileData.organization.name}}</a><br>
+                    <!-- <a href="#" class="navbar-app" id="orgURL">Organization URl</a> -->
                 </div>
-                <img src="\assets\images\app_logo.png" alt="App Name" height=55px>
+                <img src="{{orgProfileData.organization.avatarUrl}}" alt="App Name" height=55px>
             </div>
         </div>
     </div>

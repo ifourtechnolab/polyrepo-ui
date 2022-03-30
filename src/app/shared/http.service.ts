@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HttpService {
   private URL = '';
+  private OrgProfileUrl = '';
+  private repoListUrl='';
   private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
 
   constructor(private http: HttpClient) {}
@@ -28,5 +30,27 @@ export class HttpService {
       }),
     });
   }
+
+  public getOrgProfile(authToken: any, orgLogin: any) {
+    this.OrgProfileUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/orgProfile';
+    return this.http.get(this.OrgProfileUrl, {
+
+      headers: new HttpHeaders({
+        Authorization: authToken,
+
+      }),
+    });
+  }
+
+  public getRepoList(authToken: any, orgLogin: any){
+    this.repoListUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo';
+    return this.http.get(this.repoListUrl,{
+      headers: new HttpHeaders({
+        Authorization: authToken,
+
+      }),
+    });
+  }
+  
   
 }

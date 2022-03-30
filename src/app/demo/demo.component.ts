@@ -14,7 +14,10 @@ export class DemoComponent implements OnInit {
   tokenValue: any;
   orgName: any;
   authToken: any;
-
+  isdisable:boolean=true;
+  login: any;
+  orgProfileData: any;
+  orgLogin: any;
   loginForm = new FormGroup({
     token: new FormControl('', [Validators.required]),
     organizationName: new FormControl({value:'', disabled: true}, [Validators.required]),
@@ -41,6 +44,8 @@ export class DemoComponent implements OnInit {
           localStorage.removeItem('token');
           alert('Please entered Valid token');
           this.loginForm.controls['organizationName'].disable();
+          this.loginForm.controls['organizationName'].reset();
+          this.isdisable=true;
         }
       });
   }
@@ -68,5 +73,22 @@ export class DemoComponent implements OnInit {
 
   routeToRepository(){
     this.router.navigate(['/repository-page']);    
+  }
+  public searchvisibility()
+  {
+    if(this.orgName=='')
+    {
+      this.isdisable=true;
+    }
+    else
+    {
+      this.isdisable=false;
+    }
+  }
+
+  changeName(event: any){
+   
+    this.login = this.organizationsData[event].node.login;
+    localStorage.setItem('orgLogin', this.login);
   }
 }

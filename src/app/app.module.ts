@@ -15,7 +15,7 @@ import { DemoComponent } from './demo/demo.component';
 import { RepositoryPageComponent } from './repository-page/repository-page.component';
 import { ShowRepositoryComponent } from './repository-page/show-repository/show-repository.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { ComboBoxModule } from 'smart-webcomponents-angular/combobox';
+
 
 
 @NgModule({
@@ -36,7 +36,6 @@ import { ComboBoxModule } from 'smart-webcomponents-angular/combobox';
     HttpClientModule,
     RouterModule,
     NgMultiSelectDropDownModule,
-    ComboBoxModule,
     FormsModule
   ],
   providers: [],

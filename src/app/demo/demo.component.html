@@ -2,16 +2,16 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <img src="\assets\images\app_logo.png" alt="App Name" height=55px>
-            <a href="#" class="navbar-app">App Name</a>
+            <a href="#" class="navbar-app">Polyrepo</a>
         </div>
         <div class="containerDemo">
             <form [formGroup]="loginForm">
 
                 <!--Token Input-->
-                <input type="text" placeholder="Token" formControlName="token" (blur)="getToken()">
+                <input type="text" placeholder="Token" formControlName="token" (blur)="getToken()" size="30">
 
                 <!--Search Organization-->
-                <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()">
+                <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()"  size="30">
                 <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
                     <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" (onSelectionChange)="changeName(i)">
                         <p>{{x.node.name}}</p>
@@ -19,7 +19,7 @@
                 </mat-autocomplete>
                 
                 <!--Submit-->
-                <button class="btn btn-primary" (click)="routeToRepository()" [disabled]="isdisable"   type="button" >
+                <button class="btn btn-primary btn1" (click)="routeToRepository()" [disabled]="isdisable"   type="button" >
                     Search
                 </button>
             </form>

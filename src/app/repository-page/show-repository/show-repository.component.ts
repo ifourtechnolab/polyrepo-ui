@@ -26,8 +26,8 @@ export class ShowRepositoryComponent implements OnInit {
     this.orgLogin = localStorage.getItem('orgLogin');
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_name',
+      idField: 'id',
+      textField: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 2,
@@ -44,11 +44,15 @@ export class ShowRepositoryComponent implements OnInit {
         console.log(RepoList);
         this.repoNameList = RepoList.edges.map((x: any) => {
           return {
-            item_id: x.repository.name,
-            item_name: x.repository.name
+            id: x.repository.name,
+            name: x.repository.name
           }
+         
+
         });
+      
       });
+      
   }
 
   // selected values

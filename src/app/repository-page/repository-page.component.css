@@ -1,6 +1,7 @@
+
 .container{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     vertical-align: middle;
 }
 
@@ -26,5 +27,28 @@
 .height {
     height: 20rem;
     width: 20rem;
-    border: 5px solid black;
+    border-radius: 10px;
+    border: 2px solid rgb(106, 106, 106);
   }
+.filtersettingdiv {
+    height: 15rem;
+    width: 20rem;
+    padding-top: 45px;
+   
+    
+    border: 2px solid rgb(106, 106, 106);
+    border-radius: 10px;
+    margin : -264px 0 0 10px;   
+  }
+.showfilterdiv{
+    
+    height: 35rem;
+    width: 80rem;
+    padding-top: 45px;
+   
+    
+    border: 2px solid rgb(106, 106, 106);
+    border-radius: 10px;
+    margin : -250px 0 0 400px;   
+}
+

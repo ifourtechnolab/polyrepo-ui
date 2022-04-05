@@ -52,12 +52,11 @@ export class ShowRepositoryComponent implements OnInit {
         });
       });
   }
-
   // selected values
   onItemSelect(item: any) {
     this.jsonArr.push(item);
     this.repoListObject = { "repoNames": this.jsonArr };
-    // console.log(JSON.stringify(this.repoListObject));
+    console.log(JSON.stringify(this.repoListObject));
     // console.log(this.orgLogin);
     // this.http.getIssueList(this.authToken,this.orgLogin,this.repoListObject) 
     // .subscribe((issueData: any) => {
@@ -65,7 +64,7 @@ export class ShowRepositoryComponent implements OnInit {
     // });
   }
   onItemDeselect(item: any) {
-    debugger
+
     this.jsonArr.forEach((key: any, value: any) => {
       if (key.id === item.id) this.jsonArr.splice(value, 1);
     });
@@ -74,7 +73,7 @@ export class ShowRepositoryComponent implements OnInit {
 
   }
 
-  contains(arr:any, key:any, val:any) {
+  contains(arr: any, key: any, val: any) {
     for (var i = 0; i < arr.length; i++) {
       if (arr[i][key] === val) return true;
     }
@@ -86,7 +85,6 @@ export class ShowRepositoryComponent implements OnInit {
       this.jsonArr = this.jsonArr.concat(items);
     }
     else {
-      console.log('ELSE');
       for (let i = 0; i < items.length; i++) {
         if (this.contains(this.jsonArr, "name", items[i].name)) {
 
@@ -105,7 +103,6 @@ export class ShowRepositoryComponent implements OnInit {
 
   }
   onDeSelectAll(items: any) {
-    
-    console.log(items);
+    console.log(this.jsonArr);
   }
 }

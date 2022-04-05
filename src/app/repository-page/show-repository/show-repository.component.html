@@ -1,7 +1,7 @@
-<ng-multiselect-dropdown
-  [settings]="dropdownSettings"
-  [data] ="repoNameList"
-  [(ngModel)]="selectedItems"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)">
-</ng-multiselect-dropdown>
+<h1>{{repoName}}</h1>
+<div class="container">
+  <div class="containerButton">
+    <button class="btn btn-primary" (click)="openDialog()">Add</button>
+  </div>
+</div>
+

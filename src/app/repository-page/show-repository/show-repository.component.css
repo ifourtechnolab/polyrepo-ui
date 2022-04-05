@@ -1,3 +1,17 @@
 :host ::ng-deep .multiselect-dropdown{
     margin-top: 10px;
 }
+
+.containerButton {
+    margin-top: 100%;
+    margin-left: 80%;
+}
+
+.container{
+    height: 22.5rem;
+    width: 20rem;
+    border: 2px solid rgb(106, 106, 106);
+    border-radius: 10px;
+    margin : 10px 0 0 10px;
+    padding: 0 5px;
+}

@@ -7,14 +7,17 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DemoComponent } from './demo/demo.component';
 import { RepositoryPageComponent } from './repository-page/repository-page.component';
 import { ShowRepositoryComponent } from './repository-page/show-repository/show-repository.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
+import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
 
 
 
@@ -23,7 +26,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     AppComponent,
     DemoComponent,
     RepositoryPageComponent,
-    ShowRepositoryComponent,    
+    ShowRepositoryComponent,
+    AddrepositoryComponent,    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     HttpClientModule,
     RouterModule,
     NgMultiSelectDropDownModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,AngularMultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,11 @@
+.container{
+    width: 500px;
+    height: 400px;
+    overflow: hidden;
+}
+
+.containerButton{
+    display: flex;
+    justify-content: center;
+    margin-top: 68%;
+}

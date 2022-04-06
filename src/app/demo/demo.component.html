@@ -13,7 +13,7 @@
                 <!--Search Organization-->
                 <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()"  size="30">
                 <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
-                    <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" (onSelectionChange)="changeName(i)">
+                    <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" (onSelectionChange)="setOrgToLocal(i)">
                         <p>{{x.node.name}}</p>
                     </mat-option>
                 </mat-autocomplete>

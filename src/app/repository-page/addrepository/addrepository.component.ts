@@ -7,7 +7,7 @@ import { Item } from 'angular2-multiselect-dropdown';
 @Component({
   selector: 'app-addrepository',
   templateUrl: './addrepository.component.html',
-  styleUrls: ['./addrepository.component.css'],
+  styleUrls: ['./addrepository.component.scss'],
 })
 export class AddrepositoryComponent implements OnInit {
   dropdownList: any = [];
@@ -25,7 +25,7 @@ export class AddrepositoryComponent implements OnInit {
   nextPageHash!: string;
   loading: boolean = false;
   dialogRef: any;
-
+  test:any;
   constructor(private http: HttpService, public matDialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -45,32 +45,14 @@ export class AddrepositoryComponent implements OnInit {
       classes: "myclass custom-class"
     };
     this.getRecords();
-    let test = setInterval(() => {
+    this.callApi();
+    this.test = setInterval(() => {
       if (this.isNextPage && this.nextPageHash) {
-        this.loading = true;
-        this.http
-          .getNextPageRepoList(this.authToken, this.nextPageHash, this.orgLogin)
-          .subscribe((RepoList: any) => {
-            console.log(RepoList);
-            this.isNextPage = RepoList.pageInfo.hasNextPage;
-            if (!this.isNextPage) {
-              clearInterval(test);
-            }
-            this.nextPageHash = RepoList.pageInfo.endCursor;
-            this.TemprepoNameList = RepoList.edges.map((x: any) => {
-              return {
-                id: x.repository.name,
-                name: x.repository.name,
-              };
-            });
-            this.repoNameList = this.repoNameList.concat(this.TemprepoNameList);
-            this.loading = false;
-            console.log(this.TemprepoNameList);
-          });
+        this.callApi();
       }
     }, 5000);
     this.matDialog.afterAllClosed.subscribe((res) => {
-      clearInterval(test);
+      clearInterval(this.test);
     });
   }
   getRecords() {
@@ -88,7 +70,28 @@ export class AddrepositoryComponent implements OnInit {
         });
       });
   }
-
+callApi(){
+  this.loading = true;
+  this.http
+    .getNextPageRepoList(this.authToken, this.nextPageHash, this.orgLogin)
+    .subscribe((RepoList: any) => {
+      console.log(RepoList);
+      this.isNextPage = RepoList.pageInfo.hasNextPage;
+      if (!this.isNextPage) {
+        clearInterval(this.test);
+      }
+      this.nextPageHash = RepoList.pageInfo.endCursor;
+      this.TemprepoNameList = RepoList.edges.map((x: any) => {
+        return {
+          id: x.repository.name,
+          name: x.repository.name,
+        };
+      });
+      this.repoNameList = this.repoNameList.concat(this.TemprepoNameList);
+      this.loading = false;
+      console.log(this.TemprepoNameList);
+    });
+}
   // selected values
   onItemSelect(item: any) {
     // this.selectedI += JSON.parse(item);
@@ -101,7 +104,6 @@ export class AddrepositoryComponent implements OnInit {
   }
 
   addRepo(){
-    debugger
     console.log(this.selectedI)
     this.dialogRef.close({data:this.selectedI});
   }

@@ -47,7 +47,16 @@ export class HttpService {
     return this.http.get(this.repoListUrl,{
       headers: new HttpHeaders({
         Authorization: authToken,
-
+      }),
+    });
+  }
+  public getNextPageRepoList(authToken: any, nextPageHash: any, orgLogin: any){
+    //create a url to fetch next page data
+    this.repoListUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/more';
+    return this.http.get(this.repoListUrl,{
+      headers: new HttpHeaders({
+        Authorization: authToken,
+        EndCursor :nextPageHash
       }),
     });
   }

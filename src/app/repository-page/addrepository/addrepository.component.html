@@ -1,0 +1,11 @@
+<div class="container">
+  <angular2-multiselect 
+    [data]="repoNameList" 
+    [(ngModel)]="selectedItems" 
+    [settings]="dropdownSettings" 
+    [loading] = "loading"
+    (onSelect)="onItemSelect($event)"
+    (onSelectAll)="onSelectAll($event)" >
+  </angular2-multiselect> 
+  <button class="btn btn-success" mat-dialog-close (click)="addRepo()">Add</button>
+</div>

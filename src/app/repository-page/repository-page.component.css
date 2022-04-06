@@ -1,6 +1,6 @@
 .container{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     vertical-align: middle;
 }
 
@@ -13,8 +13,17 @@
     padding-left: 15px;
     text-decoration: none;
     text-align: center;
+    font-size: 30px;
 }
 
+.navbar-header{
+    margin-left: 20px;
+}
+
+.navbar-app1
+{
+    margin-right:25px;
+}
 #orgName{
     font-size: xx-large;
 }
@@ -22,9 +31,3 @@
 .navbar-default {
     background-color: #261835;
 }
-
-.height {
-    height: 20rem;
-    width: 20rem;
-    border: 5px solid black;
-  }

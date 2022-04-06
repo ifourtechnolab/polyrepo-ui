@@ -14,13 +14,15 @@ export class DemoComponent implements OnInit {
   tokenValue: any;
   orgName: any;
   authToken: any;
-  isdisable:boolean=true;
+  isdisable: boolean = true;
   login: any;
   orgProfileData: any;
   orgLogin: any;
   loginForm = new FormGroup({
     token: new FormControl('', [Validators.required]),
-    organizationName: new FormControl({value:'', disabled: true}, [Validators.required]),
+    organizationName: new FormControl({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
   });
 
   filterOrganization!: Observable<string[]>;
@@ -30,9 +32,9 @@ export class DemoComponent implements OnInit {
 
   ngOnInit() {}
 
+  // get token and validated it
   public getToken() {
     this.tokenValue = this.loginForm.value.token;
-
     this.http
       .getAuthentication(this.tokenValue)
       .subscribe((validationData: any) => {
@@ -45,11 +47,12 @@ export class DemoComponent implements OnInit {
           alert('Please entered Valid token');
           this.loginForm.controls['organizationName'].disable();
           this.loginForm.controls['organizationName'].reset();
-          this.isdisable=true;
+          this.isdisable = true;
         }
       });
   }
 
+  // get organizaion list
   public getOrganization() {
     this.orgName = this.loginForm.value.organizationName;
     this.authToken = localStorage.getItem('token');
@@ -71,23 +74,20 @@ export class DemoComponent implements OnInit {
     return this.loginForm.get('organizationName');
   }
 
-  routeToRepository(){
-    this.router.navigate(['/repository-page']);    
+  // route to repository page after search
+  routeToRepository() {
+    this.router.navigate(['/repository-page']);
   }
-  public searchvisibility()
-  {
-    if(this.orgName=='')
-    {
-      this.isdisable=true;
-    }
-    else
-    {
-      this.isdisable=false;
+  public searchvisibility() {
+    if (this.orgName == '') {
+      this.isdisable = true;
+    } else {
+      this.isdisable = false;
     }
   }
 
-  changeName(event: any){
-   
+  // set org name to local storage
+  setOrgToLocal(event: any) {
     this.login = this.organizationsData[event].node.login;
     localStorage.setItem('orgLogin', this.login);
   }

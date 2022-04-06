@@ -55,6 +55,8 @@ export class AddrepositoryComponent implements OnInit {
       clearInterval(this.test);
     });
   }
+  
+  // get first 100 repos
   getRecords() {
     this.http
       .getRepoList(this.authToken, this.orgLogin)
@@ -70,6 +72,8 @@ export class AddrepositoryComponent implements OnInit {
         });
       });
   }
+
+  // get rest of repos
 callApi(){
   this.loading = true;
   this.http

@@ -1,6 +1,3 @@
-
-
-
 <div class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header cont">
@@ -11,47 +8,36 @@
             <div class="container">
                 <div class="containerA">
                     <a href="{{orgProfileData?.organization?.url}}" class="navbar-app" id="orgName">{{orgProfileData?.organization?.name}}</a><br>
-                    <!-- <a href="#" class="navbar-app" id="orgURL">Organization URl</a> -->
                 </div>
                 <img src="{{orgProfileData?.organization?.avatarUrl}}" alt="App Name" height=55px>
-                    <a href="{{orgProfileData.organization.url}}" class="navbar-app navbar-app1" id="orgName">{{orgProfileData.organization.name}}</a><br>
-                    <!-- <a href="#" class="navbar-app" id="orgURL">Organization URl</a> -->
                 </div>
-                <img src="{{orgProfileData.organization.avatarUrl}}" alt="Polyrepo" height=55px>
             </div>
         </div>
     </div>
-</div>
-<div class="height">
 
 <div class="repoList">
     <app-show-repository></app-show-repository>
-</div>
-<!-- wide view of filters -->
-<div class="showfilterdiv">
-    <mat-tab-group>
-        <mat-tab label="Critical Issue ">
-        <form [formGroup]="fform" >
-        Day::<input type="text" placeholder="Days" formControlName="days" >
-        <button class="btn btn-primary"    type="button" >
-            Analyse
-        </button>
-        </form>
-        </mat-tab>
-        <mat-tab label="Average Resolving Time"> Content 2 </mat-tab>
-        <mat-tab label="Search By Label"> Content 3 </mat-tab>
-        <mat-tab label="Issue Division"> Content 3 </mat-tab>
-      </mat-tab-group>
-</div>
-<br>
+</div><br>
 
 <!-- filter options -->
 <div class="filtersettingdiv" >
-    <mat-selection-list  [multiple]="false">
+    <mat-selection-list #filterr  [multiple]="false">
         <mat-list-option *ngFor="let filter of filters" [value]="filter">
           {{filter}}
         </mat-list-option>
-      </mat-selection-list>
+    </mat-selection-list>
+</div>
+
+<div class="content">
+    <!-- issues analysis -->
+    <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'Issue Analysis'">
+        <app-issueanalysis></app-issueanalysis>
+    </div>
+
+    <!-- pr analysis -->
+    <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'PR Analysis'">
+        <app-pranalysis></app-pranalysis>
+    </div>
 </div>
 
 

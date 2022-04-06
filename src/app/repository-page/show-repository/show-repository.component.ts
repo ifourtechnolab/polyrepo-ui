@@ -22,8 +22,9 @@ export class ShowRepositoryComponent implements OnInit {
   selectedI: any = [];
   jsonArr: any = [];
   repoListObject: any;
+  repoName!:string ;
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, public matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authToken = localStorage.getItem('token');
@@ -66,13 +67,11 @@ export class ShowRepositoryComponent implements OnInit {
     // });
   }
   onItemDeselect(item: any) {
-
     this.jsonArr.forEach((key: any, value: any) => {
       if (key.id === item.id) this.jsonArr.splice(value, 1);
     });
     this.repoListObject = { "repoNames": this.jsonArr };
     console.log(JSON.stringify(this.repoListObject));
-
   }
 
   contains(arr: any, key: any, val: any) {
@@ -107,13 +106,6 @@ export class ShowRepositoryComponent implements OnInit {
   onDeSelectAll(items: any) {
     console.log(this.jsonArr);
   }
-}
- 
-  repoName!:string ;
-  
-  constructor(public matDialog: MatDialog) { }
-
-  ngOnInit(): void { }
 
   openDialog() {
     this.matDialog.open(AddrepositoryComponent);
@@ -124,3 +116,4 @@ export class ShowRepositoryComponent implements OnInit {
     // });
   }
 }
+

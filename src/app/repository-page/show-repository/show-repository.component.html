@@ -5,3 +5,13 @@
   </div>
 </div>
 
+<ng-multiselect-dropdown
+  [settings]="dropdownSettings"
+  [data] ="repoNameList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+  (onDeSelect)="onItemDeselect($event)"
+  (onDeSelectAll)="onDeSelectAll($event)"
+  >
+</ng-multiselect-dropdown>

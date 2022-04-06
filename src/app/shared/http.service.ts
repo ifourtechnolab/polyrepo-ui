@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ export class HttpService {
   private URL = '';
   private OrgProfileUrl = '';
   private repoListUrl='';
+  private issueUrl = '';
   private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
 
   constructor(private http: HttpClient) {}
@@ -60,6 +62,15 @@ export class HttpService {
       }),
     });
   }
-  
-  
+
+  public getIssueList(authToken: any, orgLogin: any, repoList:any):Observable<any>{
+    this.issueUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/issuesWithPriority1';
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+        'Authorization':authToken,
+      })
+    };
+    return this.http.post<any>(this.issueUrl,repoList,httpOptions);
+  }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -16,6 +17,7 @@ import { DemoComponent } from './demo/demo.component';
 import { RepositoryPageComponent } from './repository-page/repository-page.component';
 import { ShowRepositoryComponent } from './repository-page/show-repository/show-repository.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {MatTabsModule} from '@angular/material/tabs';
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
 import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
 
@@ -33,8 +35,10 @@ import { AddrepositoryComponent } from './repository-page/addrepository/addrepos
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatTabsModule,
     MatGridListModule,
     MatCardModule,
+    MatListModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
     HttpClientModule,

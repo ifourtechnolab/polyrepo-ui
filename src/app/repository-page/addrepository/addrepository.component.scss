@@ -1,0 +1,19 @@
+.container {
+  width: 500px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.containerButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 68%;
+}
+::ng-deep {
+  .selected-list .c-list .c-token {
+    background: rgb(142, 197, 214) !important;
+  }
+  .selected-list .c-list .c-token .c-label {
+    color: black !important;
+  }
+}

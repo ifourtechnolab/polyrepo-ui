@@ -1,6 +1,9 @@
-<!-- <div class="cheese">
-    <input class="repoSearch" type="text" placeholder="repository">
-</div> -->
+<h1>{{repoName}}</h1>
+<div class="container">
+  <div class="containerButton">
+    <button class="btn btn-primary" (click)="openDialog()">Add</button>
+  </div>
+</div>
 
 <ng-multiselect-dropdown
   [settings]="dropdownSettings"

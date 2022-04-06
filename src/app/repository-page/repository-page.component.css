@@ -14,8 +14,17 @@
     padding-left: 15px;
     text-decoration: none;
     text-align: center;
+    font-size: 30px;
 }
 
+.navbar-header{
+    margin-left: 20px;
+}
+
+.navbar-app1
+{
+    margin-right:25px;
+}
 #orgName{
     font-size: xx-large;
 }
@@ -52,3 +61,4 @@
     margin : -250px 0 0 400px;   
 }
 
+}

@@ -10,14 +10,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DemoComponent } from './demo/demo.component';
 import { RepositoryPageComponent } from './repository-page/repository-page.component';
+import { IssueanalysisComponent } from './repository-page/issueanalysis/issueanalysis.component';
+import { PranalysisComponent } from './repository-page/pranalysis/pranalysis.component';
 import { ShowRepositoryComponent } from './repository-page/show-repository/show-repository.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import {MatTabsModule} from '@angular/material/tabs';
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
 import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
 
@@ -29,7 +31,9 @@ import { AddrepositoryComponent } from './repository-page/addrepository/addrepos
     DemoComponent,
     RepositoryPageComponent,
     ShowRepositoryComponent,
-    AddrepositoryComponent,    
+    AddrepositoryComponent, 
+    IssueanalysisComponent,  
+    PranalysisComponent 
   ],
   imports: [
     BrowserModule,

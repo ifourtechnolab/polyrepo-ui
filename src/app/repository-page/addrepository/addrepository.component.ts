@@ -28,11 +28,10 @@ export class AddrepositoryComponent implements OnInit {
   test: any;
   jsonArr: any = [];
   repoListObject: any;
+  repoName: any;
+  repositoryListByName: any;
   searchForm = new FormGroup({
-    search: new FormControl('', [Validators.required]),
-    organizationName: new FormControl({ value: '', disabled: true }, [
-      Validators.required,
-    ]),
+    repositoryName: new FormControl(''),
   });
   constructor(private http: HttpService, public matDialog: MatDialog) { }
 
@@ -111,8 +110,9 @@ export class AddrepositoryComponent implements OnInit {
   onItemSelect(item: any) {
     // this.selectedI += JSON.parse(item);
 
-
-    this.jsonArr.push(item);
+    if (!this.contains(this.jsonArr, "name", item.name)) {
+      this.jsonArr.push(item);
+    }
     this.repoListObject = { "repoNames": this.jsonArr };
     console.log(JSON.stringify(this.repoListObject));
 
@@ -132,11 +132,7 @@ export class AddrepositoryComponent implements OnInit {
     }
     else {
       for (let i = 0; i < items.length; i++) {
-        if (this.contains(this.jsonArr, "name", items[i].name)) {
-
-          // console.log(items[i].name);
-        }
-        else {
+        if (!this.contains(this.jsonArr, "name", items[i].name)) {
           this.jsonArr.push(items[i]);
         }
       }
@@ -147,8 +143,6 @@ export class AddrepositoryComponent implements OnInit {
 
     console.log(this.jsonArr);
   }
-
-
 
   //single deselect function
   onItemDeselect(item: any) {
@@ -171,4 +165,28 @@ export class AddrepositoryComponent implements OnInit {
     console.log(this.selectedI)
     this.dialogRef.close({ data: this.selectedI });
   }
+
+  //repository list from api by name
+  getRepositoryByName() {
+    this.repoName = this.searchForm.value.repositoryName;
+    console.log(this.repoName);
+    console.log(this.orgLogin);
+    this.http
+      .getRepositoryLisByName(this.authToken, this.orgLogin, this.repoName)
+      .subscribe((repoSerachNameList: any) => {
+        this.repositoryListByName = _.merge([], repoSerachNameList.edges);
+      });
+  }
+
+  //selected repository from auto-complete
+  setRepoToSelected(repoindex: any){
+    let temprepo = this.repositoryListByName[repoindex].node;
+    if (!this.contains(this.jsonArr, "name", this.repositoryListByName[repoindex].node.name)) {
+      this.jsonArr.push(this.repositoryListByName[repoindex].node);
+    }
+    
+    console.log(temprepo);
+  }
+
+ 
 }

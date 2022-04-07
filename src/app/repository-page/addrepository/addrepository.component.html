@@ -1,3 +1,16 @@
+<form [formGroup]="searchForm">
+
+  <!--Token Input-->
+  <input type="text" class="search" placeholder="Search" formControlName="search" size="57"  tabindex="-1"><br><br>
+
+  <!--Search Organization-->
+  <!-- <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" size="30">
+  <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
+      <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" >
+          <p>{{x.node.name}}</p>
+      </mat-option>
+  </mat-autocomplete> -->
+</form>
 <div class="container">
   <angular2-multiselect 
     [data]="repoNameList" 
@@ -5,7 +18,9 @@
     [settings]="dropdownSettings" 
     [loading] = "loading"
     (onSelect)="onItemSelect($event)"
-    (onSelectAll)="onSelectAll($event)" >
-  </angular2-multiselect> 
+    (onSelectAll)="onSelectAll($event)"
+    (onDeSelect)="onItemDeselect($event)"
+    (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+ 
   <button class="btn btn-success" mat-dialog-close (click)="addRepo()">Add</button>
 </div>

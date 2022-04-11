@@ -187,6 +187,10 @@ export class AddrepositoryComponent implements OnInit {
     
     console.log(temprepo);
   }
+  remove(index : any){
+    // this.jsonArr = this.jsonArr.filter(lst => lst.id !== index);
+    this.jsonArr.splice(index, 1);
+  }
 
  
 }

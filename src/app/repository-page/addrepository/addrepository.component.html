@@ -24,7 +24,7 @@
     <div class="row">
       <div *ngFor="let selected of jsonArr;let index = index">
         <label>{{selected.name}}</label>
-        <button class="btn float-right" (click)="(index)"><i class="fa fa-trash"></i></button>
+        <button class="btn trash-btn" (click)="remove(index)"><i class="fa fa-trash"></i></button>
       </div>
     </div>
   <button class="btn btn-success" mat-dialog-close (click)="addRepo()">Add</button>

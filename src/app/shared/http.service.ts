@@ -38,7 +38,6 @@ export class HttpService {
 
       headers: new HttpHeaders({
         Authorization: authToken,
-
       }),
     });
   }

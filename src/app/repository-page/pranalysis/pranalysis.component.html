@@ -1,8 +1,22 @@
 <mat-tab-group>
-    <mat-tab label="Idel Pull Request ">
-    Content 1
+    <mat-tab label="Idel Pull Request " ><br>
+    <form [formGroup]="fform" >
+    
+    <h4>Is that any Pull Request where there is no activity since
+        <input type="text" placeholder="Days" formControlName="ActivityPrDay" >
+        <button class="btn btn-primary" type="button" >
+            GO
+        </button>  ?</h4>  
+        </form>
     </mat-tab>
-    <mat-tab label="Unmerged Pull Request"> Content 2 </mat-tab>
+    <mat-tab label="Unmerged Pull Request"  > <br>
+        <form [formGroup]="fform2" >
+        <h4>Is there any PR which is not merged since x days
+        <input type="text" placeholder="Days" formControlName="MergePrDay" >
+        <button class="btn btn-primary" type="button" >
+            GO
+        </button>  ?</h4>  
+        </form> </mat-tab>
     <!-- <mat-tab label="Search By Label"> Content 3 </mat-tab>
     <mat-tab label="Issue Division"> Content 3 </mat-tab> -->
 </mat-tab-group>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../shared/http.service';
 import * as _ from 'lodash';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'angular2-multiselect-dropdown';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-addrepository',
   templateUrl: './addrepository.component.html',
@@ -25,8 +25,15 @@ export class AddrepositoryComponent implements OnInit {
   nextPageHash!: string;
   loading: boolean = false;
   dialogRef: any;
-  test:any;
-  constructor(private http: HttpService, public matDialog: MatDialog) {}
+  test: any;
+  jsonArr: any = [];
+  repoListObject: any;
+  repoName: any;
+  repositoryListByName: any;
+  searchForm = new FormGroup({
+    repositoryName: new FormControl(''),
+  });
+  constructor(private http: HttpService, public matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authToken = localStorage.getItem('token');
@@ -40,8 +47,8 @@ export class AddrepositoryComponent implements OnInit {
       itemsShowLimit: 2,
       allowSearchFilter: true,
       lazyLoading: true,
-      badgeShowLimit:3,
-      showCheckbox:true,
+      badgeShowLimit: 3,
+      showCheckbox: true,
       classes: "myclass custom-class"
     };
     this.getRecords();
@@ -55,15 +62,17 @@ export class AddrepositoryComponent implements OnInit {
       clearInterval(this.test);
     });
   }
-  
+
   // get first 100 repos
   getRecords() {
     this.http
       .getRepoList(this.authToken, this.orgLogin)
       .subscribe((RepoList: any) => {
         console.log(RepoList);
-        this.isNextPage = RepoList.pageInfo.hasNextPage;
-        this.nextPageHash = RepoList.pageInfo.endCursor;
+        if (RepoList.edges.length >= 100) {
+          this.isNextPage = RepoList.pageInfo.hasNextPage;
+          this.nextPageHash = RepoList.pageInfo.endCursor;
+        }
         this.repoNameList = RepoList.edges.map((x: any) => {
           return {
             id: x.repository.name,
@@ -74,41 +83,114 @@ export class AddrepositoryComponent implements OnInit {
   }
 
   // get rest of repos
-callApi(){
-  this.loading = true;
-  this.http
-    .getNextPageRepoList(this.authToken, this.nextPageHash, this.orgLogin)
-    .subscribe((RepoList: any) => {
-      console.log(RepoList);
-      this.isNextPage = RepoList.pageInfo.hasNextPage;
-      if (!this.isNextPage) {
-        clearInterval(this.test);
-      }
-      this.nextPageHash = RepoList.pageInfo.endCursor;
-      this.TemprepoNameList = RepoList.edges.map((x: any) => {
-        return {
-          id: x.repository.name,
-          name: x.repository.name,
-        };
+  callApi() {
+    this.loading = true;
+    this.http
+      .getNextPageRepoList(this.authToken, this.nextPageHash, this.orgLogin)
+      .subscribe((RepoList: any) => {
+        console.log(RepoList);
+        this.isNextPage = RepoList.pageInfo.hasNextPage;
+        if (!this.isNextPage) {
+          clearInterval(this.test);
+        }
+        this.nextPageHash = RepoList.pageInfo.endCursor;
+        this.TemprepoNameList = RepoList.edges.map((x: any) => {
+          return {
+            id: x.repository.name,
+            name: x.repository.name,
+          };
+        });
+        this.repoNameList = this.repoNameList.concat(this.TemprepoNameList);
+        this.loading = false;
+        console.log(this.TemprepoNameList);
       });
-      this.repoNameList = this.repoNameList.concat(this.TemprepoNameList);
-      this.loading = false;
-      console.log(this.TemprepoNameList);
-    });
-}
+  }
+
   // selected values
   onItemSelect(item: any) {
     // this.selectedI += JSON.parse(item);
-    this.selectedI.push(item);
+
+    if (!this.contains(this.jsonArr, "name", item.name)) {
+      this.jsonArr.push(item);
+    }
+    this.repoListObject = { "repoNames": this.jsonArr };
+    console.log(JSON.stringify(this.repoListObject));
+
+  }
+  //custom method used inside select all --for json array value check
+  contains(arr: any, key: any, val: any) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i][key] === val) return true;
+    }
+    return false;
   }
 
+  //select all fun
   onSelectAll(items: any) {
-    this.selectedI=items;
-    console.log(items);
+    if (this.jsonArr.length == 0) {
+      this.jsonArr = this.jsonArr.concat(items);
+    }
+    else {
+      for (let i = 0; i < items.length; i++) {
+        if (!this.contains(this.jsonArr, "name", items[i].name)) {
+          this.jsonArr.push(items[i]);
+        }
+      }
+    }
+
+    this.repoListObject = { "repoNames": this.jsonArr };
+    console.log(JSON.stringify(this.repoListObject));
+
+    console.log(this.jsonArr);
   }
 
-  addRepo(){
-    console.log(this.selectedI)
-    this.dialogRef.close({data:this.selectedI});
+  //single deselect function
+  onItemDeselect(item: any) {
+    this.jsonArr.forEach((key: any, value: any) => {
+      if (key.id === item.id) this.jsonArr.splice(value, 1);
+    });
+    this.repoListObject = { "repoNames": this.jsonArr };
+    console.log(JSON.stringify(this.repoListObject));
   }
+
+  //deselect all function
+  onDeSelectAll(items: any) {
+    console.log(items);
+    this.jsonArr.splice(0, this.jsonArr.length);
+    console.log(this.jsonArr);
+  }
+
+  //add button click inside dialog
+  addRepo() {
+    console.log(this.selectedI)
+    this.dialogRef.close({ data: this.selectedI });
+  }
+
+  //repository list from api by name
+  getRepositoryByName() {
+    this.repoName = this.searchForm.value.repositoryName;
+    console.log(this.repoName);
+    console.log(this.orgLogin);
+    this.http
+      .getRepositoryLisByName(this.authToken, this.orgLogin, this.repoName)
+      .subscribe((repoSerachNameList: any) => {
+        this.repositoryListByName = _.merge([], repoSerachNameList.edges);
+      });
+  }
+
+  //selected repository from auto-complete
+  setRepoToSelected(repoindex: any){
+    let temprepo = this.repositoryListByName[repoindex].node;
+    if (!this.contains(this.jsonArr, "name", this.repositoryListByName[repoindex].node.name)) {
+      this.jsonArr.push(this.repositoryListByName[repoindex].node);
+    }
+    
+    console.log(temprepo);
+  }
+  remove(index : any){
+    // this.jsonArr = this.jsonArr.filter(lst => lst.id !== index);
+    this.jsonArr.splice(index, 1);
+  }
+
+ 
 }

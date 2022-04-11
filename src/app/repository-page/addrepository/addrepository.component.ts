@@ -33,7 +33,7 @@ export class AddrepositoryComponent implements OnInit {
   searchForm = new FormGroup({
     repositoryName: new FormControl(''),
   });
-  constructor(private http: HttpService, public matDialog: MatDialog) { }
+  constructor(private http: HttpService, public matDialog: MatDialogRef<AddrepositoryComponent>) { }
 
   ngOnInit(): void {
     this.authToken = localStorage.getItem('token');
@@ -44,9 +44,9 @@ export class AddrepositoryComponent implements OnInit {
       labelKey: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      allowSearchFilter: true,
+      allowSearchFilter: false,
       lazyLoading: true,
-      badgeShowLimit: 3,
+      badgeShowLimit: 0,
       showCheckbox: true,
       classes: "myclass custom-class"
     };
@@ -56,9 +56,6 @@ export class AddrepositoryComponent implements OnInit {
         this.callApi();
       }
     }, 5000);
-    // this.matDialog.afterAllClosed.subscribe((res) => {
-    //   clearInterval(this.test);
-    // });
   }
 
 
@@ -161,15 +158,14 @@ export class AddrepositoryComponent implements OnInit {
 
   //add button click inside dialog
   addRepo() {
-    console.log(this.selectedI)
-    this.dialogRef.close({ data: this.selectedI });
+    clearInterval(this.test);
+    console.log("selecteed items : ",this.jsonArr)
+    this.matDialog.close({ data: this.jsonArr });
   }
 
   //repository list from api by name
   getRepositoryByName() {
     this.repoName = this.searchForm.value.repositoryName;
-    console.log(this.repoName);
-    console.log(this.orgLogin);
     this.http
       .getRepositoryLisByName(this.authToken, this.orgLogin, this.repoName)
       .subscribe((repoSerachNameList: any) => {
@@ -190,6 +186,4 @@ export class AddrepositoryComponent implements OnInit {
     // this.jsonArr = this.jsonArr.filter(lst => lst.id !== index);
     this.jsonArr.splice(index, 1);
   }
-
- 
 }

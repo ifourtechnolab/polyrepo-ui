@@ -23,7 +23,9 @@
 <div class="filtersettingdiv" >
     <mat-selection-list #filterr  [multiple]="false">
         <mat-list-option *ngFor="let filter of filters" [value]="filter">
-          {{filter}}
+            <span style="font-size:20px">
+                {{filter}}
+              </span>
         </mat-list-option>
     </mat-selection-list>
 </div>

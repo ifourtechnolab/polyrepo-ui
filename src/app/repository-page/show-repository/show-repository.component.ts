@@ -116,7 +116,8 @@ export class ShowRepositoryComponent implements OnInit {
   openDialog(item: any) {
     const openDialog = this.matDialog.open(AddrepositoryComponent,{disableClose:true})
     openDialog.afterClosed().subscribe((result)=>{
-      this.nameOfItem = result.data;      
+      // this.nameOfItem = result.data;  
+      this.nameOfItem= _.uniqBy([...this.nameOfItem, ...result.data], JSON.stringify)
     })
   }
 }

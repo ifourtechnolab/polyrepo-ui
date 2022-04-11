@@ -7,9 +7,9 @@
     padding: 0 5px;
 }
 
-.butonRow{
-    /* position: fixed; */
-    margin: 100% 0% 50% 80%;  
-    /* margin-left: 80%;   */
-    width: 20%;  
+div.butonRow {
+    position: absolute;
+    width: 5%;
+    bottom: 43%;
+    margin-left: 14%;
 }

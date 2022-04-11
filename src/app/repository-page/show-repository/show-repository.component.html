@@ -1,5 +1,10 @@
 <div class="container">
-  <div class="containerButton">
-    <button class="btn btn-primary" (click)="openDialog()">Add</button>
+  <div class="row itemsRow">
+    <div *ngFor="let i of nameOfItem">
+      <p>{{i.name}}</p>    
+    </div>
+  </div>
+  <div class="row butonRow">
+    <button class="btn btn-primary" (click)="openDialog($event)">Add</button>
   </div>
 </div>

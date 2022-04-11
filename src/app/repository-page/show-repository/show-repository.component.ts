@@ -4,6 +4,11 @@ import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { AddrepositoryComponent } from '../addrepository/addrepository.component';
 
+interface repoList {
+  id: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-show-repository',
   templateUrl: './show-repository.component.html',
@@ -23,6 +28,7 @@ export class ShowRepositoryComponent implements OnInit {
   jsonArr: any = [];
   repoListObject: any;
   repoName!:string ;
+  nameOfItem: repoList[] = [];
 
   constructor(private http: HttpService, public matDialog: MatDialog) { }
 
@@ -107,13 +113,11 @@ export class ShowRepositoryComponent implements OnInit {
     console.log(this.jsonArr);
   }
 
-  openDialog() {
-    this.matDialog.open(AddrepositoryComponent);
-    const openDialog = this.matDialog.open(AddrepositoryComponent);
-    // .afterClosed().subscribe((res:any)=>{
-    //   debugger
-    //   this.repopenDialogoName=res.name;
-    // });
+  openDialog(item: any) {
+    const openDialog = this.matDialog.open(AddrepositoryComponent,{disableClose:true})
+    openDialog.afterClosed().subscribe((result)=>{
+      this.nameOfItem = result.data;      
+    })
   }
 }
 

@@ -58,7 +58,8 @@ export class HttpService {
     return this.http.get(this.repoListUrl,{
       headers: new HttpHeaders({
         Authorization: authToken,
-        EndCursor :nextPageHash
+        EndCursor :nextPageHash,
+        "Access-Control-Allow-Origin":"*" 
       }),
     });
   }

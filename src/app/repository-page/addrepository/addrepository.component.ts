@@ -44,7 +44,6 @@ export class AddrepositoryComponent implements OnInit {
       labelKey: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 2,
       allowSearchFilter: true,
       lazyLoading: true,
       badgeShowLimit: 3,
@@ -52,16 +51,16 @@ export class AddrepositoryComponent implements OnInit {
       classes: "myclass custom-class"
     };
     this.getRecords();
-    this.callApi();
     this.test = setInterval(() => {
       if (this.isNextPage && this.nextPageHash) {
         this.callApi();
       }
     }, 5000);
-    this.matDialog.afterAllClosed.subscribe((res) => {
-      clearInterval(this.test);
-    });
+    // this.matDialog.afterAllClosed.subscribe((res) => {
+    //   clearInterval(this.test);
+    // });
   }
+
 
   // get first 100 repos
   getRecords() {

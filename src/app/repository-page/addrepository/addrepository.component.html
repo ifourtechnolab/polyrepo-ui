@@ -1,31 +1,54 @@
-<form [formGroup]="searchForm">
-
-  <!--Token Input-->
-  <input type="text" class="search" [matAutocomplete]="autoGroup" placeholder="Search" formControlName="repositoryName" size="57"  tabindex="-1" (keyup)="getRepositoryByName()"><br><br>
-
-  <!--Search Repository-->
-  <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
-      <mat-option *ngFor="let x of repositoryListByName; let i = index"  [value]="x.node.name" (onSelectionChange)="setRepoToSelected(i)">
-          <p>{{x.node.name}}</p>
-      </mat-option>
-  </mat-autocomplete>
-</form>
 <div class="container">
-  <angular2-multiselect 
-    [data]="repoNameList" 
-    [(ngModel)]="selectedItems" 
-    [settings]="dropdownSettings" 
-    [loading] = "loading"
-    (onSelect)="onItemSelect($event)"
-    (onSelectAll)="onSelectAll($event)"
-    (onDeSelect)="onItemDeselect($event)"
-    (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+  <div class="row">
+    <form [formGroup]="searchForm">
+      <!--Search repos-->
+      <input
+        type="text"
+        class="search"
+        [matAutocomplete]="autoGroup"
+        placeholder="Search"
+        formControlName="repositoryName"
+        size="57"
+        tabindex="-1"
+        (keyup)="getRepositoryByName()"
+      /><br /><br />
 
-    <div class="row">
-      <div *ngFor="let selected of jsonArr;let index = index">
-        <label>{{selected.name}}</label>
-        <button class="btn trash-btn" (click)="remove(index)"><i class="fa fa-trash"></i></button>
-      </div>
+      <!--Search Repository-->
+      <mat-autocomplete #autoGroup="matAutocomplete"
+        ><h1></h1>
+        <mat-option
+          *ngFor="let x of repositoryListByName; let i = index"
+          [value]="x.node.name"
+          (onSelectionChange)="setRepoToSelected(i)"
+        >
+          <p>{{ x.node.name }}</p>
+        </mat-option>
+      </mat-autocomplete>
+    </form>
+  </div>
+  <div class="row">
+    <angular2-multiselect
+      [data]="repoNameList"
+      [(ngModel)]="selectedItems"
+      [settings]="dropdownSettings"
+      [loading]="loading"
+      (onSelect)="onItemSelect($event)"
+      (onSelectAll)="onSelectAll($event)"
+      (onDeSelect)="onItemDeselect($event)"
+      (onDeSelectAll)="onDeSelectAll($event)"
+    ></angular2-multiselect>
+  </div>
+
+  <div class="row overflow-auto addedItems">
+    <div *ngFor="let selected of jsonArr; let index = index">
+      <label>{{ selected.name }}</label>
+      <button class="btn trash-btn" (click)="remove(index)">
+        <i class="fa fa-trash"></i>
+      </button>
     </div>
-  <button class="btn btn-success" mat-dialog-close (click)="addRepo()">Add</button>
+  </div>
+  <div class="row buttons">
+      <div class="col"><button class="btn btn-success" [disabled]="isdisable" mat-dialog-close (click)="addRepo()">Add</button></div>
+      <div class="col"><button class="btn" mat-button mat-dialog-close>Cancel</button></div>
+  </div>
 </div>

@@ -47,15 +47,15 @@ export class ShowRepositoryComponent implements OnInit {
     // };
   }
 
-  openDialog(item: any) {
+  openDialog() {
     const openDialog = this.matDialog.open(AddrepositoryComponent,{disableClose:true,hasBackdrop: false});
     openDialog.afterClosed().subscribe((result)=>{
       // this.nameOfItem = result.data;  
       this.nameOfItem= _.uniqBy([...this.nameOfItem, ...result.data], JSON.stringify);
       this.util.setCollectiveRepoData(this.nameOfItem);
-    });
+    })
+    console.log("abc");    
   }
 
-  
 }
 

@@ -30,6 +30,7 @@ export class AddrepositoryComponent implements OnInit {
   repoListObject: any;
   repoName: any;
   repositoryListByName: any;
+  isdisable: boolean = true;
   searchForm = new FormGroup({
     repositoryName: new FormControl(''),
   });
@@ -111,7 +112,9 @@ export class AddrepositoryComponent implements OnInit {
     }
     this.repoListObject = { "repoNames": this.jsonArr };
     console.log(JSON.stringify(this.repoListObject));
-
+    if(this.jsonArr.length>0){
+      this.isdisable = false;
+    }
   }
   //custom method used inside select all --for json array value check
   contains(arr: any, key: any, val: any) {
@@ -136,7 +139,9 @@ export class AddrepositoryComponent implements OnInit {
 
     this.repoListObject = { "repoNames": this.jsonArr };
     console.log(JSON.stringify(this.repoListObject));
-
+    if(this.jsonArr.length>0){
+      this.isdisable = false;
+    }
     console.log(this.jsonArr);
   }
 

@@ -7,7 +7,7 @@
         <div class="navbar-header">
             <div class="container">
                 <div class="containerA">
-                    <a href="{{orgProfileData?.organization?.url}}" class="navbar-app" id="orgName">{{orgProfileData?.organization?.name}}</a><br>
+                    <a href="{{orgProfileData?.organization?.url}}" target="_blank" class="navbar-app" id="orgName">{{orgProfileData?.organization?.name}}</a><br>
                 </div>
                 <img src="{{orgProfileData?.organization?.avatarUrl}}" alt="App Name" height=55px>
                 </div>
@@ -37,7 +37,7 @@
     </div>
 
     <!-- pr analysis -->
-    <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'PR Analysis'">
+    <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'PR Analysis'" >{{item | json}}
         <app-pranalysis></app-pranalysis>
     </div>
 </div>

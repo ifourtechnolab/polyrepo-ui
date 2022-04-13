@@ -20,9 +20,13 @@ import { PranalysisComponent } from './repository-page/pranalysis/pranalysis.com
 import { ShowRepositoryComponent } from './repository-page/show-repository/show-repository.component';
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
 import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
-
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatSortModule} from '@angular/material/sort';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,15 @@ import { AddrepositoryComponent } from './repository-page/addrepository/addrepos
     HttpClientModule,
     RouterModule,
     FormsModule,
-    MatDialogModule,AngularMultiSelectModule
+    MatDialogModule,AngularMultiSelectModule,
+    NgbModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    ToastrModule.forRoot()
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

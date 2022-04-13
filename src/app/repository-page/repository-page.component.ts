@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '../shared/http.service';
 import * as _ from 'lodash';
 
@@ -13,6 +13,7 @@ export class RepositoryPageComponent implements OnInit {
   orgProfileData: any;
   orgLogin: any;
   repoNameList: any;
+  item:any;
   filters: string[] = ['Issue Analysis', 'PR Analysis'];
 
   constructor(private http: HttpService) { }
@@ -27,4 +28,5 @@ export class RepositoryPageComponent implements OnInit {
         this.orgProfileData = orgProfile;
       });
   }
+ 
 }

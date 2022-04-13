@@ -2,7 +2,7 @@
   <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
   <a href="#" class="name">Polyrepo</a>
   <span class="example-spacer"></span>
-  <a href="{{ orgProfileData?.organization?.url }}" class="name" id="orgName">
+  <a href="{{ orgProfileData?.organization?.url }}" target="_blank" class="name" id="orgName">
     {{ orgProfileData?.organization?.name }}</a><br />
   <img src="{{ orgProfileData?.organization?.avatarUrl }}" alt="App Name" height="75%"/>
 </mat-toolbar>
@@ -36,6 +36,7 @@
 
       <!-- pr analysis -->
       <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'PR Analysis'">
+        
         <app-pranalysis></app-pranalysis>
       </div>
     </div>

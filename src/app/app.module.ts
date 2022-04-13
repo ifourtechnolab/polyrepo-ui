@@ -20,6 +20,7 @@ import { PranalysisComponent } from './repository-page/pranalysis/pranalysis.com
 import { ShowRepositoryComponent } from './repository-page/show-repository/show-repository.component';
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
 import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
+import { MatToolbarModule } from '@angular/material/toolbar'
 
 
 
@@ -46,7 +47,9 @@ import { AddrepositoryComponent } from './repository-page/addrepository/addrepos
     HttpClientModule,
     RouterModule,
     FormsModule,
-    MatDialogModule,AngularMultiSelectModule
+    MatDialogModule,
+    AngularMultiSelectModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

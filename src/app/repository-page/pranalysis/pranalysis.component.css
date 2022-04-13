@@ -1,3 +1,7 @@
 ::ng-deep .mat-tab-label-content {
     font-size: x-large;
 }
+a {
+    color:black;
+    text-decoration: none;
+  }

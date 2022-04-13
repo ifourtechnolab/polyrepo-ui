@@ -15,6 +15,9 @@ export class HttpService {
   private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
   private criticalIssue = '';
 
+  private repoList = '{"repoNames": [{"id": "terminal","name": "terminal"},{"id": "powertoys","name": "powertoys"}]}';
+
+
   constructor(private http: HttpClient) { }
 
   getData(authToken: any, orgName: any) {

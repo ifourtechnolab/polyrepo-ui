@@ -167,6 +167,10 @@ export class AddrepositoryComponent implements OnInit {
     console.log("selecteed items : ",this.jsonArr)
     this.matDialog.close({ data: this.jsonArr });
   }
+  
+  close(){
+    clearInterval(this.test);
+  }
 
   //repository list from api by name
   getRepositoryByName() {

@@ -55,7 +55,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     MatDialogModule,
     AngularMultiSelectModule,
-    MatToolbarModule
+    MatToolbarModule,
     NgbModule,
     MatFormFieldModule,
     MatInputModule,

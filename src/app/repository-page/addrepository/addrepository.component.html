@@ -49,6 +49,6 @@
   </div>
   <div class="row buttons">
       <div class="col"><button class="btn btn-success" [disabled]="isdisable" mat-dialog-close (click)="addRepo()">Add</button></div>
-      <div class="col"><button class="btn" mat-button mat-dialog-close>Cancel</button></div>
+      <div class="col"><button class="btn" mat-button mat-dialog-close (click)="close()">Cancel</button></div>
   </div>
 </div>

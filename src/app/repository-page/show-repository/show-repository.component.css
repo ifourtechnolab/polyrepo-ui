@@ -1,15 +1,15 @@
-.container{
-    height: 22.5rem;
-    width: 20rem;
-    border: 2px solid rgb(106, 106, 106);
-    border-radius: 10px;
-    margin : 10px 0 0 10px;
-    padding: 0 5px;
+
+.btn{
+    width: 20%;
 }
 
-div.butonRow {
-    position: absolute;
-    width: 5%;
-    bottom: 45%;
-    margin-left: 12%;
+.butonRow{
+    justify-content: end;
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+
+.itemsRow{
+    margin-top: 8%;
+    height: 300px;
 }

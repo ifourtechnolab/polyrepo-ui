@@ -9,11 +9,11 @@ export class HttpService {
   private URL = '';
   private OrgProfileUrl = '';
   private repoListUrl = '';
-  private issueUrl = '';
   private repoSearchUrl = '';
   private idlePrUrl='';
   private unmergedPrUrl='';
   private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
+  private criticalIssue = '';
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +52,7 @@ export class HttpService {
       }),
     });
   }
+  //create a url to fetch next page data
   public getNextPageRepoList(authToken: any, nextPageHash: any, orgLogin: any) {
     //create a url to fetch next page data
     this.repoListUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/more';
@@ -63,16 +64,6 @@ export class HttpService {
     });
   }
 
-  public getIssueList(authToken: any, orgLogin: any, repoList: any): Observable<any> {
-    this.issueUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/issuesWithPriority1';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': authToken,
-      })
-    };
-    return this.http.post<any>(this.issueUrl, repoList, httpOptions);
-  }
 
   public getRepositoryLisByName(authToken: any, orgLogin: any, repoName: any) {
     this.repoSearchUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/'+repoName;
@@ -81,6 +72,19 @@ export class HttpService {
         Authorization: authToken,
       }),
     });
+  }
+  
+  public abc(authToken: any, orgLogin: any, days: any){
+    debugger
+    this.criticalIssue = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/issuesWithPriority1/openSinceBefore/'+days ;
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.criticalIssue, JSON.parse(this.repoList), httpOptions);
   }
 
   public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
@@ -96,8 +100,7 @@ export class HttpService {
     return this.http.post<any>(this.idlePrUrl, jsonArr, httpOptions);
   }
   public unmergedpr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
-  {
-    
+  {    
     this.unmergedPrUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prUnMerged/'+days;
     const httpOptions = {
       headers: new HttpHeaders({

@@ -11,7 +11,7 @@ export class HttpService {
   private repoListUrl = '';
   private issueUrl = '';
   private repoSearchUrl = '';
-  private idelPrUrl='';
+  private idlePrUrl='';
   private unmergedPrUrl='';
   private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
 
@@ -83,17 +83,17 @@ export class HttpService {
     });
   }
 
-  public idelPr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
+  public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
   {
     
-    this.idelPrUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prLastUpdate/'+days;
+    this.idlePrUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prLastUpdate/'+days;
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
         'Authorization': authToken,
       })
     };
-    return this.http.post<any>(this.idelPrUrl, jsonArr, httpOptions);
+    return this.http.post<any>(this.idlePrUrl, jsonArr, httpOptions);
   }
   public unmergedpr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
   {

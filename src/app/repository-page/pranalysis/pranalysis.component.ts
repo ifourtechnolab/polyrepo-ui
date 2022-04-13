@@ -100,7 +100,7 @@ export class PranalysisComponent implements OnInit {
       this.alertbox();
     }
     else {
-      this.http.idelPr(this.authToken, this.orgLogin, this.activityPRDays, this.repoListObject)
+      this.http.idlePr(this.authToken, this.orgLogin, this.activityPRDays, this.repoListObject)
         .subscribe((PRData: any) => {
           this.prLastActivity = PRData;
           this.prLastActivity = _.merge([], this.prLastActivity.search.nodes);

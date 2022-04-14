@@ -28,7 +28,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatSortModule} from '@angular/material/sort';
 import { ToastrModule } from 'ngx-toastr';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -42,7 +42,7 @@
   <div class="row overflow-auto addedItems">
     <div *ngFor="let selected of jsonArr; let index = index">
       <label>{{ selected.name }}</label>
-      <button class="btn trash-btn" (click)="remove(index)">
+      <button class="btn trash-btn btn-sm" (click)="remove(index)">
         <i class="fa fa-trash"></i>
       </button>
     </div>

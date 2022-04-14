@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../shared/http.service';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -28,7 +28,7 @@ export class DemoComponent implements OnInit {
   filterOrganization!: Observable<string[]>;
   organizationsData: any;
 
-  constructor(private http: HttpService, public router: Router) {}
+  constructor(private http: HttpService, public router: Router,private toastr: ToastrService) {}
 
   ngOnInit() {}
 
@@ -43,7 +43,13 @@ export class DemoComponent implements OnInit {
           this.loginForm.controls['organizationName'].enable();
         } else {
           localStorage.removeItem('token');
-          alert('Please entered Valid token');
+          // alert('Please entered Valid token');
+
+          this.toastr.error('Please enter valid token', 'Invalid Token', {
+            positionClass: 'toast-top-center',
+            closeButton: true,
+            easeTime: 250,
+          });
           this.loginForm.controls['organizationName'].disable();
           this.loginForm.controls['organizationName'].reset();
           this.isdisable = true;

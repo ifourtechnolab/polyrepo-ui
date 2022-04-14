@@ -45,4 +45,8 @@ export class ShowRepositoryComponent implements OnInit {
       this.util.setCollectiveRepoData(this.nameOfItem);
     })
   }
+  remove(index : any){
+    this.nameOfItem.splice(index, 1);
+  }
+
 }

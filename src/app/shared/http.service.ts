@@ -14,9 +14,8 @@ export class HttpService {
   private unmergedPrUrl='';
   private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
   private criticalIssue = '';
-
-  private repoList = '{"repoNames": [{"id": "terminal","name": "terminal"},{"id": "powertoys","name": "powertoys"}]}';
-
+  private AvgTimeP1 = '';
+  private AvgTimeP2 = '';
 
   constructor(private http: HttpClient) { }
 
@@ -55,9 +54,9 @@ export class HttpService {
       }),
     });
   }
+
   //create a url to fetch next page data
   public getNextPageRepoList(authToken: any, nextPageHash: any, orgLogin: any) {
-    //create a url to fetch next page data
     this.repoListUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/more';
     return this.http.get(this.repoListUrl, {
       headers: new HttpHeaders({
@@ -77,17 +76,28 @@ export class HttpService {
     });
   }
   
-  public abc(authToken: any, orgLogin: any, days: any){
-    debugger
+  // critical issues
+  public getcriticalIssue(authToken: any, orgLogin: any, days: any,repoListObject:any){
     this.criticalIssue = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/issuesWithPriority1/openSinceBefore/'+days ;
-    
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
         'Authorization': authToken,
       })
     };
-    return this.http.post<any>(this.criticalIssue, JSON.parse(this.repoList), httpOptions);
+    return this.http.post<any>(this.criticalIssue, repoListObject, httpOptions);
+  }
+
+  // average resolving time for Priority-1 isuues
+  public getAvgTimeP1(authToken: any, orgLogin: any){
+    this.AvgTimeP1 = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/averageResolvingTimeOfP1Issues';
+    return this.http.get(this.AvgTimeP1, {headers: new HttpHeaders({Authorization: authToken})});
+  }
+
+    // average resolving time for Priority-2 isuues
+  public getAvgTimeP2(authToken: any, orgLogin: any){
+    this.AvgTimeP2 = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/averageResolvingTimeOfP2Issues';
+    return this.http.get(this.AvgTimeP2, {headers: new HttpHeaders({Authorization: authToken})});
   }
 
   public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>

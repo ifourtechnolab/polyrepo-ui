@@ -24,7 +24,6 @@ export class RepositoryPageComponent implements OnInit {
     this.http
       .getOrgProfile(this.authToken, this.orgLogin)
       .subscribe((orgProfile: any) => {
-        console.log(orgProfile.organization.avatarUrl);
         this.orgProfileData = orgProfile;
       });
   }

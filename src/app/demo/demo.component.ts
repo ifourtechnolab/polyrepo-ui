@@ -38,7 +38,6 @@ export class DemoComponent implements OnInit {
     this.http
       .getAuthentication(this.tokenValue)
       .subscribe((validationData: any) => {
-        console.log(validationData.message);
         if (validationData.message === 'Valid Token') {
           localStorage.setItem('token', this.tokenValue);
           this.loginForm.controls['organizationName'].enable();
@@ -62,7 +61,6 @@ export class DemoComponent implements OnInit {
   public getOrganization() {
     this.orgName = this.loginForm.value.organizationName;
     this.authToken = localStorage.getItem('token');
-    console.log('Token:' + this.authToken);
     if (this.orgName != '') {
       this.http
         .getData(this.authToken, this.orgName)

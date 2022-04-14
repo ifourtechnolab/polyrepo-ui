@@ -44,11 +44,9 @@ export class ShowRepositoryComponent implements OnInit {
       this.nameOfItem= _.uniqBy([...this.nameOfItem, ...result.data], JSON.stringify);
       this.util.setCollectiveRepoData(this.nameOfItem);
     })
-    console.log("abc");    
   }
   remove(index : any){
     this.nameOfItem.splice(index, 1);
   }
 
 }
-

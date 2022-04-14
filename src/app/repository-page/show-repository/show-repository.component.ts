@@ -36,26 +36,13 @@ export class ShowRepositoryComponent implements OnInit {
   ngOnInit(): void {
     this.authToken = localStorage.getItem('token');
     this.orgLogin = localStorage.getItem('orgLogin');
-    // this.dropdownSettings = {
-    //   singleSelection: false,
-    //   idField: 'id',
-    //   textField: 'name',
-    //   selectAllText: 'Select All',
-    //   unSelectAllText: 'UnSelect All',
-    //   itemsShowLimit: 2,
-    //   allowSearchFilter: false
-    // };
   }
 
   openDialog() {
     const openDialog = this.matDialog.open(AddrepositoryComponent,{disableClose:true,hasBackdrop: false});
     openDialog.afterClosed().subscribe((result)=>{
-      // this.nameOfItem = result.data;  
       this.nameOfItem= _.uniqBy([...this.nameOfItem, ...result.data], JSON.stringify);
       this.util.setCollectiveRepoData(this.nameOfItem);
     })
-    console.log("abc");    
   }
-
 }
-

@@ -65,7 +65,6 @@ export class AddrepositoryComponent implements OnInit {
     this.http
       .getRepoList(this.authToken, this.orgLogin)
       .subscribe((RepoList: any) => {
-        console.log(RepoList);
         if (RepoList.edges.length >= 100) {
           this.isNextPage = RepoList.pageInfo.hasNextPage;
           this.nextPageHash = RepoList.pageInfo.endCursor;
@@ -85,7 +84,6 @@ export class AddrepositoryComponent implements OnInit {
     this.http
       .getNextPageRepoList(this.authToken, this.nextPageHash, this.orgLogin)
       .subscribe((RepoList: any) => {
-        console.log(RepoList);
         this.isNextPage = RepoList.pageInfo.hasNextPage;
         if (!this.isNextPage) {
           clearInterval(this.test);
@@ -99,7 +97,6 @@ export class AddrepositoryComponent implements OnInit {
         });
         this.repoNameList = this.repoNameList.concat(this.TemprepoNameList);
         this.loading = false;
-        console.log(this.TemprepoNameList);
       });
   }
 
@@ -111,7 +108,6 @@ export class AddrepositoryComponent implements OnInit {
       this.jsonArr.push(item);
     }
     this.repoListObject = { "repoNames": this.jsonArr };
-    console.log(JSON.stringify(this.repoListObject));
     if(this.jsonArr.length>0){
       this.isdisable = false;
     }
@@ -138,11 +134,9 @@ export class AddrepositoryComponent implements OnInit {
     }
 
     this.repoListObject = { "repoNames": this.jsonArr };
-    console.log(JSON.stringify(this.repoListObject));
     if(this.jsonArr.length>0){
       this.isdisable = false;
     }
-    console.log(this.jsonArr);
   }
 
   //single deselect function
@@ -151,20 +145,16 @@ export class AddrepositoryComponent implements OnInit {
       if (key.id === item.id) this.jsonArr.splice(value, 1);
     });
     this.repoListObject = { "repoNames": this.jsonArr };
-    console.log(JSON.stringify(this.repoListObject));
   }
 
   //deselect all function
   onDeSelectAll(items: any) {
-    console.log(items);
     this.jsonArr.splice(0, this.jsonArr.length);
-    console.log(this.jsonArr);
   }
 
   //add button click inside dialog
   addRepo() {
     clearInterval(this.test);
-    console.log("selecteed items : ",this.jsonArr)
     this.matDialog.close({ data: this.jsonArr });
   }
   
@@ -180,6 +170,7 @@ export class AddrepositoryComponent implements OnInit {
       .subscribe((repoSerachNameList: any) => {
         this.repositoryListByName = _.merge([], repoSerachNameList.edges);
       });
+      
   }
 
   //selected repository from auto-complete
@@ -188,11 +179,14 @@ export class AddrepositoryComponent implements OnInit {
     if (!this.contains(this.jsonArr, "name", this.repositoryListByName[repoindex].node.name)) {
       this.jsonArr.push(this.repositoryListByName[repoindex].node);
     }
-    
-    console.log(temprepo);
+    if(this.jsonArr.length>0){
+      this.isdisable = false;
+    }
   }
   remove(index : any){
-    // this.jsonArr = this.jsonArr.filter(lst => lst.id !== index);
     this.jsonArr.splice(index, 1);
+    if(this.jsonArr.length==0){
+      this.isdisable = true;
+    }
   }
 }

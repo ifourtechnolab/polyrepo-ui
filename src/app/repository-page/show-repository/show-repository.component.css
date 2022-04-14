@@ -17,6 +17,11 @@
 }
 .btn-group-sm>.btn, .btn-sm{
     padding: 0;
+    outline:0;
+    width: min-content;
+}
+.btn-sm:focus {
+    outline:0;
 }
 button.btn.trash-btn {
     float: right;

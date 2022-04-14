@@ -95,7 +95,6 @@ export class PranalysisComponent implements OnInit {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.activityPRDays = this.fform.value.ActivityPrDay;
-    debugger
     if (this.selectedRepoList.length === 0) {
       this.alertbox();
     }

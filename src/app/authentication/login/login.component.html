@@ -1,0 +1,49 @@
+<div class="container">
+  <mat-card class="example-card">
+
+    <mat-card-title style="font-family: Bahnschrift;color:#664983;">Login
+    </mat-card-title>
+    <div>
+      <mat-divider></mat-divider>
+      <br /><br />
+      <form [formGroup]="loginFormGroup">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput placeholder="Enter Email " />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="loginFormGroup.get('email').errors">
+            Email is required!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input type="password" formControlName="password" matInput placeholder="Enter Password" />
+          <mat-error *ngIf="loginFormGroup.get('password').errors">
+            Password is required!
+          </mat-error>
+          <mat-icon matSuffix>password</mat-icon>
+        </mat-form-field>
+        <mat-card-actions>
+          <button class="loginbtn" mat-raised-button style="width: 95%; margin-left: 9px; padding: 5px">
+            Login
+          </button>
+        </mat-card-actions>
+        <div>
+          <mat-card-content align="end" style="margin-bottom: 20px">
+            <a style="color: blue; font-weight: 500" [routerLink]="['/forgot-password']" href="#">Forgot Password?</a>
+          </mat-card-content>
+        </div>
+        <mat-divider></mat-divider>
+        <div style="display: flex; justify-content: center">
+          <mat-card-content style="margin-top: 30px">
+            <a style="color: blue; font-weight: 500" [routerLink]="['/registration']" href="#"><span
+                style="color: grey">
+                Need
+                an Account? </span> SIGN UP
+            </a>
+          </mat-card-content>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>

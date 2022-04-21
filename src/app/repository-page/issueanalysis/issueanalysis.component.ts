@@ -19,6 +19,7 @@ export interface issueData {
   title: any;
   createdAt: any;
   repository: any;
+  authorLogin: any;
 }
 
 @Component({
@@ -28,7 +29,7 @@ export interface issueData {
 })
 export class IssueanalysisComponent implements OnInit {
   dataSource!: MatTableDataSource<issueData>;
-  displayedColumns: string[] = ['title', 'createdAt', 'repository'];
+  displayedColumns: string[] = ['title', 'createdAt', 'repository','authorLogin'];
   authToken: any;
   orgName: any;
   days: any;
@@ -85,25 +86,21 @@ export class IssueanalysisComponent implements OnInit {
       });
     } else {
       this.http
-        .getcriticalIssue(
-          this.authToken,
-          this.orgName,
-          this.days,
-          this.repoListObject
-        )
+        .getcriticalIssue(this.authToken,this.orgName,this.days,this.repoListObject)
         .subscribe((res) => {
+
           res = _.merge([], res.edges);
           this.criticalIssueData = res.map((x: any) => {
             return {
               title: x.node.title,
               createdAt: x.node.createdAt,
               repository: x.node.repository.name,
+              authorLogin: x.node.author.login,
+              authorUrl: x.node.author.url,
             };
           });
           this.isLoading = false;
-          this.dataSource = new MatTableDataSource<issueData>(
-            this.criticalIssueData
-          );
+          this.dataSource = new MatTableDataSource<issueData>(this.criticalIssueData);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         });

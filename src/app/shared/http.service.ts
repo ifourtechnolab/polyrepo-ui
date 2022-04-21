@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,17 +12,20 @@ export class HttpService {
   private repoSearchUrl = '';
   private idlePrUrl='';
   private unmergedPrUrl='';
-  private tokenURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/auth/';
+  private tokenURL = '';
   private criticalIssue = '';
   private AvgTimeP1 = '';
   private AvgTimeP2 = '';
+  private userUrl=''; 
+  private Loginurl='';
   private getlabelsURL = '';
   private getlebelissueURL ='';
 
   constructor(private http: HttpClient) { }
 
+  //get organisation list inside autocomplete search
   getData(authToken: any, orgName: any) {
-    this.URL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgName;
+    this.URL = environment.apiUrl +'/org/'+ orgName;
     return this.http.get(this.URL, {
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -30,7 +33,9 @@ export class HttpService {
     });
   }
 
+  //token authentication
   public getAuthentication(tokenValue: any) {
+    this.tokenURL=environment.apiUrl+'/auth';
     return this.http.get(this.tokenURL, {
       headers: new HttpHeaders({
         Authorization: tokenValue,
@@ -38,8 +43,9 @@ export class HttpService {
     });
   }
 
+  //get Organisation profile name,pic and url
   public getOrgProfile(authToken: any, orgLogin: any) {
-    this.OrgProfileUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/orgProfile';
+    this.OrgProfileUrl = environment.apiUrl + '/org/' +orgLogin + '/orgProfile';
     return this.http.get(this.OrgProfileUrl, {
 
       headers: new HttpHeaders({
@@ -48,8 +54,9 @@ export class HttpService {
     });
   }
 
+  //create a url to fetch 1st 100 repo
   public getRepoList(authToken: any, orgLogin: any) {
-    this.repoListUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo';
+    this.repoListUrl = environment.apiUrl +'/org/' + orgLogin + '/repo';
     return this.http.get(this.repoListUrl, {
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -59,7 +66,7 @@ export class HttpService {
 
   //create a url to fetch next page data
   public getNextPageRepoList(authToken: any, nextPageHash: any, orgLogin: any) {
-    this.repoListUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/more';
+    this.repoListUrl = environment.apiUrl +'/org/' + orgLogin + '/repo/more';
     return this.http.get(this.repoListUrl, {
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -68,9 +75,9 @@ export class HttpService {
     });
   }
 
-
+  //repository list from api by name inside autocomplete search
   public getRepositoryLisByName(authToken: any, orgLogin: any, repoName: any) {
-    this.repoSearchUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/'+repoName;
+    this.repoSearchUrl = environment.apiUrl+'/org/' +orgLogin+'/repo/'+repoName;
     return this.http.get(this.repoSearchUrl,{
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -80,7 +87,7 @@ export class HttpService {
   
   // critical issues
   public getcriticalIssue(authToken: any, orgLogin: any, days: any,repoListObject:any){
-    this.criticalIssue = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/issuesWithPriority1/openSinceBefore/'+days ;
+    this.criticalIssue = environment.apiUrl+'/org/' +orgLogin+'/repo/issuesWithPriority1/openSinceBefore/'+days ;
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
@@ -92,20 +99,20 @@ export class HttpService {
 
   // average resolving time for Priority-1 isuues
   public getAvgTimeP1(authToken: any, orgLogin: any){
-    this.AvgTimeP1 = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/averageResolvingTimeOfP1Issues';
+    this.AvgTimeP1 = environment.apiUrl + '/org/' + orgLogin + '/averageResolvingTimeOfP1Issues';
     return this.http.get(this.AvgTimeP1, {headers: new HttpHeaders({Authorization: authToken})});
   }
 
-    // average resolving time for Priority-2 isuues
+  // average resolving time for Priority-2 isuues
   public getAvgTimeP2(authToken: any, orgLogin: any){
-    this.AvgTimeP2 = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/averageResolvingTimeOfP2Issues';
+    this.AvgTimeP2 = environment.apiUrl + '/org/' + orgLogin + '/averageResolvingTimeOfP2Issues';
     return this.http.get(this.AvgTimeP2, {headers: new HttpHeaders({Authorization: authToken})});
   }
 
+  //idel PR since X days
   public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
-  {
-    
-    this.idlePrUrl='http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prLastUpdate/'+days;
+  { 
+    this.idlePrUrl=environment.apiUrl+'/org/' +orgLogin+'/repo/prLastUpdate/'+days;
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
@@ -114,9 +121,11 @@ export class HttpService {
     };
     return this.http.post<any>(this.idlePrUrl, jsonArr, httpOptions);
   }
+
+  //unmerged PR since X days
   public unmergedpr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
   {    
-    this.unmergedPrUrl='http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prUnMerged/'+days;
+    this.unmergedPrUrl=environment.apiUrl+'/org/' +orgLogin+'/repo/prUnMerged/'+days;
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
@@ -124,6 +133,18 @@ export class HttpService {
       })
     };
     return this.http.post<any>(this.unmergedPrUrl, jsonArr, httpOptions);
+  }
+  
+  //registeration functionality 
+  public register(Token:any,email:any,passWord:any): Observable<any>
+  {
+    this.userUrl=environment.apiUrl+'/user/register';
+    let data={
+      "bearerToken":Token,
+      "email":email,
+      "password":passWord,
+    }
+    return this.http.post<any>(this.userUrl, data);
   }
 
   // getting lables
@@ -137,6 +158,16 @@ export class HttpService {
       })
     };
     return this.http.post<any>(this.getlabelsURL, repoListObject , httpOptions);
+  }
+  //login functionlity
+  public login(email:any,passWord:any):Observable<any>
+  {
+    this.Loginurl=environment.apiUrl+'/user/login';
+    let data={
+      "email":email,
+      "password":passWord,
+    }
+    return this.http.post<any>(this.Loginurl,data);
   }
 
   // issuer on lables

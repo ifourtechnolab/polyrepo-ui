@@ -1,0 +1,27 @@
+mat-form-field{
+    width: 100%;
+    margin-bottom: 5%;
+  }
+
+  mat-card-title{
+    font-size: 200%;
+    margin-left: 36%;
+  }
+  .example-card {
+    max-width: 400px;
+    margin-top: 4%;
+   
+    box-shadow: 1px 1px 10px rgba(161, 161, 161, 0.9);
+  }
+  
+  .loginbtn{
+  background-color : #664983;
+  color : #ffffff;
+  font-family: Bahnschrift;
+  }
+  
+  .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

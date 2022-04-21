@@ -21,15 +21,19 @@ import { ShowRepositoryComponent } from './repository-page/show-repository/show-
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
 import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatTableModule} from '@angular/material/table';
-import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule} from '@angular/material/sort';
 import { ToastrModule } from 'ngx-toastr';
-import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoginComponent } from './authentication/login/login.component';
+import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RegistrationComponent } from './authentication/registration/registration.component';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +43,7 @@ import { MatIconModule } from '@angular/material/icon';
     ShowRepositoryComponent,
     AddrepositoryComponent, 
     IssueanalysisComponent,  
-    PranalysisComponent 
+    PranalysisComponent, LoginComponent, RegistrationComponent 
   ],
   imports: [
     BrowserModule,
@@ -54,11 +58,13 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     RouterModule,
     FormsModule,
+    MatButtonModule,
     MatDialogModule,
     AngularMultiSelectModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

@@ -6,7 +6,10 @@
 .avgTime{
     margin : 0% 1%;
 }
-
+a {
+    color:black;
+    text-decoration: none;
+}
 .criticalIssueList{
     padding: 2% 2% 1% 1%;
 }

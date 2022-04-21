@@ -17,6 +17,7 @@ export class HttpService {
   private AvgTimeP1 = '';
   private AvgTimeP2 = '';
   private userUrl=''; 
+  private Loginurl='';
 
   constructor(private http: HttpClient) { }
 
@@ -142,6 +143,17 @@ export class HttpService {
       "password":passWord,
     }
     return this.http.post<any>(this.userUrl, data);
+  }
+
+  //login functionlity
+  public login(email:any,passWord:any):Observable<any>
+  {
+    this.Loginurl=environment.apiUrl+'/user/login';
+    let data={
+      "email":email,
+      "password":passWord,
+    }
+    return this.http.post<any>(this.Loginurl,data);
   }
 
 }

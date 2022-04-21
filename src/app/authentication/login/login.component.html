@@ -6,7 +6,7 @@
     <div>
       <mat-divider></mat-divider>
       <br /><br />
-      <form [formGroup]="loginFormGroup">
+      <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input formControlName="email" matInput placeholder="Enter Email " />
@@ -24,7 +24,7 @@
           <mat-icon matSuffix>password</mat-icon>
         </mat-form-field>
         <mat-card-actions>
-          <button class="loginbtn" mat-raised-button style="width: 95%; margin-left: 9px; padding: 5px">
+          <button class="loginbtn" mat-raised-button style="width: 95%; margin-left: 9px; padding: 5px" [disabled]="loginFormGroup.invalid">
             Login
           </button>
         </mat-card-actions>

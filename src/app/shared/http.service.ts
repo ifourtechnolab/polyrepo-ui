@@ -12,15 +12,17 @@ export class HttpService {
   private repoSearchUrl = '';
   private idlePrUrl='';
   private unmergedPrUrl='';
-  private tokenURL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/auth/';
+  private tokenURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/auth/';
   private criticalIssue = '';
   private AvgTimeP1 = '';
   private AvgTimeP2 = '';
+  private getlabelsURL = '';
+  private getlebelissueURL ='';
 
   constructor(private http: HttpClient) { }
 
   getData(authToken: any, orgName: any) {
-    this.URL = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgName;
+    this.URL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgName;
     return this.http.get(this.URL, {
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -37,7 +39,7 @@ export class HttpService {
   }
 
   public getOrgProfile(authToken: any, orgLogin: any) {
-    this.OrgProfileUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/orgProfile';
+    this.OrgProfileUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/orgProfile';
     return this.http.get(this.OrgProfileUrl, {
 
       headers: new HttpHeaders({
@@ -47,7 +49,7 @@ export class HttpService {
   }
 
   public getRepoList(authToken: any, orgLogin: any) {
-    this.repoListUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo';
+    this.repoListUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo';
     return this.http.get(this.repoListUrl, {
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -57,7 +59,7 @@ export class HttpService {
 
   //create a url to fetch next page data
   public getNextPageRepoList(authToken: any, nextPageHash: any, orgLogin: any) {
-    this.repoListUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/more';
+    this.repoListUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/more';
     return this.http.get(this.repoListUrl, {
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -68,7 +70,7 @@ export class HttpService {
 
 
   public getRepositoryLisByName(authToken: any, orgLogin: any, repoName: any) {
-    this.repoSearchUrl = 'http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/'+repoName;
+    this.repoSearchUrl = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/'+repoName;
     return this.http.get(this.repoSearchUrl,{
       headers: new HttpHeaders({
         Authorization: authToken,
@@ -103,7 +105,7 @@ export class HttpService {
   public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
   {
     
-    this.idlePrUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prLastUpdate/'+days;
+    this.idlePrUrl='http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prLastUpdate/'+days;
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
@@ -114,7 +116,7 @@ export class HttpService {
   }
   public unmergedpr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
   {    
-    this.unmergedPrUrl='http://192.168.0.181:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prUnMerged/'+days;
+    this.unmergedPrUrl='http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+orgLogin+'/repo/prUnMerged/'+days;
     const httpOptions = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
@@ -124,5 +126,28 @@ export class HttpService {
     return this.http.post<any>(this.unmergedPrUrl, jsonArr, httpOptions);
   }
 
+  // getting lables
+  public getlablesservice( authToken: any, orgLogin: any,repoListObject:any ){
+    debugger
+    this.getlabelsURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/labels';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.getlabelsURL, repoListObject , httpOptions);
+  }
 
+  // issuer on lables
+  public getlebelissueservice( authToken: any, orgLogin: any,repoListObject:any, label : any ){
+    this.getlebelissueURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+ orgLogin +'/repo/'+ label +'/openIssues';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.getlebelissueURL, repoListObject , httpOptions);
+  }
 }

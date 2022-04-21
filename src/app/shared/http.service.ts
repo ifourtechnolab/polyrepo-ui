@@ -18,6 +18,8 @@ export class HttpService {
   private AvgTimeP2 = '';
   private userUrl=''; 
   private Loginurl='';
+  private getlabelsURL = '';
+  private getlebelissueURL ='';
 
   constructor(private http: HttpClient) { }
 
@@ -145,6 +147,18 @@ export class HttpService {
     return this.http.post<any>(this.userUrl, data);
   }
 
+  // getting lables
+  public getlablesservice( authToken: any, orgLogin: any,repoListObject:any ){
+    debugger
+    this.getlabelsURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/labels';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.getlabelsURL, repoListObject , httpOptions);
+  }
   //login functionlity
   public login(email:any,passWord:any):Observable<any>
   {
@@ -156,4 +170,15 @@ export class HttpService {
     return this.http.post<any>(this.Loginurl,data);
   }
 
+  // issuer on lables
+  public getlebelissueservice( authToken: any, orgLogin: any,repoListObject:any, label : any ){
+    this.getlebelissueURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+ orgLogin +'/repo/'+ label +'/openIssues';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.getlebelissueURL, repoListObject , httpOptions);
+  }
 }

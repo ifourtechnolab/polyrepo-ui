@@ -82,6 +82,12 @@ export class DemoComponent implements OnInit {
   routeToRepository() {
     this.router.navigate(['/repository-page']);
   }
+  routeToLogin() {
+    this.router.navigate(['login']);
+  }
+  routeToRegistor(){
+    this.router.navigate(['registration']);
+  }
   public searchvisibility() {
     if (this.orgName == '') {
       this.isdisable = true;
@@ -89,7 +95,7 @@ export class DemoComponent implements OnInit {
       this.isdisable = false;
     }
   }
-
+  
   // set org name to local storage
   setOrgToLocal(event: any) {
     this.login = this.organizationsData[event].node.login;

@@ -20,6 +20,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
+  //get organisation list inside autocomplete search
   getData(authToken: any, orgName: any) {
     this.URL = environment.apiUrl +'/org/'+ orgName;
     return this.http.get(this.URL, {
@@ -29,6 +30,7 @@ export class HttpService {
     });
   }
 
+  //token authentication
   public getAuthentication(tokenValue: any) {
     this.tokenURL=environment.apiUrl+'/auth';
     return this.http.get(this.tokenURL, {
@@ -38,6 +40,7 @@ export class HttpService {
     });
   }
 
+  //get Organisation profile name,pic and url
   public getOrgProfile(authToken: any, orgLogin: any) {
     this.OrgProfileUrl = environment.apiUrl + '/org/' +orgLogin + '/orgProfile';
     return this.http.get(this.OrgProfileUrl, {
@@ -48,6 +51,7 @@ export class HttpService {
     });
   }
 
+  //create a url to fetch 1st 100 repo
   public getRepoList(authToken: any, orgLogin: any) {
     this.repoListUrl = environment.apiUrl +'/org/' + orgLogin + '/repo';
     return this.http.get(this.repoListUrl, {
@@ -68,7 +72,7 @@ export class HttpService {
     });
   }
 
-
+  //repository list from api by name inside autocomplete search
   public getRepositoryLisByName(authToken: any, orgLogin: any, repoName: any) {
     this.repoSearchUrl = environment.apiUrl+'/org/' +orgLogin+'/repo/'+repoName;
     return this.http.get(this.repoSearchUrl,{
@@ -96,15 +100,15 @@ export class HttpService {
     return this.http.get(this.AvgTimeP1, {headers: new HttpHeaders({Authorization: authToken})});
   }
 
-    // average resolving time for Priority-2 isuues
+  // average resolving time for Priority-2 isuues
   public getAvgTimeP2(authToken: any, orgLogin: any){
     this.AvgTimeP2 = environment.apiUrl + '/org/' + orgLogin + '/averageResolvingTimeOfP2Issues';
     return this.http.get(this.AvgTimeP2, {headers: new HttpHeaders({Authorization: authToken})});
   }
 
+  //idel PR since X days
   public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
-  {
-    
+  { 
     this.idlePrUrl=environment.apiUrl+'/org/' +orgLogin+'/repo/prLastUpdate/'+days;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -114,6 +118,8 @@ export class HttpService {
     };
     return this.http.post<any>(this.idlePrUrl, jsonArr, httpOptions);
   }
+
+  //unmerged PR since X days
   public unmergedpr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
   {    
     this.unmergedPrUrl=environment.apiUrl+'/org/' +orgLogin+'/repo/prUnMerged/'+days;
@@ -126,6 +132,7 @@ export class HttpService {
     return this.http.post<any>(this.unmergedPrUrl, jsonArr, httpOptions);
   }
   
+  //registeration functionality 
   public register(Token:any,email:any,passWord:any): Observable<any>
   {
     this.userUrl=environment.apiUrl+'/user/register';

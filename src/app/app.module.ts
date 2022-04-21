@@ -21,7 +21,6 @@ import { ShowRepositoryComponent } from './repository-page/show-repository/show-
 import { AngularMultiSelectModule } from "angular2-multiselect-dropdown";
 import { AddrepositoryComponent } from './repository-page/addrepository/addrepository.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +28,11 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatSortModule} from '@angular/material/sort';
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoginComponent } from './authentication/login/login.component';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RegistrationComponent } from './authentication/registration/registration.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +42,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ShowRepositoryComponent,
     AddrepositoryComponent, 
     IssueanalysisComponent,  
-    PranalysisComponent 
+    PranalysisComponent, LoginComponent, RegistrationComponent 
   ],
   imports: [
     BrowserModule,
@@ -53,17 +57,19 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HttpClientModule,
     RouterModule,
     FormsModule,
+    MatButtonModule,
     MatDialogModule,
     AngularMultiSelectModule,
     MatToolbarModule,
-    NgbModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     ToastrModule.forRoot(),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

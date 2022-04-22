@@ -25,7 +25,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
-import {MatSortModule} from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule} from '@angular/material/sort';
 import { ToastrModule } from 'ngx-toastr';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginComponent } from './authentication/login/login.component';
@@ -70,7 +71,8 @@ import { AuthHeaderInterceptor } from './auth-header.interceptor';
     MatSortModule,
     ToastrModule.forRoot(),
     MatProgressSpinnerModule,
-    MatInputModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class HttpService {
-  
+
   constructor(private http: HttpClient) { }
 
   //get organisation list inside autocomplete search
@@ -76,10 +76,33 @@ export class HttpService {
     return this.http.post<any>(environment.apiUrl+'/user/register', RegistrationFormGroup);
   }
 
+  // getting lables
+  public getlablesservice( authToken: any, orgLogin: any,repoListObject:any ){
+    debugger
+    this.getlabelsURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/labels';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.getlabelsURL, repoListObject , httpOptions);
+  }
   //login functionlity
   public login(LoginFormGroup:any):Observable<any>
   {
     return this.http.post<any>(environment.apiUrl+'/user/login',LoginFormGroup);
   }
 
+  // issuer on lables
+  public getlebelissueservice( authToken: any, orgLogin: any,repoListObject:any, label : any ){
+    this.getlebelissueURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+ orgLogin +'/repo/'+ label +'/openIssues';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': authToken,
+      })
+    };
+    return this.http.post<any>(this.getlebelissueURL, repoListObject , httpOptions);
+  }
 }

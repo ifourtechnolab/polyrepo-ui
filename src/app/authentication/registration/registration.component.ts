@@ -17,10 +17,10 @@ export class RegistrationComponent implements OnInit {
   confirmPassword: any;
   Token: any;
   authToken: any;
-  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService,public router: Router) { }
+  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService, public router: Router) { }
   ngOnInit(): void {
-      //this.authToken = localStorage.getItem('token');
-      this.RegistrationFormGroup = this.fb.group({
+    //this.authToken = localStorage.getItem('token');
+    this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmpassword: [{ value: null, disabled: true }, [Validators.required]],
@@ -28,40 +28,37 @@ export class RegistrationComponent implements OnInit {
     });
   }
   //visibility for password and confirm password 
-  onPasswordValidation() 
-  {
-    if (this.password.value.match(/\b(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\b/))
-    {
+  onPasswordValidation() {
+    if (this.password.value.match(/\b(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\b/)) {
       this.RegistrationFormGroup.get('confirmpassword').enable();
     }
-    else 
-    {
+    else {
       this.RegistrationFormGroup.get('confirmpassword').disable();
     }
   }
   //check validation for password and confirm password
-  onPasswordChange() 
-  {
-    if (this.confirmpassword.value == this.password.value)
-    {
+  onPasswordChange() {
+    if (this.confirmpassword.value == this.password.value) {
       this.confirmpassword.setErrors(null);
-    } else 
-    {
+    } else {
       this.confirmpassword.setErrors({ mismatch: true });
     }
   }
-  get password() 
-  {
+  get password() {
     return this.RegistrationFormGroup.get('password');
   }
-  get confirmpassword() 
-  {
+  get confirmpassword() {
     return this.RegistrationFormGroup.get('confirmpassword');
   }
 
   //register functionality
   register() {
-    this.http.register(this.RegistrationFormGroup.value).subscribe((data: any) => {
+    let data = {
+      "bearerToken": this.RegistrationFormGroup.value.token,
+      "email": this.RegistrationFormGroup.value.email,
+      "password": this.RegistrationFormGroup.value.password,
+    }
+    this.http.register(data).subscribe((data: any) => {
       if (data.message == "User was created successfully.") {
 
         this.success_toast();

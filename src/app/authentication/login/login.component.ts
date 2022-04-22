@@ -23,12 +23,10 @@ export class LoginComponent implements OnInit {
     })
   }
   login(){
-    this.email=this.loginFormGroup.value.email;
-    this.passWord=this.loginFormGroup.value.password;
-    this.http.login(this.email,this.passWord).subscribe((data:any)=>{
-      console.log(JSON.stringify(data));
-      if (data.message == "User Found") {
-        //this.success_toast();
+    this.http.login(this.loginFormGroup.value).subscribe((data:any)=>{
+        if (data.message == "User Found") {
+        localStorage.setItem('id',data.id);
+        localStorage.setItem('token',data.bearer_token);
         this.router.navigate(['/repository-page']);
       }
       else {

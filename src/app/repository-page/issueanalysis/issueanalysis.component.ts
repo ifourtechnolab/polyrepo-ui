@@ -86,7 +86,7 @@ export class IssueanalysisComponent implements OnInit {
       });
     } else {
       this.http
-        .getcriticalIssue(this.authToken,this.orgName,this.days,this.repoListObject)
+        .getcriticalIssue(this.orgName,this.days,this.repoListObject)
         .subscribe((res) => {
 
           res = _.merge([], res.edges);
@@ -111,11 +111,9 @@ export class IssueanalysisComponent implements OnInit {
 
   // average time for priority-1 issues
   avg1() {
-    this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
-
     this.http
-      .getAvgTimeP1(this.authToken, this.orgName)
+      .getAvgTimeP1(this.orgName)
       .subscribe((res: any) => {
         this.priorityOne = res.message;
       });
@@ -123,11 +121,9 @@ export class IssueanalysisComponent implements OnInit {
 
   // average time for priority-2 issues
   avg2() {
-    this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
-
     this.http
-      .getAvgTimeP2(this.authToken, this.orgName)
+      .getAvgTimeP2(this.orgName)
       .subscribe((res: any) => {
         this.priorityTwo = res.message;
       });

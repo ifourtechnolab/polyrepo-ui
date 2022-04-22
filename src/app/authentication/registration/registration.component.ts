@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../shared/http.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -16,9 +17,9 @@ export class RegistrationComponent implements OnInit {
   confirmPassword: any;
   Token: any;
   authToken: any;
-  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService,public router: Router) { }
   ngOnInit(): void {
-      this.authToken = localStorage.getItem('token');
+      //this.authToken = localStorage.getItem('token');
       this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -60,12 +61,11 @@ export class RegistrationComponent implements OnInit {
 
   //register functionality
   register() {
-    this.email = this.RegistrationFormGroup.value.email;
-    this.passWord = this.RegistrationFormGroup.value.password;
-    this.Token = this.RegistrationFormGroup.value.token;
-    this.http.register(this.Token, this.email, this.passWord).subscribe((data: any) => {
+    this.http.register(this.RegistrationFormGroup.value).subscribe((data: any) => {
       if (data.message == "User was created successfully.") {
+
         this.success_toast();
+        this.router.navigate(['login']);
       }
       else {
         this.error_toast();

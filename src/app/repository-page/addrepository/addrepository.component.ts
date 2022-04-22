@@ -63,7 +63,7 @@ export class AddrepositoryComponent implements OnInit {
   // get first 100 repos
   getRecords() {
     this.http
-      .getRepoList(this.authToken, this.orgLogin)
+      .getRepoList(this.orgLogin)
       .subscribe((RepoList: any) => {
         if (RepoList.edges.length >= 100) {
           this.isNextPage = RepoList.pageInfo.hasNextPage;
@@ -82,7 +82,7 @@ export class AddrepositoryComponent implements OnInit {
   callApi() {
     this.loading = true;
     this.http
-      .getNextPageRepoList(this.authToken, this.nextPageHash, this.orgLogin)
+      .getNextPageRepoList(this.nextPageHash, this.orgLogin)
       .subscribe((RepoList: any) => {
         this.isNextPage = RepoList.pageInfo.hasNextPage;
         if (!this.isNextPage) {
@@ -166,7 +166,7 @@ export class AddrepositoryComponent implements OnInit {
   getRepositoryByName() {
     this.repoName = this.searchForm.value.repositoryName;
     this.http
-      .getRepositoryLisByName(this.authToken, this.orgLogin, this.repoName)
+      .getRepositoryLisByName(this.orgLogin, this.repoName)
       .subscribe((repoSerachNameList: any) => {
         this.repositoryListByName = _.merge([], repoSerachNameList.edges);
       });

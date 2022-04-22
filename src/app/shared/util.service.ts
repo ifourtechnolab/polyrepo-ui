@@ -11,6 +11,7 @@ interface repoList {
 })
 export class UtilService {
   selectedRepoList: repoList[] = [];
+  private tokenKey='token';
   constructor(private util: HttpClient) { }
 
   //set data from showrepository
@@ -23,5 +24,17 @@ export class UtilService {
   public getCollectiveRepoData()
   {
     return this.selectedRepoList;
+  }
+  public getToken()
+  {
+    let save=localStorage.getItem(this.tokenKey);
+    if(save==null)
+    {
+      return '999';
+    }
+    else
+    {
+      return save;
+    }
   }
 }

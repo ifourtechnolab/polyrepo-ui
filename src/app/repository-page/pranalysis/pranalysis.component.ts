@@ -101,7 +101,7 @@ export class PranalysisComponent implements OnInit {
       this.alertbox();
     }
     else {
-      this.http.idlePr(this.authToken, this.orgLogin, this.activityPRDays, this.repoListObject)
+      this.http.idlePr(this.orgLogin, this.activityPRDays, this.repoListObject)
         .subscribe((PRData: any) => {
           this.prLastActivity = PRData;
           this.prLastActivity = _.merge([], this.prLastActivity.search.nodes);
@@ -132,7 +132,7 @@ export class PranalysisComponent implements OnInit {
       this.alertbox();
     }
     else {
-      this.http.unmergedpr(this.authToken, this.orgLogin, this.unmergedPRDays, this.repoListObject)
+      this.http.unmergedpr(this.orgLogin, this.unmergedPRDays, this.repoListObject)
         .subscribe((UnMergedData: any) => {
 
           this.unmergedPRActivity = UnMergedData;

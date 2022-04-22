@@ -24,125 +24,86 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   //get organisation list inside autocomplete search
-  getData(authToken: any, orgName: any) {
+  getData(orgName: any) {
     this.URL = environment.apiUrl +'/org/'+ orgName;
-    return this.http.get(this.URL, {
-      headers: new HttpHeaders({
-        Authorization: authToken,
-      }),
-    });
+    return this.http.get(this.URL);
   }
 
   //token authentication
-  public getAuthentication(tokenValue: any) {
+  public getAuthentication() {
     this.tokenURL=environment.apiUrl+'/auth';
-    return this.http.get(this.tokenURL, {
-      headers: new HttpHeaders({
-        Authorization: tokenValue,
-      }),
-    });
+    return this.http.get(this.tokenURL);
   }
 
   //get Organisation profile name,pic and url
-  public getOrgProfile(authToken: any, orgLogin: any) {
+  public getOrgProfile(orgLogin: any) {
     this.OrgProfileUrl = environment.apiUrl + '/org/' +orgLogin + '/orgProfile';
-    return this.http.get(this.OrgProfileUrl, {
-
-      headers: new HttpHeaders({
-        Authorization: authToken,
-      }),
-    });
+    return this.http.get(this.OrgProfileUrl);
   }
 
   //create a url to fetch 1st 100 repo
-  public getRepoList(authToken: any, orgLogin: any) {
+  public getRepoList(orgLogin: any) {
     this.repoListUrl = environment.apiUrl +'/org/' + orgLogin + '/repo';
-    return this.http.get(this.repoListUrl, {
-      headers: new HttpHeaders({
-        Authorization: authToken,
-      }),
-    });
+    return this.http.get(this.repoListUrl);
   }
 
   //create a url to fetch next page data
-  public getNextPageRepoList(authToken: any, nextPageHash: any, orgLogin: any) {
+  public getNextPageRepoList( nextPageHash: any, orgLogin: any) {
     this.repoListUrl = environment.apiUrl +'/org/' + orgLogin + '/repo/more';
-    return this.http.get(this.repoListUrl, {
+    return this.http.get(this.repoListUrl,{
       headers: new HttpHeaders({
-        Authorization: authToken,
         EndCursor: nextPageHash
       }),
     });
   }
 
   //repository list from api by name inside autocomplete search
-  public getRepositoryLisByName(authToken: any, orgLogin: any, repoName: any) {
+  public getRepositoryLisByName(orgLogin: any, repoName: any) {
     this.repoSearchUrl = environment.apiUrl+'/org/' +orgLogin+'/repo/'+repoName;
-    return this.http.get(this.repoSearchUrl,{
-      headers: new HttpHeaders({
-        Authorization: authToken,
-      }),
-    });
+    return this.http.get(this.repoSearchUrl);
   }
   
   // critical issues
-  public getcriticalIssue(authToken: any, orgLogin: any, days: any,repoListObject:any){
+  public getcriticalIssue(orgLogin: any, days: any,repoListObject:any){
     this.criticalIssue = environment.apiUrl+'/org/' +orgLogin+'/repo/issuesWithPriority1/openSinceBefore/'+days ;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': authToken,
-      })
-    };
-    return this.http.post<any>(this.criticalIssue, repoListObject, httpOptions);
+    return this.http.post<any>(this.criticalIssue, repoListObject);
   }
 
   // average resolving time for Priority-1 isuues
-  public getAvgTimeP1(authToken: any, orgLogin: any){
+  public getAvgTimeP1(orgLogin: any){
     this.AvgTimeP1 = environment.apiUrl + '/org/' + orgLogin + '/averageResolvingTimeOfP1Issues';
-    return this.http.get(this.AvgTimeP1, {headers: new HttpHeaders({Authorization: authToken})});
+    return this.http.get(this.AvgTimeP1);
   }
 
   // average resolving time for Priority-2 isuues
-  public getAvgTimeP2(authToken: any, orgLogin: any){
+  public getAvgTimeP2(orgLogin: any){
     this.AvgTimeP2 = environment.apiUrl + '/org/' + orgLogin + '/averageResolvingTimeOfP2Issues';
-    return this.http.get(this.AvgTimeP2, {headers: new HttpHeaders({Authorization: authToken})});
+    return this.http.get(this.AvgTimeP2);
   }
 
   //idel PR since X days
-  public idlePr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
+  public idlePr(orgLogin:any,days:any,jsonArr:any): Observable<any>
   { 
     this.idlePrUrl=environment.apiUrl+'/org/' +orgLogin+'/repo/prLastUpdate/'+days;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': authToken,
-      })
-    };
-    return this.http.post<any>(this.idlePrUrl, jsonArr, httpOptions);
+    
+    return this.http.post<any>(this.idlePrUrl, jsonArr);
   }
 
   //unmerged PR since X days
-  public unmergedpr(authToken:any,orgLogin:any,days:any,jsonArr:any): Observable<any>
+  public unmergedpr(orgLogin:any,days:any,jsonArr:any): Observable<any>
   {    
     this.unmergedPrUrl=environment.apiUrl+'/org/' +orgLogin+'/repo/prUnMerged/'+days;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': authToken,
-      })
-    };
-    return this.http.post<any>(this.unmergedPrUrl, jsonArr, httpOptions);
+    return this.http.post<any>(this.unmergedPrUrl, jsonArr);
   }
   
   //registeration functionality 
-  public register(Token:any,email:any,passWord:any): Observable<any>
+  public register(RegistrationFormGroup:any): Observable<any>
   {
     this.userUrl=environment.apiUrl+'/user/register';
     let data={
-      "bearerToken":Token,
-      "email":email,
-      "password":passWord,
+      "bearerToken":RegistrationFormGroup.token,
+      "email":RegistrationFormGroup.email,
+      "password":RegistrationFormGroup.password,
     }
     return this.http.post<any>(this.userUrl, data);
   }
@@ -160,14 +121,10 @@ export class HttpService {
     return this.http.post<any>(this.getlabelsURL, repoListObject , httpOptions);
   }
   //login functionlity
-  public login(email:any,passWord:any):Observable<any>
+  public login(LoginFormGroup:any):Observable<any>
   {
     this.Loginurl=environment.apiUrl+'/user/login';
-    let data={
-      "email":email,
-      "password":passWord,
-    }
-    return this.http.post<any>(this.Loginurl,data);
+    return this.http.post<any>(this.Loginurl,LoginFormGroup);
   }
 
   // issuer on lables

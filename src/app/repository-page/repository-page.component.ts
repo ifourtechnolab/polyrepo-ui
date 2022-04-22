@@ -19,10 +19,9 @@ export class RepositoryPageComponent implements OnInit {
   constructor(private http: HttpService) { }
 
   ngOnInit(): void {
-    this.authToken = localStorage.getItem('token');
     this.orgLogin = localStorage.getItem('orgLogin');
     this.http
-      .getOrgProfile(this.authToken, this.orgLogin)
+      .getOrgProfile(this.orgLogin)
       .subscribe((orgProfile: any) => {
         this.orgProfileData = orgProfile;
       });

@@ -34,17 +34,13 @@ export class DemoComponent implements OnInit {
 
   // get token and validated it
   public getToken() {
-    this.tokenValue = this.loginForm.value.token;
     this.http
-      .getAuthentication(this.tokenValue)
+      .getAuthentication()
       .subscribe((validationData: any) => {
         if (validationData.message === 'Valid Token') {
-          localStorage.setItem('token', this.tokenValue);
           this.loginForm.controls['organizationName'].enable();
         } else {
           localStorage.removeItem('token');
-          // alert('Please entered Valid token');
-
           this.toastr.error('Please enter valid token', 'Invalid Token', {
             positionClass: 'toast-top-center',
             closeButton: true,
@@ -63,7 +59,7 @@ export class DemoComponent implements OnInit {
     this.authToken = localStorage.getItem('token');
     if (this.orgName != '') {
       this.http
-        .getData(this.authToken, this.orgName)
+        .getData(this.orgName)
         .subscribe((orgNameData: any) => {
           this.organizationsData = _.merge([], orgNameData.edges);
         });

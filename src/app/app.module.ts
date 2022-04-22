@@ -6,7 +6,7 @@ import { MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatGridListModule } from '@angular/material/grid-list';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
@@ -33,6 +33,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RegistrationComponent } from './authentication/registration/registration.component';
+import { AuthHeaderInterceptor } from './auth-header.interceptor';
 
 
 @NgModule({
@@ -73,7 +74,11 @@ import { RegistrationComponent } from './authentication/registration/registratio
     MatSelectModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthHeaderInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

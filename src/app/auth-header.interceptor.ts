@@ -5,20 +5,29 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { UtilService } from './shared/util.service';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
-  constructor(private utilService:UtilService ) {}
+  constructor() {}
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const req = request.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: this.utilService.getToken()
-      }
-    });
-    return next.handle(req);
+    if (localStorage.getItem('token') != null) {
+      const clonedReq = request.clone({
+        headers: request.headers.set(
+          'Authorization',
+           localStorage.getItem('token')
+        ),
+      });
+      return next.handle(clonedReq).pipe(
+        tap(
+          (succ) => {},
+          (err) => {
+            if (err.status === 401) {
+              localStorage.removeItem('token');
+            }
+          }
+        )
+      );
+    } else { return next.handle(request.clone()); }
   }
 }

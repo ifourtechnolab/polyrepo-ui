@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/'
+  apiUrl: 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser'
 };
 
 /*

@@ -22,14 +22,21 @@ export interface issueData {
   authorLogin: any;
 }
 
+export interface labelData {
+  title: any;
+  repository: any;
+}
+
 @Component({
   selector: 'app-issueanalysis',
   templateUrl: './issueanalysis.component.html',
   styleUrls: ['./issueanalysis.component.css'],
 })
 export class IssueanalysisComponent implements OnInit {
-  dataSource!: MatTableDataSource<issueData>;
-  displayedColumns: string[] = ['title', 'createdAt', 'repository','authorLogin'];
+  criticalDataSource!: MatTableDataSource<issueData>;
+  labelDataSource!: MatTableDataSource<labelData>;
+  criticalDisplayedColumns: string[] = ['title', 'createdAt', 'repository','authorLogin'];
+  labelDisplayedColumns: string[] = ['title','repository'];
   authToken: any;
   orgName: any;
   days: any;
@@ -39,6 +46,7 @@ export class IssueanalysisComponent implements OnInit {
   selectedRepoList: any;
   repoListObject: any;
   criticalIssueData: any;
+  labelIssueData: any;
   isLoading = false;
   abc : any;
 
@@ -50,8 +58,11 @@ export class IssueanalysisComponent implements OnInit {
     criticalIssues: new FormControl(''),
   });
 
-  @ViewChild('page1') paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('page1') paginator1: MatPaginator;
+  @ViewChild('page2') paginator2: MatPaginator;
+  @ViewChild('sort1') sort1: MatSort;
+  @ViewChild('sort2') sort2: MatSort;
+
   constructor(
     public http: HttpService,
     private util: UtilService,
@@ -63,12 +74,21 @@ export class IssueanalysisComponent implements OnInit {
   // TAB-1
 
   // critical issues 
-  applyFilter(event: Event) {
+  criticalApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.criticalDataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator = this.paginator;
+    if (this.criticalDataSource.paginator) {
+      this.criticalDataSource.paginator = this.paginator1;
+    }
+  }
+
+  labelApplyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.labelDataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.labelDataSource.paginator) {
+      this.labelDataSource.paginator = this.paginator2;
     }
   }
 
@@ -80,6 +100,7 @@ export class IssueanalysisComponent implements OnInit {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     if (this.selectedRepoList.length === 0) {
+      this.isLoading = false;
       this.toastr.error('Please select repository', 'No Repository', {
         positionClass: 'toast-top-center',
         closeButton: true,
@@ -101,9 +122,9 @@ export class IssueanalysisComponent implements OnInit {
             };
           });
           this.isLoading = false;
-          this.dataSource = new MatTableDataSource<issueData>(this.criticalIssueData);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          this.criticalDataSource = new MatTableDataSource<issueData>(this.criticalIssueData);
+          this.criticalDataSource.paginator = this.paginator1;
+          this.criticalDataSource.sort = this.sort1;
         });
     }
   }
@@ -132,14 +153,20 @@ export class IssueanalysisComponent implements OnInit {
 
   // get labels
   getlabels(){
-    debugger
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
-
+    if (this.selectedRepoList.length === 0) {
+      this.isLoading = false;
+      this.toastr.error('Please select repository', 'No Repository', {
+        positionClass: 'toast-top-center',
+        closeButton: true,
+        easeTime: 250,
+      });
+    }
     this.http
-      .getlablesservice(this.authToken, this.orgName, this.repoListObject)
+      .getlablesservice(this.orgName, this.repoListObject)
       .subscribe((res: any) => {
         this.abc = res.Labels;
       });
@@ -150,11 +177,34 @@ export class IssueanalysisComponent implements OnInit {
     this.repoListObject = { repoNames: this.selectedRepoList };
     this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
-
-    this.http
-      .getlebelissueservice(this.authToken, this.orgName, this.repoListObject, label)
-      .subscribe((res: any) => {
-        console.log(res.nodes);             
+    this.isLoading = true;
+    this.repoListObject = { repoNames: this.selectedRepoList };
+    if (this.selectedRepoList.length === 0) {
+      this.isLoading = false;
+      this.toastr.error('Please select repository', 'No Repository', {
+        positionClass: 'toast-top-center',
+        closeButton: true,
+        easeTime: 250,
       });
+    } else {
+      this.http
+      .getlebelissueservice(this.orgName, this.repoListObject, label)
+        .subscribe((res) => {
+          console.log(res.nodes);
+          res = _.merge([], res.nodes);
+          console.log(res);
+
+          this.labelIssueData = res.map((x: any) => {
+            return {
+              title: x.title,
+              repository: x.repository.name,
+            };
+          });
+          this.isLoading = false;
+          this.labelDataSource = new MatTableDataSource<labelData>(this.labelIssueData);
+          this.labelDataSource.paginator = this.paginator2;
+          this.labelDataSource.sort = this.sort2;
+        });
+    }
   }
 }

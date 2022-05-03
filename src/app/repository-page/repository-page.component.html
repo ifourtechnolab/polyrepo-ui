@@ -29,14 +29,12 @@
 
     <div class="col-9 content">
       <!-- issues analysis -->
-      <div
-        *ngIf="filterr.selectedOptions.selected[0]?.value == 'Issue Analysis'">
+      <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'Issue Analysis'">
         <app-issueanalysis></app-issueanalysis>
       </div>
 
       <!-- pr analysis -->
       <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'PR Analysis'">
-        
         <app-pranalysis></app-pranalysis>
       </div>
     </div>

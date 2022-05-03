@@ -77,16 +77,8 @@ export class HttpService {
   }
 
   // getting lables
-  public getlablesservice( authToken: any, orgLogin: any,repoListObject:any ){
-    debugger
-    this.getlabelsURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/' + orgLogin + '/repo/labels';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': authToken,
-      })
-    };
-    return this.http.post<any>(this.getlabelsURL, repoListObject , httpOptions);
+  public getlablesservice(orgLogin: any,repoListObject:any ){
+    return this.http.post<any>(environment.apiUrl+'/org/'+orgLogin+'/repo/labels',repoListObject);
   }
   //login functionlity
   public login(LoginFormGroup:any):Observable<any>
@@ -95,14 +87,8 @@ export class HttpService {
   }
 
   // issuer on lables
-  public getlebelissueservice( authToken: any, orgLogin: any,repoListObject:any, label : any ){
-    this.getlebelissueURL = 'http://192.168.0.182:8080/v.0.1/polyrepo/analyser/org/'+ orgLogin +'/repo/'+ label +'/openIssues';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': authToken,
-      })
-    };
-    return this.http.post<any>(this.getlebelissueURL, repoListObject , httpOptions);
+  public getlebelissueservice(orgLogin: any,repoListObject:any, label : any )
+  {
+    return this.http.post<any>(environment.apiUrl+'/org/'+orgLogin+'/repo/'+label+'/openIssues',repoListObject);
   }
 }

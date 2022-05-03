@@ -23,7 +23,34 @@ a {
     justify-content: center; 
     align-items: center; 
     background: white;
+    /* margin-top: 50%; */
 }
 .mat-progress-spinner ::ng-deep circle {
     stroke: #2A79FF;
+}
+.issuesListArea{
+    height: 40em;
+}
+#labelList{
+    float: left;
+    width: 30%;
+    height: 33em !important;
+    overflow-y: auto ;
+}
+ ::ng-deep .issuesListArea .mat-tab-body-content{
+        overflow: hidden;
+}
+#labelData{
+    float: left;
+    width: 68%;
+    height: 33em !important;
+    overflow-y: auto ;
+}
+
+.labels{
+    margin-right: 1%;
+}
+
+.labelButton{
+    margin: 1%;
 }

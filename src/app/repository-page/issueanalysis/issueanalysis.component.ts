@@ -32,6 +32,7 @@ export interface labelData {
   templateUrl: './issueanalysis.component.html',
   styleUrls: ['./issueanalysis.component.css'],
 })
+
 export class IssueanalysisComponent implements OnInit {
   criticalDataSource!: MatTableDataSource<issueData>;
   labelDataSource!: MatTableDataSource<labelData>;
@@ -73,7 +74,7 @@ export class IssueanalysisComponent implements OnInit {
 
   // TAB-1
 
-  // critical issues 
+  // pagination filter for critical issues 
   criticalApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.criticalDataSource.filter = filterValue.trim().toLowerCase();
@@ -83,6 +84,7 @@ export class IssueanalysisComponent implements OnInit {
     }
   }
 
+  // pagination filter for label issues
   labelApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelDataSource.filter = filterValue.trim().toLowerCase();
@@ -92,6 +94,7 @@ export class IssueanalysisComponent implements OnInit {
     }
   }
 
+  //critical issues data
   criticalIssueList() {
     this.isLoading = true;
     this.authToken = localStorage.getItem('token');
@@ -151,6 +154,8 @@ export class IssueanalysisComponent implements OnInit {
       });
   }
 
+  //TAB-3
+
   // get labels
   getlabels(){
     this.selectedRepoList = this.util.getCollectiveRepoData();
@@ -172,6 +177,7 @@ export class IssueanalysisComponent implements OnInit {
       });
   }
 
+  //get label's data
   getlebelissue(label : any){
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
@@ -190,10 +196,7 @@ export class IssueanalysisComponent implements OnInit {
       this.http
       .getlebelissueservice(this.orgName, this.repoListObject, label)
         .subscribe((res) => {
-          console.log(res.nodes);
           res = _.merge([], res.nodes);
-          console.log(res);
-
           this.labelIssueData = res.map((x: any) => {
             return {
               title: x.title,

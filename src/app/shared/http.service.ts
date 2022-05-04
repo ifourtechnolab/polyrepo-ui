@@ -86,21 +86,10 @@ export class HttpService {
     return this.http.post<any>(environment.apiUrl+'/user/register', RegistrationFormGroup);
   }
 
-  // getting lables
-  public getlablesservice(orgLogin: any,repoListObject:any ){
-    return this.http.post<any>(environment.apiUrl+'/org/'+orgLogin+'/repo/labels',repoListObject);
-  }
-
   //login functionlity
   public login(LoginFormGroup:any):Observable<any>
   {
     return this.http.post<any>(environment.apiUrl+'/user/login',LoginFormGroup);
-  }
-
-  // issuer on lables
-  public getlebelissueservice(orgLogin: any,repoListObject:any, label : any )
-  {
-    return this.http.post<any>(environment.apiUrl+'/org/'+orgLogin+'/repo/'+label+'/openIssues',repoListObject);
   }
 
 }

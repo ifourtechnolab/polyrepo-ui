@@ -6,7 +6,6 @@
     {{ orgProfileData?.organization?.name }}</a><br />
   <img src="{{ orgProfileData?.organization?.avatarUrl }}" alt="App Name" height="75%"/>
 </mat-toolbar>
-
 <div>
   <div class="row">
     <div class="col-3">
@@ -17,9 +16,9 @@
 
       <!-- filter options -->
       <div class="overflow-auto filtersettingdiv">
-        <mat-selection-list #filterr [multiple]="false">
+        <mat-selection-list #filterr [multiple]="false" (selectionChange)="changeSpan($event)">
           <mat-list-option *ngFor="let filter of filters" [value]="filter">
-            <span style="font-size: 17px">
+            <span style="font-size: 17px" >
               {{ filter }}
             </span>
           </mat-list-option>
@@ -28,21 +27,8 @@
     </div>
 
     <div class="col-9 content">
-      <!-- issues analysis -->
-      <div
-        *ngIf="filterr.selectedOptions.selected[0]?.value == null">
-        <app-issueanalysis></app-issueanalysis>
-      </div>
-
-      <div
-        *ngIf="filterr.selectedOptions.selected[0]?.value == 'Issue Analysis'">
-        <app-issueanalysis></app-issueanalysis>
-      </div>
-
-      <!-- pr analysis -->
-      <div *ngIf="filterr.selectedOptions.selected[0]?.value == 'PR Analysis'">
-        <app-pranalysis></app-pranalysis>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+

@@ -79,10 +79,10 @@ export class DemoComponent implements OnInit {
     this.router.navigate(['/repository-page']);
   }
   routeToLogin() {
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/login']);
   }
   routeToRegistor(){
-    this.router.navigate(['registration']);
+    this.router.navigate(['auth/register']);
   }
   public searchvisibility() {
     if (this.orgName == '') {

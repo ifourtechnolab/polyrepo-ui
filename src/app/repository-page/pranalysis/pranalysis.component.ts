@@ -98,6 +98,7 @@ export class PranalysisComponent implements OnInit {
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.activityPRDays = this.fform.value.ActivityPrDay;
     if (this.selectedRepoList.length === 0) {
+      this.isLoading=false;
       this.alertbox();
     }
     else {
@@ -129,6 +130,7 @@ export class PranalysisComponent implements OnInit {
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.unmergedPRDays = this.fform2.value.MergePrDay;
     if (this.selectedRepoList.length === 0) {
+      this.isLoading=false;
       this.alertbox();
     }
     else {

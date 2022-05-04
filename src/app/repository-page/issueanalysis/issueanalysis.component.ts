@@ -139,7 +139,7 @@ export class IssueanalysisComponent implements OnInit {
     this.orgName = localStorage.getItem('orgLogin');
 
     this.http
-      .getlablesservice(this.authToken, this.orgName, this.repoListObject)
+      .getlablesservice(this.orgName, this.repoListObject)
       .subscribe((res: any) => {
         this.abc = res.Labels;
       });
@@ -152,7 +152,7 @@ export class IssueanalysisComponent implements OnInit {
     this.orgName = localStorage.getItem('orgLogin');
 
     this.http
-      .getlebelissueservice(this.authToken, this.orgName, this.repoListObject, label)
+      .getlebelissueservice(this.orgName, this.repoListObject, label)
       .subscribe((res: any) => {
         console.log(res.nodes);             
       });

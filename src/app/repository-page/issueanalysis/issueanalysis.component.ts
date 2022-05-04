@@ -34,6 +34,8 @@ export interface labelData {
 })
 
 export class IssueanalysisComponent implements OnInit {
+  criticalIssuesForm: FormGroup;
+  AvgTimeForm: FormGroup;
   criticalDataSource!: MatTableDataSource<issueData>;
   labelDataSource!: MatTableDataSource<labelData>;
   criticalDisplayedColumns: string[] = ['title', 'createdAt', 'repository','authorLogin'];
@@ -48,16 +50,9 @@ export class IssueanalysisComponent implements OnInit {
   repoListObject: any;
   criticalIssueData: any;
   labelIssueData: any;
-  isLoading = false;
-  abc : any;
-
-  criticalIssuesForm = new FormGroup({
-    criticalIssues: new FormControl(''),
-  });
-
-  AvgTimeForm = new FormGroup({
-    criticalIssues: new FormControl(''),
-  });
+  criticalLoading = false;
+  labelLoading = false;
+  labelList : any;
 
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
@@ -70,9 +65,17 @@ export class IssueanalysisComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   this.criticalIssuesForm = new FormGroup({
+      criticalIssues: new FormControl('0'),
+    });
 
-  // TAB-1
+    this.AvgTimeForm = new FormGroup({
+      avgIssues: new FormControl(''),
+    });
+  }
+
+ 
 
   // pagination filter for critical issues 
   criticalApplyFilter(event: Event) {
@@ -94,23 +97,37 @@ export class IssueanalysisComponent implements OnInit {
     }
   }
 
+  // TAB-1
+
   //critical issues data
   criticalIssueList() {
-    this.isLoading = true;
+    this.criticalLoading = true;
     this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
     this.days = this.criticalIssuesForm.value.criticalIssues;
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     if (this.selectedRepoList.length === 0) {
-      this.isLoading = false;
+      this.criticalLoading = false;
       this.toastr.error('Please select repository', 'No Repository', {
         positionClass: 'toast-top-center',
         closeButton: true,
         easeTime: 250,
       });
-    } else {
-      this.http
+    } 
+    else {
+
+      if (this.days==null) {
+        this.criticalLoading = false;
+        this.toastr.error('Please enter days', '', {
+          positionClass: 'toast-top-center',
+          closeButton: true,
+          easeTime: 250,
+        });
+      }
+
+      else{
+        this.http
         .getcriticalIssue(this.orgName,this.days,this.repoListObject)
         .subscribe((res) => {
 
@@ -124,11 +141,12 @@ export class IssueanalysisComponent implements OnInit {
               authorUrl: x.node.author.url,
             };
           });
-          this.isLoading = false;
+          this.criticalLoading = false;
           this.criticalDataSource = new MatTableDataSource<issueData>(this.criticalIssueData);
           this.criticalDataSource.paginator = this.paginator1;
           this.criticalDataSource.sort = this.sort1;
         });
+      }
     }
   }
 
@@ -160,34 +178,37 @@ export class IssueanalysisComponent implements OnInit {
   getlabels(){
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
-    this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
+    this.labelLoading = true;
     if (this.selectedRepoList.length === 0) {
-      this.isLoading = false;
+      this.labelLoading = false;
       this.toastr.error('Please select repository', 'No Repository', {
         positionClass: 'toast-top-center',
         closeButton: true,
         easeTime: 250,
       });
     }
-    this.http
+    else{
+      
+      this.http
       .getlablesservice(this.orgName, this.repoListObject)
       .subscribe((res: any) => {
-        this.abc = res.Labels;
+        this.labelList = res.Labels;
+        this.labelLoading = false;
       });
+    }
   }
 
   //get label's data
   getlebelissue(label : any){
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
-    this.authToken = localStorage.getItem('token');
     this.orgName = localStorage.getItem('orgLogin');
-    this.isLoading = true;
-    this.repoListObject = { repoNames: this.selectedRepoList };
-    if (this.selectedRepoList.length === 0) {
-      this.isLoading = false;
-      this.toastr.error('Please select repository', 'No Repository', {
+    debugger
+    this.labelLoading = true
+    if (!label) {
+      this.labelLoading = false;
+      this.toastr.error('Please select label', '', {
         positionClass: 'toast-top-center',
         closeButton: true,
         easeTime: 250,
@@ -203,7 +224,7 @@ export class IssueanalysisComponent implements OnInit {
               repository: x.repository.name,
             };
           });
-          this.isLoading = false;
+          this.labelLoading = false;
           this.labelDataSource = new MatTableDataSource<labelData>(this.labelIssueData);
           this.labelDataSource.paginator = this.paginator2;
           this.labelDataSource.sort = this.sort2;

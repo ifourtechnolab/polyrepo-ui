@@ -24,7 +24,7 @@
              <mat-error *ngIf="password.errors?.['pattern']">
               Password must contain at least one number,one uppercase and lowercase letter, at least 8 or more characters.<br>
               </mat-error> 
-            <mat-icon matSuffix>password</mat-icon>
+            <mat-icon matSuffix>lock</mat-icon>
             
           </mat-form-field>
 
@@ -37,7 +37,7 @@
             <mat-error *ngIf="confirmpassword.errors?.['mismatch']">
               Confirm Password must be matched!
           </mat-error> 
-            <mat-icon matSuffix>password</mat-icon>
+            <mat-icon matSuffix>lock</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="outline">

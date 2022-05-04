@@ -3,6 +3,7 @@ import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../shared/http.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MaterialModuleModule } from '../../shared/material-module/material-module.module';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -16,7 +16,6 @@ import { MaterialModuleModule } from './shared/material-module/material-module.m
   declarations: [
     AppComponent,
     DemoComponent,
-   
   ],
   imports: [
     AppRoutingModule,

@@ -204,7 +204,6 @@ export class IssueanalysisComponent implements OnInit {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     this.orgName = localStorage.getItem('orgLogin');
-    debugger
     this.labelLoading = true
     if (!label) {
       this.labelLoading = false;

@@ -5,12 +5,10 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import {RouterModule} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatInputModule} from '@angular/material/input'
+import { MaterialModuleModule } from '../shared/material-module/material-module.module';
+
 @NgModule({
   declarations: [LoginComponent,RegistrationComponent
   ],
@@ -18,12 +16,9 @@ import {MatInputModule} from '@angular/material/input'
     CommonModule,
     AuthenticationRoutingModule,
     RouterModule,
-    MatCardModule,
-    MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDividerModule,MatInputModule
-  
+    MaterialModuleModule
   ]
 })
 export class AuthenticationModule { }

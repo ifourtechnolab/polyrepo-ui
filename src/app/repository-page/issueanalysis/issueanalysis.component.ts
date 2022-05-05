@@ -1,15 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { HttpService } from '../../shared/http.service';
 import { UtilService } from '../../shared/util.service';
 import * as _ from 'lodash';
-import {
-  FormGroup,
-  FormControl,
-  FormControlName,
-  Validator,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -32,14 +25,18 @@ export interface labelData {
   templateUrl: './issueanalysis.component.html',
   styleUrls: ['./issueanalysis.component.css'],
 })
-
 export class IssueanalysisComponent implements OnInit {
   criticalIssuesForm: FormGroup;
   AvgTimeForm: FormGroup;
   criticalDataSource!: MatTableDataSource<issueData>;
   labelDataSource!: MatTableDataSource<labelData>;
-  criticalDisplayedColumns: string[] = ['title', 'createdAt', 'repository','authorLogin'];
-  labelDisplayedColumns: string[] = ['title','repository'];
+  criticalDisplayedColumns: string[] = [
+    'title',
+    'createdAt',
+    'repository',
+    'authorLogin',
+  ];
+  labelDisplayedColumns: string[] = ['title', 'repository'];
   authToken: any;
   orgName: any;
   days: any;
@@ -52,7 +49,7 @@ export class IssueanalysisComponent implements OnInit {
   labelIssueData: any;
   criticalLoading = false;
   labelLoading = false;
-  labelList : any;
+  labelList: any;
 
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
@@ -66,7 +63,7 @@ export class IssueanalysisComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   this.criticalIssuesForm = new FormGroup({
+    this.criticalIssuesForm = new FormGroup({
       criticalIssues: new FormControl('0'),
     });
 
@@ -75,9 +72,7 @@ export class IssueanalysisComponent implements OnInit {
     });
   }
 
- 
-
-  // pagination filter for critical issues 
+  // pagination filter for critical issues
   criticalApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.criticalDataSource.filter = filterValue.trim().toLowerCase();
@@ -114,38 +109,35 @@ export class IssueanalysisComponent implements OnInit {
         closeButton: true,
         easeTime: 250,
       });
-    } 
-    else {
-
-      if (this.days==null) {
+    } else {
+      if (this.days == null) {
         this.criticalLoading = false;
         this.toastr.error('Please enter days', '', {
           positionClass: 'toast-top-center',
           closeButton: true,
           easeTime: 250,
         });
-      }
-
-      else{
+      } else {
         this.http
-        .getcriticalIssue(this.orgName,this.days,this.repoListObject)
-        .subscribe((res) => {
-
-          res = _.merge([], res.edges);
-          this.criticalIssueData = res.map((x: any) => {
-            return {
-              title: x.node.title,
-              createdAt: x.node.createdAt,
-              repository: x.node.repository.name,
-              authorLogin: x.node.author.login,
-              authorUrl: x.node.author.url,
-            };
+          .getcriticalIssue(this.orgName, this.days, this.repoListObject)
+          .subscribe((res) => {
+            res = _.merge([], res.edges);
+            this.criticalIssueData = res.map((x: any) => {
+              return {
+                title: x.node.title,
+                createdAt: x.node.createdAt,
+                repository: x.node.repository.name,
+                authorLogin: x.node.author.login,
+                authorUrl: x.node.author.url,
+              };
+            });
+            this.criticalLoading = false;
+            this.criticalDataSource = new MatTableDataSource<issueData>(
+              this.criticalIssueData
+            );
+            this.criticalDataSource.paginator = this.paginator1;
+            this.criticalDataSource.sort = this.sort1;
           });
-          this.criticalLoading = false;
-          this.criticalDataSource = new MatTableDataSource<issueData>(this.criticalIssueData);
-          this.criticalDataSource.paginator = this.paginator1;
-          this.criticalDataSource.sort = this.sort1;
-        });
       }
     }
   }
@@ -155,27 +147,23 @@ export class IssueanalysisComponent implements OnInit {
   // average time for priority-1 issues
   avg1() {
     this.orgName = localStorage.getItem('orgLogin');
-    this.http
-      .getAvgTimeP1(this.orgName)
-      .subscribe((res: any) => {
-        this.priorityOne = res.message;
-      });
+    this.http.getAvgTimeP1(this.orgName).subscribe((res: any) => {
+      this.priorityOne = res.message;
+    });
   }
 
   // average time for priority-2 issues
   avg2() {
     this.orgName = localStorage.getItem('orgLogin');
-    this.http
-      .getAvgTimeP2(this.orgName)
-      .subscribe((res: any) => {
-        this.priorityTwo = res.message;
-      });
+    this.http.getAvgTimeP2(this.orgName).subscribe((res: any) => {
+      this.priorityTwo = res.message;
+    });
   }
 
   //TAB-3
 
   // get labels
-  getlabels(){
+  getlabels() {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     this.orgName = localStorage.getItem('orgLogin');
@@ -187,20 +175,18 @@ export class IssueanalysisComponent implements OnInit {
         closeButton: true,
         easeTime: 250,
       });
-    }
-    else{
-      
+    } else {
       this.http
-      .getlablesservice(this.orgName, this.repoListObject)
-      .subscribe((res: any) => {
-        this.labelList = res.Labels;
-        this.labelLoading = false;
-      });
+        .getlablesservice(this.orgName, this.repoListObject)
+        .subscribe((res: any) => {
+          this.labelList = res.Labels;
+          this.labelLoading = false;
+        });
     }
   }
 
   //get label's data
-  getlebelissue(label : any){
+  getlebelissue(label: any) {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     this.orgName = localStorage.getItem('orgLogin');
@@ -214,7 +200,7 @@ export class IssueanalysisComponent implements OnInit {
       });
     } else {
       this.http
-      .getlebelissueservice(this.orgName, this.repoListObject, label)
+        .getlebelissueservice(this.orgName, this.repoListObject, label)
         .subscribe((res) => {
           res = _.merge([], res.nodes);
           this.labelIssueData = res.map((x: any) => {
@@ -224,7 +210,9 @@ export class IssueanalysisComponent implements OnInit {
             };
           });
           this.labelLoading = false;
-          this.labelDataSource = new MatTableDataSource<labelData>(this.labelIssueData);
+          this.labelDataSource = new MatTableDataSource<labelData>(
+            this.labelIssueData
+          );
           this.labelDataSource.paginator = this.paginator2;
           this.labelDataSource.sort = this.sort2;
         });

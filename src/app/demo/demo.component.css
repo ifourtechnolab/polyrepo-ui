@@ -11,28 +11,45 @@
     flex: 1 1 auto;
 }
 
-input{
-    margin-right: 20px;
+.loginButton{
+    background-color: #664983;
+    color: white;
+    font-family: "Bahnschrift";
+}
+
+.navButton{
+    margin-left: 2%;
 }
 
 /* body */
-.a{
-    text-align: center;
-    font-family: bahnschrift;
-    font-size: 68px;
-    padding-top: 150px;
+
+.content{
+    display: flex;
+    align-items: center;
 }
-.b{
-    padding-top: 10px;
+.bodyLeft{
+    color: #664983;
+    width: 50%;
+    margin-left: 10%;
+}
+.bodyRight{
+    width: 50%;
 }
 
-.containerBody{
-    display: flax;
-    margin: 10% 0;
+.bodyText{
+    width: 100%;
+    font-family: "Bahnschrift";
+    font-size: 300%;
+}
+
+.registerButton{
+    background-color: #664983;
+    color: white;
+    font-family: "Bahnschrift";
 }
 
 /* cards */
-.row {
+/* .row {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -53,4 +70,4 @@ input{
   
   .containerCards{
       padding-bottom: 5%;
-  }
+  } */

@@ -10,7 +10,7 @@
         <div></div>
       </div>
       <form [formGroup]="criticalIssuesForm">
-        <h6>
+        <h4>
           This will list all the Open Priority-1 issues across selected
           repositories open since
           <input type="number" formControlName="criticalIssues" id="criticalIssueDays" /> days.<button
@@ -18,7 +18,7 @@
             (click)="criticalIssueList()">
             List
           </button>
-        </h6>
+        </h4>
       </form>
     </div>
 
@@ -95,7 +95,7 @@
   <mat-tab label="Average Resolving Time">
     <div class="avgTimeList">
       <form [formGroup]="AvgTimeForm">
-        <h6>
+        <h4>
           How much average time needed for resolving
           <button
             class="btn btn-primary btn-sm avgTime"
@@ -110,7 +110,7 @@
             Priority-2
           </button>
           issues?
-        </h6>
+        </h4>
       </form>
     </div>
     <p *ngIf="show == 'P1'">{{ this.priorityOne }}</p>

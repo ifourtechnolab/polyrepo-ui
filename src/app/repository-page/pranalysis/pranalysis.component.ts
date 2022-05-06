@@ -7,7 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-
+import { MatDialog } from '@angular/material/dialog';
+import { SavequeryComponent } from '../savequery/savequery.component';
 
 interface repoList {
   id: string;
@@ -55,7 +56,7 @@ export class PranalysisComponent implements OnInit {
   @ViewChild('page2') paginator2: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('sort2') sort2: MatSort;
-  constructor(private http: HttpService, private util: UtilService, private toastr: ToastrService) { }
+  constructor(private http: HttpService, private util: UtilService, private toastr: ToastrService,public matDialog: MatDialog) { }
 
   //search filter for idle pr
   applyFilter(event: Event) {
@@ -154,5 +155,10 @@ export class PranalysisComponent implements OnInit {
           this.unmergeddataSource.sort = this.sort2;
         });
     }
+  }
+
+  openDialog()
+  {
+    const openDialog = this.matDialog.open(SavequeryComponent, {disableClose: true, hasBackdrop: true, data: { type: 'unmergedPR' } });
   }
 }

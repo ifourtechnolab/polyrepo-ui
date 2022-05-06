@@ -11,6 +11,7 @@ import { RepositoryPageComponent } from './repository-page.component';
 import { PranalysisComponent } from './pranalysis/pranalysis.component';
 import { ShowRepositoryComponent } from './show-repository/show-repository.component';
 import { AddrepositoryComponent } from './addrepository/addrepository.component';
+import { SavequeryComponent } from './savequery/savequery.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AddrepositoryComponent } from './addrepository/addrepository.component'
     AddrepositoryComponent,
     IssueanalysisComponent,
     PranalysisComponent,
-    ShowRepositoryComponent
+    ShowRepositoryComponent,
+    SavequeryComponent
   ],
   imports: [
     CommonModule,

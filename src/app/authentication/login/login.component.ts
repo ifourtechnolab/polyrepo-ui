@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         if (data.message == "User Found") {
         localStorage.setItem('id',data.id);
         localStorage.setItem('token',data.bearer_token);
-        this.router.navigate(['/repository-page']);
+        this.router.navigate(['/repo']);
       }
       else {
         this.error_toast();

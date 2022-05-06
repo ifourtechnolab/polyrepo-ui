@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
     //this.authToken = localStorage.getItem('token');
     this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmpassword: [{ value: null, disabled: true }, [Validators.required]],
       token: ['', [Validators.required]]
@@ -54,15 +55,17 @@ export class RegistrationComponent implements OnInit {
   //register functionality
   register() {
     let data = {
+      "userName":this.RegistrationFormGroup.value.username,
       "bearerToken": this.RegistrationFormGroup.value.token,
       "email": this.RegistrationFormGroup.value.email,
       "password": this.RegistrationFormGroup.value.password,
+      
     }
     this.http.register(data).subscribe((data: any) => {
       if (data.message == "User was created successfully.") {
 
         this.success_toast();
-        this.router.navigate(['login']);
+        this.router.navigate(['auth/login']);
       }
       else {
         this.error_toast();

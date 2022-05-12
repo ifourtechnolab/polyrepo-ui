@@ -1,25 +1,41 @@
 ::ng-deep .mat-tab-label-content {
     font-size: large;
 }
-h4{
+
+h4 {
     font-size: large;
 }
+
 a {
-    color:black;
+    color: black;
     text-decoration: none;
 }
-th{
+
+th {
     font-size: medium;
 }
-.btn-sm{
+
+.btn-sm {
     margin-left: 1%;
+    background-color: #664983;
+    color: white;
 }
-.load{
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+
+.load {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: white;
 }
+
 .mat-progress-spinner ::ng-deep circle {
     stroke: #2A79FF;
+}
+
+.btn-push-pin {
+    padding: 0;
+}
+
+.svg {
+    filter: invert(1);
 }

@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
     //this.authToken = localStorage.getItem('token');
     this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmpassword: [{ value: null, disabled: true }, [Validators.required]],
       token: ['', [Validators.required]]
@@ -54,19 +55,30 @@ export class RegistrationComponent implements OnInit {
   //register functionality
   register() {
     let data = {
+      "userName": this.RegistrationFormGroup.value.username,
       "bearerToken": this.RegistrationFormGroup.value.token,
       "email": this.RegistrationFormGroup.value.email,
       "password": this.RegistrationFormGroup.value.password,
+
     }
     this.http.register(data).subscribe((data: any) => {
-      if (data.message == "User was created successfully.") {
-
-        this.success_toast();
-        this.router.navigate(['login']);
+      if (data.message == "Invalid Token") {
+        this.RegistrationFormGroup.get('token').reset();
+        this.error_toast('Invalid token');
       }
       else {
-        this.error_toast();
+        if (data.message == "User was created successfully.") {
+          this.success_toast();
+          localStorage.setItem('id', data.id);
+          localStorage.setItem('token', data.bearer_token);
+          localStorage.setItem('username', this.RegistrationFormGroup.value.username);
+          this.router.navigate(['auth/login']);
+        }
+        else {
+          this.error_toast('Email already exist');
+        }
       }
+
     });
   }
   //toast for successful registration
@@ -78,8 +90,8 @@ export class RegistrationComponent implements OnInit {
     });
   }
   //toast for invalid registration
-  error_toast() {
-    this.toastr.error('Email already exist', '', {
+  error_toast(msg: any) {
+    this.toastr.error(msg, '', {
       positionClass: 'toast-top-center',
       closeButton: true,
       easeTime: 250,

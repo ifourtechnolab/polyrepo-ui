@@ -92,4 +92,10 @@ export class HttpService {
     return this.http.post<any>(environment.apiUrl+'/user/login',LoginFormGroup);
   }
 
+  //update token
+  public updateToken(LoginToken:any):Observable<any>
+  {
+    return this.http.post<any>(environment.apiUrl+'/user/updateToken',LoginToken);
+  }
+
 }

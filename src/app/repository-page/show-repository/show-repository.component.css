@@ -7,16 +7,28 @@
 }
 
 .btn-group-sm>.btn, .btn-sm{
+
+
+.btn-group-sm>.btn,
+.btn-sm {
+
     padding: 0;
-    outline:0;
+    outline: 0;
     width: min-content;
+    /* height: min-content; */
 }
+
 .btn-sm:focus {
-    outline:0;
+    outline: 0;
 }
+
 button.btn.trash-btn {
     float: right;
+    padding: 0;
+    height: 10px;
+
 }
+
 .fa {
     color: rgb(185, 57, 57);
 }

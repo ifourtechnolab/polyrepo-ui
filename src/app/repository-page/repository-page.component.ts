@@ -37,4 +37,9 @@ export class RepositoryPageComponent implements OnInit {
       this.router.navigate(['repo/pr']);
     }
   }
+
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['demo']);
+  }
 }

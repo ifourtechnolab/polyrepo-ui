@@ -39,7 +39,7 @@ export class ShowRepositoryComponent implements OnInit {
   }
 
   openDialog() {
-    const openDialog = this.matDialog.open(AddrepositoryComponent,{disableClose:true,hasBackdrop: false});
+    const openDialog = this.matDialog.open(AddrepositoryComponent,{disableClose:true,hasBackdrop: true});
     openDialog.afterClosed().subscribe((result)=>{
       this.nameOfItem= _.uniqBy([...this.nameOfItem, ...result.data], JSON.stringify);
       this.util.setCollectiveRepoData(this.nameOfItem);

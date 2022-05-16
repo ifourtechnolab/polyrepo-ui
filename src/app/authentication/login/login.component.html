@@ -23,8 +23,14 @@
           </mat-error>
           <mat-icon matSuffix>lock</mat-icon>
         </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="isTokenInput">
+          <mat-label>Token</mat-label>
+          <input type="text" formControlName="token" matInput placeholder="Token" />
+          <mat-icon matSuffix>token</mat-icon>
+        </mat-form-field>
         <mat-card-actions>
-          <button class="loginbtn" mat-raised-button style="width: 95%; margin-left: 9px; padding: 5px" [disabled]="loginFormGroup.invalid">
+          <button class="loginbtn" mat-raised-button style="width: 95%; margin-left: 9px; padding: 5px"
+            [disabled]="loginFormGroup.invalid">
             Login
           </button>
         </mat-card-actions>

@@ -190,7 +190,7 @@ export class IssueanalysisComponent implements OnInit {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
     this.orgName = localStorage.getItem('orgLogin');
-    this.labelLoading = true;
+    this.labelLoading = true
     if (!label) {
       this.labelLoading = false;
       this.toastr.error('Please select label', '', {

@@ -14,7 +14,7 @@
           This will list all the Open Priority-1 issues across selected
           repositories open since
           <input type="number" formControlName="criticalIssues" id="criticalIssueDays" /> days.<button
-            class="btn btn-primary criticalButton"
+            class="btn headBtn criticalButton"
             (click)="criticalIssueList()">
             List
           </button>
@@ -41,7 +41,7 @@
         style="width: 100%"
       >
         <!-- Issue Column -->
-        <ng-container matColumnDef="title">
+        <ng-container matColumnDef="issue">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue</th>
           <td mat-cell *matCellDef="let row">{{ row.title }}</td>
         </ng-container>
@@ -55,7 +55,7 @@
         </ng-container>
 
         <!-- Repository Column -->
-        <ng-container matColumnDef="repository">
+        <ng-container matColumnDef="issueRepository">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Repository</th>
           <td mat-cell *matCellDef="let row">{{ row.repository }}</td>
         </ng-container>
@@ -98,13 +98,13 @@
         <h4>
           How much average time needed for resolving
           <button
-            class="btn btn-primary btn-sm avgTime"
+            class="btn headBtn btn-sm avgTime"
             (click)="show = 'P1'; avg1()"
           >
             Priority-1</button
           >or
           <button
-            class="btn btn-primary btn-sm avgTime"
+            class="btn headBtn btn-sm avgTime"
             (click)="show = 'P2'; avg2()"
           >
             Priority-2
@@ -119,7 +119,7 @@
 
   <!-- Search By Label -->
   <mat-tab label="Search By Label">
-    <button class="btn btn-primary btn-sm labelButton" (click)="getlabels()">Get Labels</button>
+    <button class="btn headBtn btn-sm labelButton" (click)="getlabels()">Get Labels</button>
     <div class="content">
  
       <div *ngIf="labelLoading==true" class="loader">
@@ -165,7 +165,7 @@
               </ng-container>
 
               <!-- Created Column -->
-              <ng-container matColumnDef="repository">
+              <ng-container matColumnDef="labelRepository">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   Repository
                 </th>

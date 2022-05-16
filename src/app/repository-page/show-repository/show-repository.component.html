@@ -1,15 +1,17 @@
-<div class="container">
-  <div class="row overflow-auto itemsRow">
-    <div *ngFor="let i of nameOfItem; let index = index">
-      <label>{{i.name}}</label>
-      <button class="btn trash-btn btn-sm" (click)="remove(index)">
-        <i class="fa fa-trash"></i>
-      </button>
+<div class="showContainer">
+  <div class="overflow-auto showRepo up">
+    <div class="repoList d-flex justify-content-between" *ngFor="let i of nameOfItem; let index = index">
+      <div class="labelName">
+        <h4>{{i.name}}</h4>
+      </div>
+      <div class="trashButton">
+        <button class="btn trash-btn btn-sm" (click)="remove(index)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="row butonRow">
-    <div class="addRepoButton">
-      <button class="btn btn-primary" (click)="openDialog()">Add</button>
-    </div>
+  <div class="addRepoButton d-flex justify-content-end down">
+    <button class="btn addButton" (click)="openDialog()">Add Repository</button>
   </div>
 </div>

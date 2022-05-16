@@ -14,7 +14,7 @@
   padding: 1%;
 }
 
-.filtersettingdiv {
+.filterList {
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(161, 161, 161, 0.9);
   margin-bottom: 1%;
@@ -37,15 +37,44 @@ mat-toolbar {
   box-shadow: 0px 1px 10px rgba(161, 161, 161, 0.9);
 }
 
-.content{
+/* .content{
   margin-top: 0.28%;
   border-radius: 10px;
   box-shadow: 0px 1px 10px rgba(161, 161, 161, 0.9);
   height: 46em;
   min-height: 40em;
   overflow-y: auto;
+} */
+
+.content{
+  display: flex;
+  margin: 1% 1%;
 }
 
+.repoLeft{
+  float: left;
+  width: 23%;
+  height: 45em; 
+  margin-right: 1%;
+} 
+
+.repoRight{
+  float: left;
+  width: 76%;
+  border-radius: 10px;
+  box-shadow: 0px 1px 10px rgba(161, 161, 161, 0.9);
+  height: 43em; 
+  padding: 0.5%;
+}
+
+.repoList{
+  height: 55%;
+  margin-bottom: 4%;
+}
+
+.filterList{
+  height: 38%;
+}
 .row{
   padding: 1% 1%;
   width: 100%;

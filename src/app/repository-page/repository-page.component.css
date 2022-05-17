@@ -1,9 +1,25 @@
-.name {
+.appname {
   color: #664983;
   padding-left: 15px;
   text-decoration: none;
   text-align: center;
   font-size: 150%;
+  font-family: "Bahnschrift";
+}
+
+.orgname {
+  color: #664983;
+  /* padding: 1%; */
+  text-decoration: none;
+  text-align: center;
+  font-size: 130%;
+  font-family: "Bahnschrift";
+}
+
+#orgText{
+  color: #664983;
+  padding-right: 1%;
+  font-size: 130%;
   font-family: "Bahnschrift";
 }
 
@@ -29,7 +45,7 @@
   background-color: #ffffff;
 }
 
-img {
+.appImage {
   border-radius: 50%;
 }
 
@@ -37,14 +53,18 @@ mat-toolbar {
   box-shadow: 0px 1px 10px rgba(161, 161, 161, 0.9);
 }
 
-/* .content{
-  margin-top: 0.28%;
-  border-radius: 10px;
-  box-shadow: 0px 1px 10px rgba(161, 161, 161, 0.9);
-  height: 46em;
-  min-height: 40em;
-  overflow-y: auto;
-} */
+.fa-sign-out{
+  font-size: 120%;
+  color: rgb(53, 87, 180);
+  border-radius: 50%;
+  box-shadow: 0px 1px 3px rgba(161, 161, 161, 0.9);
+  padding: 0.5%;
+  margin-left: 1%;
+}
+
+#orgName{
+  margin-right: 1%;
+}
 
 .content{
   display: flex;

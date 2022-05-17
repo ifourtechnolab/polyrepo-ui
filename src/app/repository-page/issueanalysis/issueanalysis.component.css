@@ -1,14 +1,10 @@
-/* ::ng-deep .mat-tab-label-content {
-  font-size: large;
-} */
-
 .headBtn{
     background-color: #664983;
     color: white;
 }
 
 .criticalButton{
-  margin-left: 2%;
+  margin-left: 0.5%;
 }
 
 th{
@@ -34,15 +30,18 @@ a {
     padding: 2% 2% 1% 1%;
 }
 
-/* .issuesListArea{
-    height: 40em;
-} */
 #labelList{
     float: left;
     width: 30%;
     height: 33em !important;
     overflow-y: auto ;
 }
+
+#criticalList{
+  height: 31em !important;
+  overflow-y: auto ;
+}
+
  ::ng-deep .issuesListArea .mat-tab-body-content{
         overflow: hidden;
 }

@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
         if (data.message == "User Found") {
           localStorage.setItem('id', data.id);
           localStorage.setItem('token', data.bearer_token);
+          localStorage.setItem('user_name', data.user_name);
           if (data.token_validation == "Invalid Token") {
             this.isTokenInput = true;
             this.error_toast('Expired token , Please enter new token.');

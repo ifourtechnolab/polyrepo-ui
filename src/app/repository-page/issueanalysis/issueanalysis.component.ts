@@ -31,12 +31,12 @@ export class IssueanalysisComponent implements OnInit {
   criticalDataSource!: MatTableDataSource<issueData>;
   labelDataSource!: MatTableDataSource<labelData>;
   criticalDisplayedColumns: string[] = [
-    'title',
+    'issue',
     'createdAt',
-    'repository',
+    'issueRepository',
     'authorLogin',
   ];
-  labelDisplayedColumns: string[] = ['title', 'repository'];
+  labelDisplayedColumns: string[] = ['title', 'labelRepository'];
   authToken: any;
   orgName: any;
   days: any;

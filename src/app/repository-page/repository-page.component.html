@@ -1,22 +1,24 @@
 <mat-toolbar class="navigation">
-  <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
-  <a href="#" class="name">Polyrepo</a>
+  <img src="\assets\images\app_logo.png" alt="App Name" height="55px" class="appImage" />
+  <a href="#" class="appname">Polyrepo</a>
   <span class="example-spacer"></span>
-  <a href="{{ orgProfileData?.organization?.url }}" target="_blank" class="name" id="orgName">
+  <h2 id="orgText">Organization : </h2>
+  <img src="{{ orgProfileData?.organization?.avatarUrl }}" alt="App Name" height="50%" class="orgImage"/>
+  <a href="{{ orgProfileData?.organization?.url }}" target="_blank" class="orgname" id="orgName">
     {{ orgProfileData?.organization?.name }}</a><br />
-  <img src="{{ orgProfileData?.organization?.avatarUrl }}" alt="App Name" height="75%"/>
-  <button class="btn logoutButton" (click)="logout()"><mat-icon class="matLogout">power_settings_new</mat-icon></button>
+  <i class="fa fa-sign-out" (click)="logout()" aria-hidden="true"></i>
 </mat-toolbar>
 <div>
-  <div class="row">
-    <div class="col-3">
+  <div class="content">
+
+    <!-- Display repository list -->
+    <div class="repoLeft">
       <div class="repoList">
         <app-show-repository></app-show-repository>
       </div>
-      <br/>
 
       <!-- filter options -->
-      <div class="overflow-auto filtersettingdiv">
+      <div class="filterList overflow-auto">
         <mat-selection-list #filterr [multiple]="false" (selectionChange)="changeSpan($event)">
           <mat-list-option *ngFor="let filter of filters" [value]="filter">
             <span style="font-size: 17px" >
@@ -27,7 +29,7 @@
       </div>
     </div>
 
-    <div class="col-9 content">
+    <div class="repoRight">
       <router-outlet></router-outlet>
     </div>
   </div>

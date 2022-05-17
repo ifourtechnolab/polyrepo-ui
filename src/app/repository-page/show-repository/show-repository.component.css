@@ -1,23 +1,15 @@
-.butonRow {
-    justify-content: end;
-    margin-top: 8%;
-    margin-bottom: 5%;
+.showContainer{
+    padding: 2%;
 }
 
-.btn {
-    width: max-content;
+.showRepo{
+    height: 20em !important;
 }
 
-.itemsRow {
-    margin-top: 5%;
-    height: 300px;
-    display: block;
-    *display: inline;
-    zoom: 1;
-}
 
 .btn-group-sm>.btn,
 .btn-sm {
+
     padding: 0;
     outline: 0;
     width: min-content;
@@ -37,4 +29,19 @@ button.btn.trash-btn {
 
 .fa {
     color: rgb(185, 57, 57);
+}
+
+.addRepoButton{
+    height: 50%;
+    margin-top: 3%;
+}
+
+.addButton{
+    background-color: #664983;
+    color: white;
+}
+
+h4{
+    margin: 0;
+    padding: 0;
 }

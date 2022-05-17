@@ -39,16 +39,21 @@
     ></angular2-multiselect>
   </div>
 
-  <div class="row overflow-auto addedItems">
-    <div *ngFor="let selected of jsonArr; let index = index">
-      <label>{{ selected.name }}</label>
-      <button class="btn trash-btn btn-sm" (click)="remove(index)">
-        <i class="fa fa-trash"></i>
-      </button>
+  <div class="overflow-auto addedItems">
+
+    <div class="repoList d-flex justify-content-between" *ngFor="let selected of jsonArr; let index = index">
+      <div class="repoName">
+        <h4>{{selected.name}}</h4>
+      </div>
+      <div class="trashButton">
+        <button class="btn trash-btn btn-sm" (click)="remove(index)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
     </div>
   </div>
   <div class="row buttons">
-      <div class="col"><button class="btn btn-success" [disabled]="isdisable" mat-dialog-close (click)="addRepo()">Add</button></div>
+      <div class="col"><button class="btn addButton" [disabled]="isdisable" mat-dialog-close (click)="addRepo()">Add</button></div>
       <div class="col"><button class="btn" mat-button mat-dialog-close (click)="close()">Cancel</button></div>
   </div>
 </div>

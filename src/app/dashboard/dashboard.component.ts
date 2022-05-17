@@ -15,13 +15,14 @@ export class DashboardComponent implements OnInit {
   userName: any;
 
   orgListForm = new FormGroup({
-    organizationName: new FormControl({ value:""}, [Validators.required]),
+    organizationName: new FormControl('', [Validators.required]),
   });
   
   orgName: any;
   organizationsData: any;
   login: any;
   isdisable: boolean = true;
+  filtersOptions: string[] = ['Pinned Query', 'Saved Query', 'Trend Capture'];
 
   constructor(private http: HttpService, public router: Router) { }
 
@@ -64,6 +65,22 @@ export class DashboardComponent implements OnInit {
 
   routeToRepository() {
     this.router.navigate(['/repo']);
+  }
+
+  changeSpan(value: any){
+    let sel = value.option.selectionList._value[0];
+    if(sel=='Pinned Query')
+    {
+      this.router.navigate(['dashboard/pinned']);
+    }
+    else if(sel=='Saved Query')
+    {
+      this.router.navigate(['dashboard/saved']);
+    }
+    else if(sel=='Trend Capture')
+    {
+      this.router.navigate(['dashboard/trendcapture']);
+    }
   }
 
 }

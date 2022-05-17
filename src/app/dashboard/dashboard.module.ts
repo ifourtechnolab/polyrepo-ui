@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { PinnedqueryComponent } from './pinnedquery/pinnedquery.component';
-import { SavedqueryComponent } from './savedquery/savedquery.component';
+import { PinnedqueryComponent } from './pinnedqueryresult/pinnedqueryresult.component';
+import { SavedqueryComponent } from './savedqueryresult/savedqueryresult.component';
 import { TrendcaptureComponent } from './trendcapture/trendcapture.component';
 
 

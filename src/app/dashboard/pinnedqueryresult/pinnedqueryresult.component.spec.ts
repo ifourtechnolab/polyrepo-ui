@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SavedqueryComponent } from './savedquery.component';
+import { PinnedqueryComponent } from './pinnedqueryresult.component';
 
-describe('SavedqueryComponent', () => {
-  let component: SavedqueryComponent;
-  let fixture: ComponentFixture<SavedqueryComponent>;
+describe('PinnedqueryComponent', () => {
+  let component: PinnedqueryComponent;
+  let fixture: ComponentFixture<PinnedqueryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SavedqueryComponent ]
+      declarations: [ PinnedqueryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SavedqueryComponent);
+    fixture = TestBed.createComponent(PinnedqueryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

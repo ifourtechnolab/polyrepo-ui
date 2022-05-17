@@ -44,7 +44,6 @@ export class PranalysisComponent implements OnInit {
   unmergedPRDays: any;
   prLastActivity: any;
   unmergedPRActivity: any;
-  isLoading = false;
   loading = false;
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
@@ -133,7 +132,6 @@ export class PranalysisComponent implements OnInit {
     this.unmergedPRDays = this.fform2.value.MergePrDay;
     if (this.selectedRepoList.length === 0) {
       this.loading = false;
-      this.isLoading=false;
       this.alertbox();
     }
     else {

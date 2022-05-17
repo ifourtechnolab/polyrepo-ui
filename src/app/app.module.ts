@@ -11,11 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthHeaderInterceptor } from './shared/auth-header.interceptor';
 import { MaterialModuleModule } from './shared/material-module/material-module.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemoComponent,
+    DashboardComponent,
   ],
   imports: [
     AppRoutingModule,

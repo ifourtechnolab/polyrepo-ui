@@ -10,7 +10,7 @@
           GO
         </button> ?
 
-        <button class="btn btn-sm" type="button" (click)="openDialog()">
+        <button class="btn btn-sm" type="button" (click)="openDialogIdle()" [disabled]="isSaveIdle">
           Save Analysis
         </button>
 
@@ -81,7 +81,7 @@
           GO
         </button> ?
 
-        <button class="btn btn-primary btn-sm" type="button" (click)="openDialog()">
+        <button class="btn btn-primary btn-sm" type="button" (click)="openDialogUnmerged()" [disabled]="isSaveUnmergd">
           Save Analysis
         </button>
       </h4>

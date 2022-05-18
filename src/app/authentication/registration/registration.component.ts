@@ -19,7 +19,6 @@ export class RegistrationComponent implements OnInit {
   authToken: any;
   constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService, public router: Router) { }
   ngOnInit(): void {
-    //this.authToken = localStorage.getItem('token');
     this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
@@ -69,10 +68,13 @@ export class RegistrationComponent implements OnInit {
       else {
         if (data.message == "User was created successfully.") {
           this.success_toast();
-          localStorage.setItem('id', data.id);
-          localStorage.setItem('token', data.bearer_token);
-          localStorage.setItem('username', this.RegistrationFormGroup.value.username);
-          this.router.navigate(['auth/login']);
+          let obj={
+            "token":data.bearer_token,
+            "id":data.id,
+            "username":this.RegistrationFormGroup.value.username,
+          }
+          localStorage.setItem('user', JSON.stringify(obj));
+          this.router.navigate(['/dashboard']);
         }
         else {
           this.error_toast('Email already exist');

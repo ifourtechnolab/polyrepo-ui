@@ -8,7 +8,7 @@ const routes: Routes = [
   { path:'home', component: DemoComponent },
   { path:'repo',loadChildren:()=>import('./repository-page/repository-page.module').then(m=>m.RepositoryPageModule),canActivate:[AuthGuard]},
   { path:'auth',loadChildren:()=>import('./authentication/authentication.module').then(m=>m.AuthenticationModule)},
-  { path:'dashboard',loadChildren:()=>import('./dashboard/dashboard-routing.module').then(m=>m.DashboardRoutingModule)},
+  { path:'dashboard',loadChildren:()=>import('./dashboard/dashboard-routing.module').then(m=>m.DashboardRoutingModule),canActivate:[AuthGuard]},
   { path:'**', component: DemoComponent },
 ];
 

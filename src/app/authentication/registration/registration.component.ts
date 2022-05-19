@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../shared/http.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UtilService } from 'src/app/shared/util.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,8 +18,10 @@ export class RegistrationComponent implements OnInit {
   confirmPassword: any;
   Token: any;
   authToken: any;
-  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService, public router: Router) { }
+  constructor(private fb: FormBuilder, private http: HttpService,private util:UtilService , private toastr: ToastrService, public router: Router) { }
   ngOnInit(): void {
+    if(this.util.isLoggedIn())
+      this.router.navigate(['/dashboard']);
     this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],

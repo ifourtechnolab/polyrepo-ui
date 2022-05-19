@@ -42,4 +42,8 @@ export class RepositoryPageComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['demo']);
   }
+
+  dashboard(){
+    this.router.navigate(['dashboard']);
+  }
 }

@@ -83,7 +83,7 @@ export class PranalysisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authToken = localStorage.getItem('token');
+    this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
   }
   //toast alert

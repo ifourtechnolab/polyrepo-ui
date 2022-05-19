@@ -44,7 +44,8 @@ export class PranalysisComponent implements OnInit {
   unmergedPRDays: any;
   prLastActivity: any;
   unmergedPRActivity: any;
-  isLoading = false;
+
+  loading = false;
   isSaveUnmergd = true;
   isSaveIdle = true;
   idlePrQueryKey: any;
@@ -98,13 +99,16 @@ export class PranalysisComponent implements OnInit {
   //TAB-1
   //idle pr 
   noActivityPR() {
-    this.isLoading = true;
+
+    this.loading = true;
+
     this.isSaveIdle = false;
+
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.activityPRDays = this.fform.value.ActivityPrDay;
     if (this.selectedRepoList.length === 0) {
-      this.isLoading = false;
+      this.loading = false;
       this.alertbox();
     }
     else {
@@ -122,7 +126,7 @@ export class PranalysisComponent implements OnInit {
               authorUrl: x.author.url,
             }
           });
-          this.isLoading = false;
+          this.loading = false;
           this.dataSource = new MatTableDataSource<pullRequestData>(this.prLastActivity);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -133,13 +137,16 @@ export class PranalysisComponent implements OnInit {
   //TAB-2
   //for merged pr
   unmergedPr() {
-    this.isLoading = true;
+I
+    this.loading = true;
+
     this.isSaveUnmergd = false;
+
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.unmergedPRDays = this.fform2.value.MergePrDay;
     if (this.selectedRepoList.length === 0) {
-      this.isLoading = false;
+      this.loading = false;
       this.alertbox();
     }
     else {
@@ -157,7 +164,7 @@ export class PranalysisComponent implements OnInit {
               authorUrl: x.author.url,
             }
           });
-          this.isLoading = false;
+          this.loading = false;
           this.unmergeddataSource = new MatTableDataSource<unmergedPRData>(this.unmergedPRActivity);
           this.unmergeddataSource.paginator = this.paginator2;
           this.unmergeddataSource.sort = this.sort2;

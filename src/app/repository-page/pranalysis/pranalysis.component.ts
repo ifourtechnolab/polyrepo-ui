@@ -137,7 +137,6 @@ export class PranalysisComponent implements OnInit {
   //TAB-2
   //for merged pr
   unmergedPr() {
-I
     this.loading = true;
 
     this.isSaveUnmergd = false;

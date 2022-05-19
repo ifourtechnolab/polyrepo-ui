@@ -1,29 +1,39 @@
 <mat-toolbar class="navigation">
 
-  <div class="navflex">
-      <div class="appData">
-        <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
-        <a href="#" class="appname">Polyrepo</a>
-      </div>
+      <div class="navflex">
+        <div class="appData">
+          <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
+          <a href="#" class="appname">Polyrepo</a>
+        </div>
 
-      <div class="searchBar">
-        <form [formGroup]="orgListForm" (ngSubmit)="getOrganization()">
-          <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()" size="40">
-                <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
-                    <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" (onSelectionChange)="setOrgToLocal(i)">
-                        <p>{{x.node.name}}</p>
-                    </mat-option>
-                </mat-autocomplete>
-        </form>
-        <button class="btn btn1" (click)="routeToRepository()" [disabled]="isdisable" type="button" >Search</button>
-      </div>
-        <!-- <span class="example-spacer"></span> -->
+        <div class="searchBar">
+          <form [formGroup]="orgListForm" (ngSubmit)="getOrganization()">
+            <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()" size="40">
+                  <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
+                      <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" (onSelectionChange)="setOrgToLocal(i)">
+                          <p>{{x.node.name}}</p>
+                      </mat-option>
+                  </mat-autocomplete>
+          </form>
+          <button class="btn btn1" (click)="routeToRepository()" [disabled]="isdisable" type="button" >Search</button>
+        </div>
         <div class="userData">
-        <!-- <a href="{{ orgProfileData?.organization?.url }}" target="_blank" class="name" id="orgName">
-          {{ orgProfileData?.organization?.name }}</a><br /> -->
-          <a href="#" target="_blank" class="name userName" id="orgName">Hi, {{userName}}</a>
-          <i class="fa fa-sign-out" (click)="logout()" aria-hidden="true"></i>
-          <!-- <img src="{{ orgProfileData?.organization?.avatarUrl }}" alt="App Name" height="75%"/> -->
+          <a href="#" target="_blank"  class="name userName" id="orgName">Hi, {{userName}}</a>
+          <!-- <i class="fa fa-sign-out" matTooltip="Logout"  matTooltipClass="logoutTooltip" (click)="logout()" aria-hidden="true"></i> -->
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>home</mat-icon>
+              <span (click)="home()">Home</span>
+            </button>
+            
+            <button mat-menu-item>
+              <mat-icon>logout</mat-icon>
+              <span (click)="logout()" >Logout</span>
+            </button>
+          </mat-menu>
         </div>
       </div>
 </mat-toolbar>

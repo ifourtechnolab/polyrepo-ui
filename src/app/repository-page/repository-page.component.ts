@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpService } from '../shared/http.service';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { UtilService } from '../shared/util.service';
 @Component({
   selector: 'app-repository-page',
   templateUrl: './repository-page.component.html',
@@ -16,15 +17,19 @@ export class RepositoryPageComponent implements OnInit {
   item:any;
   filters: string[] = ['Issue Analysis', 'PR Analysis'];
 
-  constructor(private http: HttpService, public router: Router) { }
+  constructor(private http: HttpService, public router: Router, private util:UtilService) { }
 
   ngOnInit(): void {
+    if(!this.util.hasOrgValue()){
+      this.router.navigate(['/dashboard']);}
+    else{
     this.orgLogin = localStorage.getItem('orgLogin');
     this.http
       .getOrgProfile(this.orgLogin)
       .subscribe((orgProfile: any) => {
         this.orgProfileData = orgProfile;
       });
+    }
   }
   changeSpan(value: any){
     let sel = value.option.selectionList._value[0];
@@ -41,5 +46,10 @@ export class RepositoryPageComponent implements OnInit {
   logout(){
     localStorage.clear();
     this.router.navigate(['demo']);
+  }
+
+  dashboard(){
+    localStorage.removeItem('orgLogin');
+    this.router.navigate(['dashboard']);
   }
 }

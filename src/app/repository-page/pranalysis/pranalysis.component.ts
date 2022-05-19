@@ -48,8 +48,8 @@ export class PranalysisComponent implements OnInit {
   loading = false;
   isSaveUnmergd = true;
   isSaveIdle = true;
-  idlePrQueryKey:any;
-  unmergedPrQueryKey:any;
+  idlePrQueryKey: any;
+  unmergedPrQueryKey: any;
 
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
@@ -62,7 +62,7 @@ export class PranalysisComponent implements OnInit {
   @ViewChild('page2') paginator2: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('sort2') sort2: MatSort;
-  constructor(private http: HttpService, private util: UtilService, private toastr: ToastrService,public matDialog: MatDialog) { }
+  constructor(private http: HttpService, private util: UtilService, private toastr: ToastrService, public matDialog: MatDialog) { }
 
   //search filter for idle pr
   applyFilter(event: Event) {
@@ -84,7 +84,7 @@ export class PranalysisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authToken = localStorage.getItem('token');
+    this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
   }
   //toast alert
@@ -95,6 +95,8 @@ export class PranalysisComponent implements OnInit {
       easeTime: 250,
     });
   }
+
+  //TAB-1
   //idle pr 
   noActivityPR() {
 
@@ -113,7 +115,7 @@ export class PranalysisComponent implements OnInit {
       this.http.idlePr(this.orgLogin, this.activityPRDays, this.repoListObject)
         .subscribe((PRData: any) => {
           this.prLastActivity = PRData;
-          this.idlePrQueryKey=this.prLastActivity.queryKey;
+          this.idlePrQueryKey = this.prLastActivity.queryKey;
           this.prLastActivity = _.merge([], this.prLastActivity.search.nodes);
           this.prLastActivity = this.prLastActivity.map((x: any) => {
             return {
@@ -127,13 +129,14 @@ export class PranalysisComponent implements OnInit {
           this.loading = false;
           this.dataSource = new MatTableDataSource<pullRequestData>(this.prLastActivity);
           this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;  
+          this.dataSource.sort = this.sort;
         });
     }
   }
+
+  //TAB-2
   //for merged pr
   unmergedPr() {
-I
     this.loading = true;
 
     this.isSaveUnmergd = false;
@@ -149,7 +152,7 @@ I
       this.http.unmergedpr(this.orgLogin, this.unmergedPRDays, this.repoListObject)
         .subscribe((UnMergedData: any) => {
           this.unmergedPRActivity = UnMergedData;
-          this.unmergedPrQueryKey=this.unmergedPRActivity.queryKey;
+          this.unmergedPrQueryKey = this.unmergedPRActivity.queryKey;
           this.unmergedPRActivity = _.merge([], this.unmergedPRActivity.search.nodes);
           this.unmergedPRActivity = this.unmergedPRActivity.map((x: any) => {
             return {
@@ -168,11 +171,23 @@ I
     }
   }
 
-  openDialogIdle()
-  {
-    const openDialog = this.matDialog.open(SavequeryComponent, {disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey,days:this.activityPRDays } });
+  //Dialog execution on Idle PR 
+  openDialogIdle() {
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.activityPRDays } });
+    openDialog.afterClosed().subscribe((result) => {
+      if (result.data == true) {
+        this.isSaveIdle = true;
+      }
+    });
   }
-  openDialogUnmerged(){
-    const openDialog = this.matDialog.open(SavequeryComponent, {disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey,days:this.unmergedPRDays } });
+
+  //Dialog execution on Unmerged PR
+  openDialogUnmerged() {
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.unmergedPRDays } });
+    openDialog.afterClosed().subscribe((result) => {
+      if (result.data == true) {
+        this.isSaveUnmergd = true;
+      }
+    });
   }
 }

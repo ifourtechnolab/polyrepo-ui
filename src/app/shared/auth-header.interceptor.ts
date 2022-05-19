@@ -6,16 +6,17 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { UtilService } from './util.service';
 
 @Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private util:UtilService) {}
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (localStorage.getItem('token') != null) {
+    if (this.util.getToken() != null) {
       const clonedReq = request.clone({
         headers: request.headers.set(
           'Authorization',
-           localStorage.getItem('token')
+          this.util.getToken()
         ),
       });
       return next.handle(clonedReq).pipe(
@@ -23,7 +24,7 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
           (succ) => {},
           (err) => {
             if (err.status === 401) {
-              localStorage.removeItem('token');
+              localStorage.removeItem('user');
             }
           }
         )

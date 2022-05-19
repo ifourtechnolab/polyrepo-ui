@@ -14,9 +14,6 @@ export class DemoComponent implements OnInit {
   ngOnInit() { }
 
   routeToLogin() {
-    if(this.util.isLoggedIn())
-      this.router.navigate(['/dashboard']);
-    else
       this.router.navigate(['auth/login']);
   }
   routeToRegistor() {

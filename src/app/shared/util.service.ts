@@ -50,4 +50,9 @@ export class UtilService {
     this.userInfo = this.getUserInfo();
     return this.userInfo != null;
   }
+
+  public hasOrgValue():boolean{
+    let orgLogin=localStorage.getItem('orgLogin');
+    return orgLogin !=null;
+  }
 }

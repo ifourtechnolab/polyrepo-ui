@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { HttpService } from '../shared/http.service';
+import { UtilService } from '../shared/util.service';
 
 
 @Component({
@@ -24,10 +25,10 @@ export class DashboardComponent implements OnInit {
   isdisable: boolean = true;
   filtersOptions: string[] = ['Pinned Query', 'Saved Query', 'Trend Capture'];
 
-  constructor(private http: HttpService, public router: Router) { }
+  constructor(private http: HttpService, public router: Router,private util:UtilService) { }
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('username');
+    this.userName = this.util.getUserName();
   }
 
   get organizationName() {

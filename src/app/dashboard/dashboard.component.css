@@ -46,7 +46,7 @@ mat-toolbar {
 
 .searchBar{
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .content{
@@ -76,13 +76,6 @@ mat-toolbar {
 
 .nav-link{
     color: white;
-}
-
-.fa-sign-out{
-    font-size: 120%;
-    color: rgb(215, 160, 160);
-    border-bottom: 2px solid rgba(80, 80, 80, 0.5);
-    padding: 3%;
 }
 
 .filteroptionlist{

@@ -1,90 +1,26 @@
 <mat-toolbar class="navigation">
-  <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
-  <a href="#" class="name">Polyrepo</a>
-  <span class="example-spacer"></span>
-  <a class="btn name navButton">About</a>
-  <!-- <a class="btn name navButton" href="#About">About</a> -->
-  <a class="btn name navButton">Contact</a>
-  <!-- <a class="btn name navButton" href="#Contact">Contact</a> -->
-  <a class="btn loginButton navButton" (click)="routeToLogin()">Login</a>
+    <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
+    <a href="#" class="name">Polyrepo</a>
+    <span class="example-spacer"></span>
+    <a class="btn name navButton">About</a>
+    <!-- <a class="btn name navButton" href="#About">About</a> -->
+    <a class="btn name navButton">Contact</a>
+    <!-- <a class="btn name navButton" href="#Contact">Contact</a> -->
+    <a class="btn loginButton navButton" (click)="routeToLogin()">Login</a>
 </mat-toolbar>
-
-<!--Token Input-->
-<!-- <input type="text" placeholder="Token" formControlName="token" (blur)="getToken()" size="30"> -->
-
-<!--Search Organization-->
-<!-- <input type="text" id="searchOrganization" matInput [matAutocomplete]="autoGroup" placeholder="Search" formControlName="organizationName" (keyup)="getOrganization()" (blur)="searchvisibility()"  size="30">
-            <mat-autocomplete #autoGroup="matAutocomplete"><h1></h1>
-                <mat-option *ngFor="let x of organizationsData; let i = index"  [value]="x.node.name" (onSelectionChange)="setOrgToLocal(i)">
-                    <p>{{x.node.name}}</p>
-                </mat-option>
-            </mat-autocomplete> -->
-
-<!--Submit-->
-<!-- <button class="btn btn-primary btn1" (click)="routeToRepository()" [disabled]="isdisable"   type="button" >
-                Search
-            </button> -->
 
 <!-- Body -->
 <div class="content">
-  <div class="bodyLeft">
-    <h1 class="bodyText">Build for professional teams</h1>
-    <a class="btn loginButton" (click)="routeToRegistor()">Register</a>
-  </div>
-  <div class="bodyRight">
-    <img src="assets\images\bodyImage.svg" width="85%" />
-  </div>
-</div>
-
-<!-- cards -->
-<!-- <div class="containerCard">
-    <div class="row"> -->
-
-<!-- Visualize process -->
-<!-- <div class="col">
-        <mat-card class="example-card block">
-            <img mat-card-image src="assets\images\visualize_process.png" alt="Visualize process">
-            <mat-card-content>
-    
-            <h2 style="text-align: center;font-family: Cambria;"><b>Visualize process</b></h2>
-            
-            </mat-card-content> 
-        </mat-card>
-        </div> -->
-
-<!-- Filter Analysis -->
-<!-- <div class="col">
-            <mat-card class="example-card block">
-                <img mat-card-image src="assets\images\filter_analysis.png" alt="Filter Analysis">
-                <mat-card-content>
-                    <h2 style="text-align: center;font-family: Cambria;"><b>Filter Analysis</b></h2>
-                </mat-card-content> 
-            </mat-card>
-        </div> -->
-
-<!-- PR Analysis -->
-<!-- <div  class="col">
-            <mat-card class="example-card block">
-                <img mat-card-image src="assets\images\pull_request.png" alt="PR Analysis">
-                <mat-card-content>
-                    <h2 style="text-align: center;font-family: Cambria;"><b>PR Analysis</b></h2>
-                </mat-card-content> 
-            </mat-card>
-        </div> -->
-
-<!-- Settings Analysis -->
-<!-- <div  class="col">
-            <mat-card class="example-card block">
-                <img mat-card-image src="assets\images\setting_analysis.jpg" alt="Settings Analysis">
-                <mat-card-content>
-                    <h2 style="text-align: center;font-family: Cambria;"><b>Settings Analysis</b></h2>
-                </mat-card-content> 
-            </mat-card>
-        </div>
+    <div class="bodyLeft">
+        <h1 class="bodyText">Build for professional teams</h1>
+        <a class="btn loginButton" (click)="routeToRegistor()">Register</a>
     </div>
-    </div> -->
+    <div class="bodyRight">
+        <img src="assets\images\bodyImage.svg" width="85%" />
+    </div>
+</div>
 
 <!-- for routing -->
 <div>
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>

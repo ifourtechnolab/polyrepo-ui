@@ -6,9 +6,27 @@
     background-color: #664983;
     color: white;
 }
+.btn-sm {
+  margin-left: 1%;
+  background-color: #664983;
+  color: white;
+}
 
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.queryBTN{
+  display: flex;
+}
+
+.svg {
+  filter: invert(1);
+}
 .criticalButton{
-  margin-left: 2%;
+  margin-left: 1%;
 }
 
 th{
@@ -16,7 +34,7 @@ th{
 }
 
 h4{
-  font-size: large;
+  font-size:medium;
 }
 
 .avgTime{

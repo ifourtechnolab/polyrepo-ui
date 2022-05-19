@@ -7,7 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
-
+import { MatDialog } from '@angular/material/dialog';
+import { SavequeryComponent } from '../savequery/savequery.component';
 export interface issueData {
   title: any;
   createdAt: any;
@@ -50,6 +51,13 @@ export class IssueanalysisComponent implements OnInit {
   criticalLoading = false;
   labelLoading = false;
   labelList: any;
+  isCritic: boolean = true;
+  isLabel: boolean = true;
+  isAverage: boolean = true;
+  CriticalIssueQueryKey: any;
+  priorityQueryKey: any;
+  labelDataQueryKey: any;
+  queryLabel: any;
 
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
@@ -59,8 +67,9 @@ export class IssueanalysisComponent implements OnInit {
   constructor(
     public http: HttpService,
     private util: UtilService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public matDialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.criticalIssuesForm = new FormGroup({
@@ -86,7 +95,6 @@ export class IssueanalysisComponent implements OnInit {
   labelApplyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.labelDataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.labelDataSource.paginator) {
       this.labelDataSource.paginator = this.paginator2;
     }
@@ -97,7 +105,8 @@ export class IssueanalysisComponent implements OnInit {
   //critical issues data
   criticalIssueList() {
     this.criticalLoading = true;
-    this.authToken = localStorage.getItem('token');
+    this.isCritic = false;
+    this.authToken = this.util.getToken();
     this.orgName = localStorage.getItem('orgLogin');
     this.days = this.criticalIssuesForm.value.criticalIssues;
     this.selectedRepoList = this.util.getCollectiveRepoData();
@@ -121,6 +130,7 @@ export class IssueanalysisComponent implements OnInit {
         this.http
           .getcriticalIssue(this.orgName, this.days, this.repoListObject)
           .subscribe((res) => {
+            this.CriticalIssueQueryKey = res.queryKey;
             res = _.merge([], res.edges);
             this.criticalIssueData = res.map((x: any) => {
               return {
@@ -146,17 +156,21 @@ export class IssueanalysisComponent implements OnInit {
 
   // average time for priority-1 issues
   avg1() {
+    this.isAverage = false;
     this.orgName = localStorage.getItem('orgLogin');
     this.http.getAvgTimeP1(this.orgName).subscribe((res: any) => {
       this.priorityOne = res.message;
+      this.priorityQueryKey = res.queryKey;
     });
   }
 
   // average time for priority-2 issues
   avg2() {
+    this.isAverage = false;
     this.orgName = localStorage.getItem('orgLogin');
     this.http.getAvgTimeP2(this.orgName).subscribe((res: any) => {
       this.priorityTwo = res.message;
+      this.priorityQueryKey = res.queryKey;
     });
   }
 
@@ -202,6 +216,8 @@ export class IssueanalysisComponent implements OnInit {
       this.http
         .getlebelissueservice(this.orgName, this.repoListObject, label)
         .subscribe((res) => {
+          this.labelDataQueryKey = res.queryKey;
+          this.queryLabel = label;
           res = _.merge([], res.nodes);
           this.labelIssueData = res.map((x: any) => {
             return {
@@ -210,6 +226,7 @@ export class IssueanalysisComponent implements OnInit {
             };
           });
           this.labelLoading = false;
+          this.isLabel = false;
           this.labelDataSource = new MatTableDataSource<labelData>(
             this.labelIssueData
           );
@@ -217,5 +234,35 @@ export class IssueanalysisComponent implements OnInit {
           this.labelDataSource.sort = this.sort2;
         });
     }
+  }
+
+  //Dialog execution on critical issue 
+  openDialogCriticalIssue() {
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.CriticalIssueQueryKey, days: this.days } });
+    openDialog.afterClosed().subscribe((result) => {
+      if (result.data == true) {
+        this.isCritic = true;
+      }
+    });
+  }
+
+  //Dialog execution on average resolution time 
+  openDialogAverageIssue() {
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.priorityQueryKey } });
+    openDialog.afterClosed().subscribe((result) => {
+      if (result.data == true) {
+        this.isAverage = true;
+      }
+    });
+  }
+
+  //Dialog execution on label 
+  openDialogLabelIssue() {
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.labelDataQueryKey, label: this.queryLabel } });
+    openDialog.afterClosed().subscribe((result) => {
+      if (result.data == true) {
+        this.isLabel = true;
+      }
+    });
   }
 }

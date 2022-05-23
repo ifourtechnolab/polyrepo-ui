@@ -28,6 +28,13 @@ mat-toolbar {
     box-shadow: 0px 1px 10px rgba(161, 161, 161, 0.9);
 }
 
+#searchOrganization{
+    border: 0.5px solid rgba(80, 80, 80, 0.1);
+    background-color: rgb(245, 245, 245);
+    border-radius: 3px;
+    height: 37px;
+}
+
 .mat-toolbar-row, .mat-toolbar-single-row{
     display: grid;
 }
@@ -46,7 +53,7 @@ mat-toolbar {
 
 .searchBar{
     display: flex;
-    align-items: flex-end;
+    align-items: end;
 }
 
 .content{
@@ -56,6 +63,7 @@ mat-toolbar {
 
 .result{
     width: 86%;
+    padding: 0.5%;
     border: 1px solid black;
 }
 
@@ -74,11 +82,19 @@ mat-toolbar {
     margin-bottom: 3%;
 }
 
-.nav-link{
-    color: white;
+.fa-sign-out{
+    font-size: 120%;
+    color: rgb(215, 160, 160);
+    border-bottom: 2px solid rgba(80, 80, 80, 0.5);
+    padding: 3%;
 }
 
 .filteroptionlist{
-    color: white;
+    color: #eeeeee;
     font-size: 125% !important;
+    display: flex;
+}
+
+.filteroptionlist:hover{
+    color: #b7a4d6;
 }

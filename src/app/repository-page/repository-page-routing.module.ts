@@ -1,9 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AddrepositoryComponent } from './addrepository/addrepository.component';
+import { RepositoryPageComponent } from './repository-page.component';
+
 import { IssueanalysisComponent } from './issueanalysis/issueanalysis.component';
 import { PranalysisComponent } from './pranalysis/pranalysis.component';
-import { RepositoryPageComponent } from './repository-page.component';
 import { ShowRepositoryComponent } from './show-repository/show-repository.component';
 const routes: Routes = [
   {path:'',component:RepositoryPageComponent,

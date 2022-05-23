@@ -44,13 +44,11 @@ export class PranalysisComponent implements OnInit {
   unmergedPRDays: any;
   prLastActivity: any;
   unmergedPRActivity: any;
-
-  loading = false;
+  dataloading = false;
   isSaveUnmergd = true;
   isSaveIdle = true;
-  idlePrQueryKey: any;
-  unmergedPrQueryKey: any;
-
+  idlePrQueryKey:any;
+  unmergedPrQueryKey:any;
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
     ActivityPrDay: new FormControl('',),
@@ -99,16 +97,13 @@ export class PranalysisComponent implements OnInit {
   //TAB-1
   //idle pr 
   noActivityPR() {
-
-    this.loading = true;
-
+    this.dataloading = true;
     this.isSaveIdle = false;
-
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.activityPRDays = this.fform.value.ActivityPrDay;
     if (this.selectedRepoList.length === 0) {
-      this.loading = false;
+      this.dataloading = false;
       this.alertbox();
     }
     else {
@@ -126,7 +121,7 @@ export class PranalysisComponent implements OnInit {
               authorUrl: x.author.url,
             }
           });
-          this.loading = false;
+          this.dataloading = false;
           this.dataSource = new MatTableDataSource<pullRequestData>(this.prLastActivity);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -137,15 +132,13 @@ export class PranalysisComponent implements OnInit {
   //TAB-2
   //for merged pr
   unmergedPr() {
-    this.loading = true;
-
+    this.dataloading = true;
     this.isSaveUnmergd = false;
-
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { "repoNames": this.selectedRepoList };
     this.unmergedPRDays = this.fform2.value.MergePrDay;
     if (this.selectedRepoList.length === 0) {
-      this.loading = false;
+      this.dataloading = false;
       this.alertbox();
     }
     else {
@@ -163,7 +156,7 @@ export class PranalysisComponent implements OnInit {
               authorUrl: x.author.url,
             }
           });
-          this.loading = false;
+          this.dataloading = false;
           this.unmergeddataSource = new MatTableDataSource<unmergedPRData>(this.unmergedPRActivity);
           this.unmergeddataSource.paginator = this.paginator2;
           this.unmergeddataSource.sort = this.sort2;

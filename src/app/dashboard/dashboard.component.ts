@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { HttpService } from '../shared/http.service';
 import { UtilService } from '../shared/util.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

@@ -34,7 +34,7 @@ export class ShowRepositoryComponent implements OnInit {
   constructor(private http: HttpService, public matDialog: MatDialog,private util: UtilService) { }
 
   ngOnInit(): void {
-    this.authToken = localStorage.getItem('token');
+    this.authToken =this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
   }
 

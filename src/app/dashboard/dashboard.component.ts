@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../shared/http.service';
-import * as _ from 'lodash';
-import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
+import { HttpService } from '../shared/http.service';
+import { UtilService } from '../shared/util.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'], 
 })
 export class DashboardComponent implements OnInit {
 
@@ -24,10 +24,10 @@ export class DashboardComponent implements OnInit {
   isdisable: boolean = true;
   filtersOptions: string[] = ['Pinned Query', 'Saved Query', 'Trend Capture'];
 
-  constructor(private http: HttpService, public router: Router) { }
+  constructor(private http: HttpService, public router: Router,private util:UtilService) { }
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('username');
+    this.userName = this.util.getUserName();
   }
 
   get organizationName() {
@@ -38,7 +38,10 @@ export class DashboardComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['demo']);
   }
-
+  public home()
+  {
+    this.router.navigate(['demo']);
+  }
   public getOrganization() {
     this.orgName = this.orgListForm.value.organizationName;
     if (this.orgName != '') {

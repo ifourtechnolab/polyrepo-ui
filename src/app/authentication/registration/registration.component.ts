@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../shared/http.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UtilService } from 'src/app/shared/util.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,9 +18,10 @@ export class RegistrationComponent implements OnInit {
   confirmPassword: any;
   Token: any;
   authToken: any;
-  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService, public router: Router) { }
+  constructor(private fb: FormBuilder, private http: HttpService,private util:UtilService , private toastr: ToastrService, public router: Router) { }
   ngOnInit(): void {
-    //this.authToken = localStorage.getItem('token');
+    if(this.util.isLoggedIn())
+      this.router.navigate(['/dashboard']);
     this.RegistrationFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
@@ -69,10 +71,13 @@ export class RegistrationComponent implements OnInit {
       else {
         if (data.message == "User was created successfully.") {
           this.success_toast();
-          localStorage.setItem('id', data.id);
-          localStorage.setItem('token', data.bearer_token);
-          localStorage.setItem('username', this.RegistrationFormGroup.value.username);
-          this.router.navigate(['auth/login']);
+          let obj={
+            "token":data.bearer_token,
+            "id":data.id,
+            "username":this.RegistrationFormGroup.value.username,
+          }
+          localStorage.setItem('user', JSON.stringify(obj));
+          this.router.navigate(['/dashboard']);
         }
         else {
           this.error_toast('Email already exist');

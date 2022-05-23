@@ -11,8 +11,10 @@ const routes: Routes = [
     {path:'issue',component:IssueanalysisComponent},
     {path:'pr',component:PranalysisComponent},
     {path:'showRepo',component:ShowRepositoryComponent},
+    
   ],
-  }
+  },
+  {path:'**',component:RepositoryPageComponent}
 ];
 
 @NgModule({

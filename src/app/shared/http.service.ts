@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private httpWithoutInterceptor:HttpClient, private httpbackend:HttpBackend) {
+    this.httpWithoutInterceptor= new HttpClient(httpbackend);
+   }
 
   //get organisation list inside autocomplete search
   getData(orgName: any) {
@@ -80,17 +81,17 @@ export class HttpService {
 
   //registeration functionality 
   public register(RegistrationFormGroup: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/user/register', RegistrationFormGroup);
+    return this.httpWithoutInterceptor.post<any>(environment.apiUrl + '/user/register', RegistrationFormGroup);
   }
 
   //login functionlity
   public login(LoginFormGroup: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/user/login', LoginFormGroup);
+    return this.httpWithoutInterceptor.post<any>(environment.apiUrl + '/user/login', LoginFormGroup);
   }
 
   //update token
   public updateToken(LoginToken: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/user/updateToken', LoginToken);
+    return this.httpWithoutInterceptor.post<any>(environment.apiUrl + '/user/updateToken', LoginToken);
   }
 
   //save query

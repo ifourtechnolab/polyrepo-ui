@@ -4,6 +4,7 @@ import { HttpService } from '../../shared/http.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MaterialModuleModule } from '../../shared/material-module/material-module.module';
+import { UtilService } from 'src/app/shared/util.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,36 +16,45 @@ export class LoginComponent implements OnInit {
   passWord: any;
   isTokenInput = false;
 
-
-  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService, public router: Router) { }
+  constructor(private fb: FormBuilder, private http: HttpService, private toastr: ToastrService, public router: Router,private util:UtilService ) { }
 
   ngOnInit(): void {
-    this.loginFormGroup = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      token: ['']
-    })
+    if(this.util.isLoggedIn()){
+      this.router.navigate(['/dashboard']);
+    }else{
+      this.loginFormGroup = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        token: ['']
+      })
+    }
   }
 
   login() {
     if (this.isTokenInput == true && this.loginFormGroup.value.token != null) {
       let data = {
         "bearerToken": this.loginFormGroup.value.token,
-        "id": localStorage.getItem('id'),
+        "id":this.util.getUserId(),
       }
       this.http.updateToken(data).subscribe((result: any) => {
         if (result.message == "Token updated") {
-          localStorage.setItem('token', this.loginFormGroup.value.token);
-          this.router.navigate(['/repo']);
+          let userInfo=JSON.parse(localStorage.getItem('user'));
+          userInfo.token= this.loginFormGroup.value.token;
+          localStorage.setItem('user', JSON.stringify(userInfo));
+          this.router.navigate(['/dashboard']);
         }
       });
     }
     else {
       this.http.login(this.loginFormGroup.value).subscribe((data: any) => {
         if (data.message == "User Found") {
-          localStorage.setItem('id', data.id);
-          localStorage.setItem('token', data.bearer_token);
-          localStorage.setItem('username',data.user_name);
+          let obj={
+            "token":data.bearer_token,
+            "id":data.id,
+            "username":data.user_name,
+          }
+          localStorage.setItem('user', JSON.stringify(obj));
+          
           if (data.token_validation == "Invalid Token") {
             this.isTokenInput = true;
             this.error_toast('Expired token , Please enter new token.');

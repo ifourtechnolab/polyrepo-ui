@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'angular2-multiselect-dropdown';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UtilService } from 'src/app/shared/util.service';
 @Component({
   selector: 'app-addrepository',
   templateUrl: './addrepository.component.html',
@@ -34,10 +35,10 @@ export class AddrepositoryComponent implements OnInit {
   searchForm = new FormGroup({
     repositoryName: new FormControl(''),
   });
-  constructor(private http: HttpService, public matDialog: MatDialogRef<AddrepositoryComponent>) { }
+  constructor(private http: HttpService, public matDialog: MatDialogRef<AddrepositoryComponent>,private util:UtilService) { }
 
   ngOnInit(): void {
-    this.authToken = localStorage.getItem('token');
+    this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
     this.dropdownSettings = {
       singleSelection: false,

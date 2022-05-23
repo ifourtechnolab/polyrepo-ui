@@ -20,10 +20,10 @@ export class AddrepositoryComponent implements OnInit {
   authToken: any;
   selectedI: any = [];
   TemprepoNameList: any;
-  //loading = false;
   isNextPage: boolean = false;
   nextPageHash!: string;
   loading: boolean = false;
+  dataloading = false;
   dialogRef: any;
   test: any;
   jsonArr: any = [];
@@ -81,6 +81,7 @@ export class AddrepositoryComponent implements OnInit {
   // get rest of repos
   callApi() {
     this.loading = true;
+    this.dataloading = true;
     this.http
       .getNextPageRepoList(this.nextPageHash, this.orgLogin)
       .subscribe((RepoList: any) => {
@@ -97,6 +98,7 @@ export class AddrepositoryComponent implements OnInit {
         });
         this.repoNameList = this.repoNameList.concat(this.TemprepoNameList);
         this.loading = false;
+        this.dataloading = false;
       });
   }
 

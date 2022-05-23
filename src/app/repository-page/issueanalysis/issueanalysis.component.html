@@ -17,8 +17,7 @@
     </div>
 
     <div id="criticalList">
-      <div *ngIf="criticalLoading" class="loader">
-        <div></div>
+      <div *ngIf="dataloading" class="loader">
         <div></div>
         <div></div>
         <div></div>
@@ -126,8 +125,7 @@
     
     <div class="content">
  
-      <div *ngIf="labelLoading==true" class="loader">
-        <div></div>
+      <div *ngIf="dataloading==true" class="loader">
         <div></div>
         <div></div>
         <div></div>
@@ -136,9 +134,7 @@
         <div id="labelList" class="labels">
           <mat-nav-list>
             <mat-list-item *ngFor="let link of labelList">
-              <a class="btn" (click)="getlebelissue(link.name)">{{
-                link.name
-              }}</a>
+              <a class="btn" (click)="getlebelissue(link.name)">{{link.name}}</a>
             </mat-list-item>
           </mat-nav-list>
         </div>

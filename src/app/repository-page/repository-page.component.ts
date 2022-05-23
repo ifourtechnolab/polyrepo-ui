@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../shared/http.service';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';

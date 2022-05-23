@@ -18,6 +18,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [],
@@ -42,7 +45,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCardModule,
     AngularMultiSelectModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class MaterialModuleModule { }

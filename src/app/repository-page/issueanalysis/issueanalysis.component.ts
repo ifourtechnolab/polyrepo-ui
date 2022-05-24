@@ -9,6 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SavequeryComponent } from '../savequery/savequery.component';
+import { Router } from '@angular/router';
+
 export interface issueData {
   title: any;
   createdAt: any;
@@ -58,6 +60,8 @@ export class IssueanalysisComponent implements OnInit {
   labelDataQueryKey: any;
   queryLabel: any;
 
+  receiveData: any;
+
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
   @ViewChild('sort1') sort1: MatSort;
@@ -67,8 +71,16 @@ export class IssueanalysisComponent implements OnInit {
     public http: HttpService,
     private util: UtilService,
     private toastr: ToastrService,
-    public matDialog: MatDialog
-  ) { }
+    public matDialog: MatDialog,
+    public router: Router
+  ) { 
+    if((this.router.getCurrentNavigation().extras.state) != null){
+      debugger
+      this.receiveData = this.router.getCurrentNavigation().extras.state;
+      console.log(this.receiveData.data);
+    }
+    
+   }
 
   ngOnInit(): void {
     this.criticalIssuesForm = new FormGroup({
@@ -238,7 +250,7 @@ export class IssueanalysisComponent implements OnInit {
 
   //Dialog execution on critical issue 
   openDialogCriticalIssue() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.CriticalIssueQueryKey, days: this.days } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.CriticalIssueQueryKey, days: this.days, type: 'issue' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isCritic = true;

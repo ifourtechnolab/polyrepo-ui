@@ -7,7 +7,6 @@ import { PinnedqueryComponent } from './pinnedqueryresult/pinnedqueryresult.comp
 import { TrendcaptureComponent } from './trendcapture/trendcapture.component';
 import { MaterialModuleModule } from '../shared/material-module/material-module.module';
 import { ShowqueryComponent } from './showquery/showquery.component';
-import { RouterModule } from '@angular/router';
 import { ShowqueryresultComponent } from './showqueryresult/showqueryresult.component';
 import { ShowquerydetailsComponent } from './showquerydetails/showquerydetails.component';
 

@@ -15,20 +15,31 @@ export class RepositoryPageComponent implements OnInit {
   orgLogin: any;
   repoNameList: any;
   item:any;
+  receiveData:any;
+  orgName:any;
   filters: string[] = ['Issue Analysis', 'PR Analysis'];
 
-  constructor(private http: HttpService, public router: Router, private util:UtilService) { }
+  constructor(private http: HttpService, public router: Router, private util:UtilService) { 
+    if((this.router.getCurrentNavigation().extras.state) != null){
+      this.receiveData = this.router.getCurrentNavigation().extras.state;
+      console.log(this.receiveData.data);
+      if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
+        this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
+      }
+    }
+   }
 
   ngOnInit(): void {
-    if(!this.util.hasOrgValue()){
-      this.router.navigate(['/dashboard']);}
+    if(this.orgName!=null){
+      this.getOrgProfile(this.orgName);
+    }
+    else if(this.util.hasOrgValue()){
+      // this.router.navigate(['/dashboard']);
+      this.orgLogin = localStorage.getItem('orgLogin');
+      this.getOrgProfile(this.orgLogin);
+    }
     else{
-    this.orgLogin = localStorage.getItem('orgLogin');
-    this.http
-      .getOrgProfile(this.orgLogin)
-      .subscribe((orgProfile: any) => {
-        this.orgProfileData = orgProfile;
-      });
+    
     }
   }
   changeSpan(value: any){
@@ -51,5 +62,13 @@ export class RepositoryPageComponent implements OnInit {
   dashboard(){
     localStorage.removeItem('orgLogin');
     this.router.navigate(['dashboard']);
+  }
+
+  getOrgProfile(name: any){
+    this.http
+      .getOrgProfile(name)
+      .subscribe((orgProfile: any) => {
+        this.orgProfileData = orgProfile;
+      });
   }
 }

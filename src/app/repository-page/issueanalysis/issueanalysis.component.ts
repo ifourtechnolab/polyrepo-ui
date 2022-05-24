@@ -59,7 +59,7 @@ export class IssueanalysisComponent implements OnInit {
   priorityQueryKey: any;
   labelDataQueryKey: any;
   queryLabel: any;
-
+  tabIndex = 0 ;
   receiveData: any;
 
   @ViewChild('page1') paginator1: MatPaginator;
@@ -90,6 +90,17 @@ export class IssueanalysisComponent implements OnInit {
     this.AvgTimeForm = new FormGroup({
       avgIssues: new FormControl(''),
     });
+    if(this.util.getQueryKey().length > 0){
+      if(this.util.getQueryKey() == 'getPriority1IssuesOpenedBeforeXDaysQuery'){
+        this.tabIndex = 0;
+      }
+      else if(this.util.getQueryKey() == 'getClosedP1IssuesTimeQuery'|| this.util.getQueryKey() == 'getClosedP2IssuesTimeQuery'){
+        this.tabIndex = 1;
+      }
+      else if(this.util.getQueryKey() == 'getOpenIssueNamesByLabel'){
+        this.tabIndex = 2;
+      }
+    }
   }
 
   // pagination filter for critical issues

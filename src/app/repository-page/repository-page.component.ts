@@ -37,7 +37,7 @@ export class RepositoryPageComponent implements OnInit {
       this.receiveData = this.router.getCurrentNavigation().extras.state;
       console.log(this.receiveData.data);
       this.util.setQueryTitle(this.receiveData.data.title)
-      this.util.setQueryKey(this.receiveData.data.quryKey)
+      this.util.setQueryKey(this.receiveData.data.queryKey)
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
         this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
       }

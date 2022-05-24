@@ -49,6 +49,7 @@ export class PranalysisComponent implements OnInit {
   isSaveIdle = true;
   idlePrQueryKey:any;
   unmergedPrQueryKey:any;
+  tabIndex = 0;
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
     ActivityPrDay: new FormControl('',),
@@ -84,6 +85,15 @@ export class PranalysisComponent implements OnInit {
   ngOnInit(): void {
     this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
+
+    if(this.util.getQueryKey().length > 0){
+      if(this.util.getQueryKey() == 'getPullRequestNotUpdatedByDaysQuery'){
+        this.tabIndex = 0;
+      }
+      else if(this.util.getQueryKey() == 'getUnMergedPullRequestByDayQuery'){
+        this.tabIndex = 1;
+      }
+    }
   }
   //toast alert
   alertbox() {

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModuleModule } from '../shared/material-module/material-module.module';
 import { IssueanalysisComponent } from './issueanalysis/issueanalysis.component';
@@ -12,7 +10,6 @@ import { PranalysisComponent } from './pranalysis/pranalysis.component';
 import { ShowRepositoryComponent } from './show-repository/show-repository.component';
 import { AddrepositoryComponent } from './addrepository/addrepository.component';
 import { SavequeryComponent } from './savequery/savequery.component';
-
 
 @NgModule({
   declarations: [
@@ -26,15 +23,8 @@ import { SavequeryComponent } from './savequery/savequery.component';
   imports: [
     CommonModule,
     RepositoryPageRoutingModule,
-
-    ReactiveFormsModule,
-
     RouterModule,
-
-    FormsModule,
-
     HttpClientModule,
-
     MaterialModuleModule
   ],
 })

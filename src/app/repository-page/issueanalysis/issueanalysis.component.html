@@ -12,7 +12,7 @@
           </button>
 
           <button class="btn btn-sm" type="button" (click)="openDialogCriticalIssue()" [disabled]="isCritic">
-            Save Analysis
+            <mat-icon>save</mat-icon>
           </button>
 
           <button class="btn btn-sm" type="button">
@@ -190,13 +190,6 @@
                 Repository
               </th>
               <td mat-cell *matCellDef="let row">{{ row.repository }}</td>
-            </ng-container>
-
-            <!-- Author Column -->
-            <ng-container matColumnDef="authorLogin">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
-              <td mat-cell *matCellDef="let row"> <a href="{{row.authorUrl}}" target="_blank">{{row.authorLogin}}</a>
-              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="labelDisplayedColumns"></tr>

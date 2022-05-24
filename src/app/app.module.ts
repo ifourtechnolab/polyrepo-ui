@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -11,14 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthHeaderInterceptor } from './shared/auth-header.interceptor';
 import { MaterialModuleModule } from './shared/material-module/material-module.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent,
-    DashboardComponent,
-  ],
+    DemoComponent
+  ],      
   imports: [
     AppRoutingModule,
     ReactiveFormsModule,
@@ -30,11 +28,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     MaterialModuleModule
   ],
-  providers: [ {
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthHeaderInterceptor,
     multi: true
   }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

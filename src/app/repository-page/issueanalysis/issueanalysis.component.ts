@@ -105,7 +105,6 @@ export class IssueanalysisComponent implements OnInit {
   //critical issues data
   criticalIssueList() {
     this.criticalLoading = true;
-    this.isCritic = false;
     this.authToken = this.util.getToken();
     this.orgName = localStorage.getItem('orgLogin');
     this.days = this.criticalIssuesForm.value.criticalIssues;
@@ -142,6 +141,7 @@ export class IssueanalysisComponent implements OnInit {
               };
             });
             this.criticalLoading = false;
+            this.isCritic = false;
             this.criticalDataSource = new MatTableDataSource<issueData>(
               this.criticalIssueData
             );

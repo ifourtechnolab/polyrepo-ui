@@ -3,14 +3,15 @@
         <form [formGroup]="fform">
             <input type="text" placeholder="Title" formControlName="title"><br><br>
         </form>
+        <mat-checkbox class="example-margin">Pin</mat-checkbox>
+        <mat-checkbox class="example-margin">Trend</mat-checkbox>
     </div>
-            <div class="row" style="margin-top: 20%;">
-                <div class="col-6">
+            <div class="actionBTN">
+                <div id="saveBTN">
                 <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Ok</button>
                 </div>
-                <div class="col-6">
+                <div id="closeBTN">
                 <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
                 </div>
             </div>
-    
 </div>

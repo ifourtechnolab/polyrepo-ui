@@ -260,7 +260,7 @@ export class IssueanalysisComponent implements OnInit {
 
   //Dialog execution on average resolution time 
   openDialogAverageIssue() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.priorityQueryKey } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.priorityQueryKey,type: 'issue' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isAverage = true;

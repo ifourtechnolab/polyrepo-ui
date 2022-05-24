@@ -166,7 +166,7 @@ export class PranalysisComponent implements OnInit {
 
   //Dialog execution on Idle PR 
   openDialogIdle() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.activityPRDays } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.activityPRDays,type: 'pr' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isSaveIdle = true;
@@ -176,7 +176,7 @@ export class PranalysisComponent implements OnInit {
 
   //Dialog execution on Unmerged PR
   openDialogUnmerged() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.unmergedPRDays } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.unmergedPRDays,type: 'pr' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isSaveUnmergd = true;

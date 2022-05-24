@@ -16,8 +16,15 @@
     margin-right: 5%;
 }
 
+.appData{
+    display: flex;
+    align-items: center;
+}
+
 .userData{
     margin-right: 1%;
+    display: flex;
+    align-items: center;
 }
 
 .example-spacer {
@@ -97,4 +104,9 @@ mat-toolbar {
 
 .filteroptionlist:hover{
     color: #b7a4d6;
+}
+
+.fa-bars{
+    font-size: 150%;
+    color: #664983;
 }

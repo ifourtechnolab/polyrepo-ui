@@ -140,6 +140,7 @@ export class IssueanalysisComponent implements OnInit {
                 authorUrl: x.node.author.url,
               };
             });
+            this.isCritic = false;
             this.dataloading = false;
             this.criticalDataSource = new MatTableDataSource<issueData>(
               this.criticalIssueData

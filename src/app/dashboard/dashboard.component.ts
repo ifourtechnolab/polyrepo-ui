@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
     }
     else if(sel=='Saved Query')
     {
-      this.router.navigate(['dashboard/saved']);
+      this.router.navigate(['dashboard/showquery']);
     }
     else if(sel=='Trend Capture')
     {

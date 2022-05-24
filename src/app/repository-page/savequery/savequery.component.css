@@ -1,9 +1,6 @@
-
-.row1{
-    padding: auto;
-    margin-left: 30%;
-    margin-top: 50%;
-    margin-right: 20%;
+.actionBTN{
+    display: flex;
+    justify-content: space-around;
 }
 
 .btn-sm{

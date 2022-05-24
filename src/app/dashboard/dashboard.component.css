@@ -63,8 +63,8 @@ mat-toolbar {
 
 .result{
     width: 86%;
+    border: 0.5px solid rgba(161, 161, 161, 0.9);
     padding: 0.5%;
-    border: 1px solid black;
 }
 
 .sideNavbar{

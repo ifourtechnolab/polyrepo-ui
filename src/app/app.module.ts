@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { MaterialModuleModule } from './shared/material-module/material-module.m
     AppComponent,
     DemoComponent,
   ],
+
   imports: [
     AppRoutingModule,
     ReactiveFormsModule,
@@ -28,11 +29,12 @@ import { MaterialModuleModule } from './shared/material-module/material-module.m
     BrowserModule,
     MaterialModuleModule
   ],
-  providers: [ {
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthHeaderInterceptor,
     multi: true
   }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

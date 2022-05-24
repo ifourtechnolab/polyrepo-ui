@@ -15,8 +15,9 @@ import { MaterialModuleModule } from './shared/material-module/material-module.m
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent
-  ],      
+    DemoComponent,
+  ],
+
   imports: [
     AppRoutingModule,
     ReactiveFormsModule,

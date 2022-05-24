@@ -46,7 +46,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatTabsModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     MatMenuModule
   ],
 })

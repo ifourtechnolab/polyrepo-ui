@@ -1,16 +1,13 @@
 <div class="container">
-    <div class="row">
         <form [formGroup]="fform">
-            <input type="text" placeholder="Title" formControlName="title"><br><br>
+            <input type="text" placeholder="Title" formControlName="title">
         </form>
+    <div class="actionBTN">
+        <div id="saveBTN">
+            <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Ok</button>
+        </div>
+        <div id="closeBTN">
+            <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
+        </div>
     </div>
-            <div class="row" style="margin-top: 20%;">
-                <div class="col-6">
-                <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Ok</button>
-                </div>
-                <div class="col-6">
-                <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
-                </div>
-            </div>
-    
 </div>

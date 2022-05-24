@@ -29,13 +29,15 @@ export class ShowRepositoryComponent implements OnInit {
   jsonArr: any = [];
   repoListObject: any;
   repoName!:string ;
+  receiveData:any;
   nameOfItem: repoList[] = [];
 
-  constructor(private http: HttpService, public matDialog: MatDialog,private util: UtilService) { }
+  constructor(private http: HttpService, public matDialog: MatDialog,private util: UtilService) {  }
 
   ngOnInit(): void {
     this.authToken =this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
+    this.nameOfItem = this.util.getCollectiveRepoData();
   }
 
   openDialog() {

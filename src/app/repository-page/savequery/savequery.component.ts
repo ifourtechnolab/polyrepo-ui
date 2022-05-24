@@ -31,6 +31,7 @@ export class SavequeryComponent implements OnInit {
       .set('userId', this.util.getUserId())
       .set('title', this.fform.value.title)
       .set('queryKey', this.data.queryKey)
+      .set('type', this.data.type)
       .set('orgName', localStorage.getItem('orgLogin'));
     if (this.data.days != null) {
       params = params.append('days', this.data.days);

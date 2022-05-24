@@ -12,6 +12,11 @@ interface repoList {
 export class UtilService {
   userInfo:any;
   selectedRepoList: repoList[] = [];
+  queryType: any;
+  queryLabel: any;
+  queryDays: any;
+  queryKey: any;
+  queryTitle :any;
   constructor(private util: HttpClient) { }
 
   //set data from showrepository
@@ -54,5 +59,45 @@ export class UtilService {
   public hasOrgValue():boolean{
     let orgLogin=localStorage.getItem('orgLogin');
     return orgLogin !=null;
+  }
+
+  public setQueryType(type : any){
+    this.queryType = type;
+  }
+
+  public getQueryType(){
+    return this.queryType;
+  }
+
+  public setQueryDays(days : any){
+    this.queryDays = days;
+  }
+  
+  public getQueryDays(){
+    return this.queryDays;
+  }
+
+  public setQueryLabel(label : any){
+    this.queryLabel = label;
+  }
+  
+  public getQueryLabel(){
+    return this.queryLabel;
+  }
+
+  public setQueryKey(key : any){
+    this.queryKey = key;
+  }
+  
+  public getQueryKey(){
+    return this.queryKey;
+  }
+
+  public setQueryTitle(title : any){
+    this.queryTitle = title;
+  }
+  
+  public getQueryTitle(){
+    return this.queryTitle;
   }
 }

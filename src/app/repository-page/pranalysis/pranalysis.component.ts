@@ -49,6 +49,7 @@ export class PranalysisComponent implements OnInit {
   isSaveIdle = true;
   idlePrQueryKey:any;
   unmergedPrQueryKey:any;
+  tabIndex = 0;
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
     ActivityPrDay: new FormControl('',),
@@ -84,6 +85,15 @@ export class PranalysisComponent implements OnInit {
   ngOnInit(): void {
     this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
+
+    if(this.util.getQueryKey().length > 0){
+      if(this.util.getQueryKey() == 'getPullRequestNotUpdatedByDaysQuery'){
+        this.tabIndex = 0;
+      }
+      else if(this.util.getQueryKey() == 'getUnMergedPullRequestByDayQuery'){
+        this.tabIndex = 1;
+      }
+    }
   }
   //toast alert
   alertbox() {
@@ -166,7 +176,7 @@ export class PranalysisComponent implements OnInit {
 
   //Dialog execution on Idle PR 
   openDialogIdle() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.activityPRDays } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.activityPRDays,type: 'pr' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isSaveIdle = true;
@@ -176,7 +186,7 @@ export class PranalysisComponent implements OnInit {
 
   //Dialog execution on Unmerged PR
   openDialogUnmerged() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.unmergedPRDays } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.unmergedPRDays,type: 'pr' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isSaveUnmergd = true;

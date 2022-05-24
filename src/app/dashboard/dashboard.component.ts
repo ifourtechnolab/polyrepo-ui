@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
   }
 
   routeToRepository() {
-    this.router.navigate(['/repo']);
+    this.router.navigate(['../repo']);
   }
 
   changeSpan(value: any){

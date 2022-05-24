@@ -8,6 +8,8 @@ import { HttpService } from 'src/app/shared/http.service';
 import { UtilService } from 'src/app/shared/util.service';
 import { ShowquerydetailsComponent } from '../showquerydetails/showquerydetails.component';
 import { ShowqueryresultComponent } from '../showqueryresult/showqueryresult.component';
+import { Router } from '@angular/router';
+
 export interface QueryParamData{
   paramName:any;
   paramValue:any;
@@ -34,7 +36,7 @@ export class ShowqueryComponent implements OnInit {
   queryDataList:any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('page1') paginator: MatPaginator;
-  constructor(private http: HttpService,private util:UtilService,public matDialog: MatDialog) { }
+  constructor(private http: HttpService,private util:UtilService,public matDialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.showQueryList();
@@ -70,7 +72,8 @@ export class ShowqueryComponent implements OnInit {
   }
 
   getResult(querydata: any) {
-    const openDialog = this.matDialog.open(ShowqueryresultComponent, { disableClose:true,hasBackdrop: true, data: { query: querydata }, width:'55%', height:'80%' });
+    // const openDialog = this.matDialog.open(ShowqueryresultComponent, { disableClose:true,hasBackdrop: true, data: { query: querydata }, width:'55%', height:'80%' });
+    this.router.navigate(['repo'],{state : {data: querydata}});
   }
 
   getQueryDetails(querydata: any) {

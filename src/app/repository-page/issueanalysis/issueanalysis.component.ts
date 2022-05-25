@@ -61,6 +61,11 @@ export class IssueanalysisComponent implements OnInit {
   queryLabel: any;
   tabIndex = 0 ;
   receiveData: any;
+  queryTitle : any;
+  selectedLabel: any;
+  criticalTitle : boolean = false;
+  priorityTitle : boolean = false;
+  labelTitle : boolean = false;
 
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
@@ -75,9 +80,7 @@ export class IssueanalysisComponent implements OnInit {
     public router: Router
   ) { 
     if((this.router.getCurrentNavigation().extras.state) != null){
-      debugger
       this.receiveData = this.router.getCurrentNavigation().extras.state;
-      console.log(this.receiveData.data);
     }
     
    }
@@ -90,15 +93,31 @@ export class IssueanalysisComponent implements OnInit {
     this.AvgTimeForm = new FormGroup({
       avgIssues: new FormControl(''),
     });
-    if(this.util.getQueryKey().length > 0){
+    if(this.util.getQueryKey() != null){
+      this.queryTitle = this.util.getQueryTitle();
       if(this.util.getQueryKey() == 'getPriority1IssuesOpenedBeforeXDaysQuery'){
         this.tabIndex = 0;
+        this.criticalTitle = true;
+        this.criticalIssuesForm.get('criticalIssues').setValue(this.util.getQueryDays());
+        let repo = {"repoNames": this.util.getCollectiveRepoData()};
+        this.criticalData(this.util.getQueryOrg(), this.util.getQueryDays(), repo)
       }
       else if(this.util.getQueryKey() == 'getClosedP1IssuesTimeQuery'|| this.util.getQueryKey() == 'getClosedP2IssuesTimeQuery'){
         this.tabIndex = 1;
+        this.priorityTitle = true;
+        if(this.util.getQueryKey() == 'getClosedP1IssuesTimeQuery'){
+          this.getAvgP1(this.util.getQueryOrg())
+        }
+        else if(this.util.getQueryKey() == 'getClosedP2IssuesTimeQuery'){
+          this.getAvgP2(this.util.getQueryOrg())
+        }
       }
       else if(this.util.getQueryKey() == 'getOpenIssueNamesByLabel'){
         this.tabIndex = 2;
+        this.labelTitle = true;
+        let repo = {"repoNames": this.util.getCollectiveRepoData()}; 
+        this.selectedLabel = this.util.getQueryLabel();
+        this.getLabelData(this.util.getQueryOrg(), repo, this.util.getQueryLabel())
       }
     }
   }
@@ -183,7 +202,7 @@ export class IssueanalysisComponent implements OnInit {
     this.orgName = localStorage.getItem('orgLogin');
     this.http.getAvgTimeP1(this.orgName).subscribe((res: any) => {
       this.priorityOne = res.message;
-      this.priorityQueryKey = res.queryKey;
+      this.priorityQueryKey = res.queryKey;  
     });
   }
 
@@ -281,11 +300,80 @@ export class IssueanalysisComponent implements OnInit {
 
   //Dialog execution on label 
   openDialogLabelIssue() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.labelDataQueryKey, label: this.queryLabel } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.labelDataQueryKey, label: this.queryLabel, type: 'issue' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isLabel = true;
       }
+    });
+  }
+
+  criticalData(orgname, days, repo){
+    this.http
+    .getcriticalIssue(orgname, days, repo)
+    .subscribe((res) => {
+      this.CriticalIssueQueryKey = res.queryKey;
+      res = _.merge([], res.edges);
+      this.criticalIssueData = res.map((x: any) => {
+        return {
+          title: x.node.title,
+          createdAt: x.node.createdAt,
+          repository: x.node.repository.name,
+          authorLogin: x.node.author.login,
+          authorUrl: x.node.author.url,
+        };
+      });
+      this.isCritic = false;
+      this.dataloading = false;
+      this.criticalDataSource = new MatTableDataSource<issueData>(
+        this.criticalIssueData
+      );
+      this.criticalDataSource.paginator = this.paginator1;
+      this.criticalDataSource.sort = this.sort1;
+    });
+  }
+
+  getAvgP1(org){
+    this.http.getAvgTimeP1(org).subscribe((res: any) => {
+      this.priorityOne = res.message;
+    });
+  }
+
+  getAvgP2(org){
+    this.http.getAvgTimeP1(org).subscribe((res: any) => {
+      this.priorityTwo = res.message;
+    });
+  }
+
+  getLabel(org, repo){
+    this.http
+        .getlablesservice(org, repo)
+        .subscribe((res: any) => {
+          this.labelList = res.Labels;
+          this.dataloading = false;
+        });
+  }
+
+  getLabelData(org, repo, label){
+    this.http
+    .getlebelissueservice(org, repo, label)
+    .subscribe((res) => {
+      this.labelDataQueryKey = res.queryKey;
+      this.queryLabel = label;
+      res = _.merge([], res.nodes);
+      this.labelIssueData = res.map((x: any) => {
+        return {
+          title: x.title,
+          repository: x.repository.name,
+        };
+      });
+      this.dataloading = false;
+      this.isLabel = false;
+      this.labelDataSource = new MatTableDataSource<labelData>(
+        this.labelIssueData
+      );
+      this.labelDataSource.paginator = this.paginator2;
+      this.labelDataSource.sort = this.sort2;
     });
   }
 }

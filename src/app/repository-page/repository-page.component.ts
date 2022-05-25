@@ -17,7 +17,6 @@ export class RepositoryPageComponent implements OnInit {
   item:any;
   receiveData:any;
   orgName:any;
-  // filters: string[] = ['Issue Analysis', 'PR Analysis'];
   filters: {
     name : string;
     selected : boolean;
@@ -35,13 +34,15 @@ export class RepositoryPageComponent implements OnInit {
   constructor(private http: HttpService, public router: Router, private util:UtilService) { 
     if((this.router.getCurrentNavigation().extras.state) != null){
       this.receiveData = this.router.getCurrentNavigation().extras.state;
-      console.log(this.receiveData.data);
       this.util.setQueryTitle(this.receiveData.data.title)
       this.util.setQueryKey(this.receiveData.data.queryKey)
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
         this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
+        this.util.setQueryOrg(this.orgName);
       }
-
+      if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
+        this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
+      }
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })).length > 0) {
         this.util.setQueryDays(this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })[0].paramValue);
       }
@@ -64,16 +65,14 @@ export class RepositoryPageComponent implements OnInit {
     if(this.orgName!=null){
       this.getOrgProfile(this.orgName);
        let type = this.util.getQueryType();
-       debugger
        if(type == 'pr'){
-         
         this.filters[1].selected = true;
         this.filters[0].selected = false;
         this.router.navigate(['repo/pr']);
        }
        if(type == 'issue'){
         this.filters[0].selected = true;
-        this.filters[1].selected = true;
+        this.filters[1].selected = false;
         this.router.navigate(['repo/issue']);
        }
     }
@@ -82,10 +81,17 @@ export class RepositoryPageComponent implements OnInit {
       this.orgLogin = localStorage.getItem('orgLogin');
       this.getOrgProfile(this.orgLogin);
       this.util.setCollectiveRepoData([]);
+      this.util.setQueryDays(null);
+      this.util.setQueryType(null);
+      this.util.setQueryKey(null);
+      this.util.setQueryLabel(null);
+      this.util.setQueryTitle(null);
+      this.util.setQueryOrg(null);
+
       if(this.filters[0].selected == true){
         this.router.navigate(['repo/issue']);
       }
-      if(this.filters[1].selected == true){
+      else if(this.filters[1].selected == true){
         this.router.navigate(['repo/pr']);
       }
     }

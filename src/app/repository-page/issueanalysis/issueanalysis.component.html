@@ -3,6 +3,7 @@
   <!-- Critical Issues -->
   <mat-tab label="Critical Issue">
     <div class="criticalIssueList">
+      <h4 *ngIf="criticalTitle">{{queryTitle}}</h4>
       <form [formGroup]="criticalIssuesForm">
         <h4>
           This will list all the Open Priority-1 issues across selected
@@ -102,6 +103,7 @@
   <!-- average time -->
   <mat-tab label="Average Resolving Time">
     <div class="avgTimeList">
+      <h4 *ngIf="priorityTitle">{{queryTitle}}</h4>
       <form [formGroup]="AvgTimeForm">
         <h4>
           How much average time needed for resolving
@@ -122,13 +124,19 @@
         </h4>
       </form>
     </div>
-    <p *ngIf="show == 'P1'">{{ this.priorityOne }}</p>
-    <p *ngIf="show == 'P2'">{{ this.priorityTwo }}</p>
+    <h3 *ngIf="show == 'P1' || this.priorityOne">
+      <strong>Average time need for resolving time of Priority-1 isuues : </strong>{{ this.priorityOne }}
+    </h3>
+    <h3 *ngIf="show == 'P2' || this.priorityTwo">
+      <strong>Average time need for resolving time of Priority-2 isuues : </strong>{{ this.priorityTwo }}
+    </h3>
   </mat-tab>
 
   <!-- Search By Label -->
   <mat-tab label="Search By Label">
+    <h4 *ngIf="labelTitle">{{queryTitle}}</h4>
     <button class="btn headBtn btn-sm labelButton" (click)="getlabels()">Get Labels</button>
+    <a class="btn" *ngIf="selectedLabel">{{selectedLabel}}</a>
     
     <div class="content"> 
       <div *ngIf="dataloading==true" class="loader">

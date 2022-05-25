@@ -16,6 +16,7 @@ export class UtilService {
   queryLabel: any;
   queryDays: any;
   queryKey: any;
+  queryOrg:any;
   queryTitle :any;
   constructor(private util: HttpClient) { }
 
@@ -99,5 +100,12 @@ export class UtilService {
   
   public getQueryTitle(){
     return this.queryTitle;
+  }
+  public setQueryOrg(org : any){
+    this.queryOrg = org;
+  }
+  
+  public getQueryOrg(){
+    return this.queryOrg;
   }
 }

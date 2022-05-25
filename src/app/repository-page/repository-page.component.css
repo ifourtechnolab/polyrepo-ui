@@ -61,6 +61,11 @@ mat-toolbar {
   margin-left: 0.5%;
 }
 
+.fa-bars{
+  font-size: 150%;
+  color: #664983;
+}
+
 #orgName{
   margin-right: 1%;
 }

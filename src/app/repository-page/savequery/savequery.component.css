@@ -1,5 +1,6 @@
 .actionBTN{
     display: flex;
+    margin-top: 25%;
     justify-content: space-around;
 }
 

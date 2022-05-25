@@ -50,6 +50,8 @@ export class PranalysisComponent implements OnInit {
   idlePrQueryKey:any;
   unmergedPrQueryKey:any;
   tabIndex = 0;
+  queryTitleActivity:any;
+  queryTitleUnmerged:any;
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
     ActivityPrDay: new FormControl('',),
@@ -85,15 +87,23 @@ export class PranalysisComponent implements OnInit {
   ngOnInit(): void {
     this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
-
-    if(this.util.getQueryKey().length > 0){
+    if(this.util.getQueryKey()!=null){
       if(this.util.getQueryKey() == 'getPullRequestNotUpdatedByDaysQuery'){
         this.tabIndex = 0;
+        this.queryTitleActivity=this.util.getQueryTitle();
+        this.fform.get('ActivityPrDay').setValue(this.util.getQueryDays());
+        this.repoListObject = { "repoNames": this.util.getCollectiveRepoData() };
+        this.getNoActivityPrData(this.util.getQueryOrg(),this.util.getQueryDays(),this.repoListObject);
       }
       else if(this.util.getQueryKey() == 'getUnMergedPullRequestByDayQuery'){
         this.tabIndex = 1;
+        this.queryTitleUnmerged=this.util.getQueryTitle();
+        this.fform2.get('MergePrDay').setValue(this.util.getQueryDays());
+        this.repoListObject = { "repoNames": this.util.getCollectiveRepoData() };
+        this.getUnmergedPrData(this.util.getQueryOrg(),this.util.getQueryDays(),this.repoListObject);
       }
     }
+    
   }
   //toast alert
   alertbox() {
@@ -117,7 +127,13 @@ export class PranalysisComponent implements OnInit {
       this.alertbox();
     }
     else {
-      this.http.idlePr(this.orgLogin, this.activityPRDays, this.repoListObject)
+      this.getNoActivityPrData(this.orgLogin,this.activityPRDays,this.repoListObject);
+    }
+  }
+
+  getNoActivityPrData(org:any,day:any,repo:any){
+debugger;
+    this.http.idlePr(org, day, repo)
         .subscribe((PRData: any) => {
           this.prLastActivity = PRData;
           this.idlePrQueryKey = this.prLastActivity.queryKey;
@@ -136,7 +152,6 @@ export class PranalysisComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         });
-    }
   }
 
   //TAB-2
@@ -152,7 +167,12 @@ export class PranalysisComponent implements OnInit {
       this.alertbox();
     }
     else {
-      this.http.unmergedpr(this.orgLogin, this.unmergedPRDays, this.repoListObject)
+      this.getUnmergedPrData(this.orgLogin, this.unmergedPRDays, this.repoListObject);
+    }
+  }
+    getUnmergedPrData(org:any,day:any,repo:any)
+    {
+      this.http.unmergedpr(org, day, repo)
         .subscribe((UnMergedData: any) => {
           this.unmergedPRActivity = UnMergedData;
           this.unmergedPrQueryKey = this.unmergedPRActivity.queryKey;
@@ -172,7 +192,6 @@ export class PranalysisComponent implements OnInit {
           this.unmergeddataSource.sort = this.sort2;
         });
     }
-  }
 
   //Dialog execution on Idle PR 
   openDialogIdle() {

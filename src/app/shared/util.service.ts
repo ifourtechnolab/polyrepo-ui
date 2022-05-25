@@ -101,6 +101,7 @@ export class UtilService {
   public getQueryTitle(){
     return this.queryTitle;
   }
+
   public setQueryOrg(org : any){
     this.queryOrg = org;
   }

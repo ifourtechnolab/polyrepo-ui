@@ -40,9 +40,6 @@ export class RepositoryPageComponent implements OnInit {
         this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
         this.util.setQueryOrg(this.orgName);
       }
-      if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
-        this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
-      }
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })).length > 0) {
         this.util.setQueryDays(this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })[0].paramValue);
       }

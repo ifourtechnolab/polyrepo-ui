@@ -95,7 +95,18 @@ export class HttpService {
   }
 
   //save query
-  public SaveQueryCall(repoList: any,params:HttpParams): Observable<any> {
+  public saveQueryCall(repoList: any,params:HttpParams): Observable<any> {
     return this.http.post<any>(environment.apiUrl + '/user/saveQuery', repoList,{params});
+  }
+
+  //show query list
+  public getSaveQueryList(userId:any)
+  {
+    return this.http.get(environment.apiUrl+'/user/getQueries/'+userId);
+  }
+
+  //save query result
+  public getSaveQueryResult(repoList: any,params:HttpParams,queryId:any): Observable<any>{
+    return this.http.post<any>(environment.apiUrl + '/user/queryResult/' + queryId,repoList,{params});
   }
 }

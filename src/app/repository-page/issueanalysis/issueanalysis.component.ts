@@ -9,6 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SavequeryComponent } from '../savequery/savequery.component';
+import { Router } from '@angular/router';
+
 export interface issueData {
   title: any;
   createdAt: any;
@@ -57,6 +59,8 @@ export class IssueanalysisComponent implements OnInit {
   priorityQueryKey: any;
   labelDataQueryKey: any;
   queryLabel: any;
+  tabIndex = 0 ;
+  receiveData: any;
 
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
@@ -67,8 +71,16 @@ export class IssueanalysisComponent implements OnInit {
     public http: HttpService,
     private util: UtilService,
     private toastr: ToastrService,
-    public matDialog: MatDialog
-  ) { }
+    public matDialog: MatDialog,
+    public router: Router
+  ) { 
+    if((this.router.getCurrentNavigation().extras.state) != null){
+      debugger
+      this.receiveData = this.router.getCurrentNavigation().extras.state;
+      console.log(this.receiveData.data);
+    }
+    
+   }
 
   ngOnInit(): void {
     this.criticalIssuesForm = new FormGroup({
@@ -78,6 +90,17 @@ export class IssueanalysisComponent implements OnInit {
     this.AvgTimeForm = new FormGroup({
       avgIssues: new FormControl(''),
     });
+    if(this.util.getQueryKey().length > 0){
+      if(this.util.getQueryKey() == 'getPriority1IssuesOpenedBeforeXDaysQuery'){
+        this.tabIndex = 0;
+      }
+      else if(this.util.getQueryKey() == 'getClosedP1IssuesTimeQuery'|| this.util.getQueryKey() == 'getClosedP2IssuesTimeQuery'){
+        this.tabIndex = 1;
+      }
+      else if(this.util.getQueryKey() == 'getOpenIssueNamesByLabel'){
+        this.tabIndex = 2;
+      }
+    }
   }
 
   // pagination filter for critical issues
@@ -140,6 +163,7 @@ export class IssueanalysisComponent implements OnInit {
                 authorUrl: x.node.author.url,
               };
             });
+            this.isCritic = false;
             this.dataloading = false;
             this.criticalDataSource = new MatTableDataSource<issueData>(
               this.criticalIssueData
@@ -237,7 +261,7 @@ export class IssueanalysisComponent implements OnInit {
 
   //Dialog execution on critical issue 
   openDialogCriticalIssue() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.CriticalIssueQueryKey, days: this.days } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.CriticalIssueQueryKey, days: this.days, type: 'issue' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isCritic = true;
@@ -247,7 +271,7 @@ export class IssueanalysisComponent implements OnInit {
 
   //Dialog execution on average resolution time 
   openDialogAverageIssue() {
-    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.priorityQueryKey } });
+    const openDialog = this.matDialog.open(SavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.priorityQueryKey,type: 'issue' } });
     openDialog.afterClosed().subscribe((result) => {
       if (result.data == true) {
         this.isAverage = true;

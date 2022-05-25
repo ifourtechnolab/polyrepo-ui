@@ -6,6 +6,7 @@ import { IssueanalysisComponent } from './issueanalysis/issueanalysis.component'
 import { PranalysisComponent } from './pranalysis/pranalysis.component';
 import { ShowRepositoryComponent } from './show-repository/show-repository.component';
 const routes: Routes = [
+  {path:'repo ',component:RepositoryPageComponent},
   {path:'',component:RepositoryPageComponent,
   children:[
     {path:'issue',component:IssueanalysisComponent},

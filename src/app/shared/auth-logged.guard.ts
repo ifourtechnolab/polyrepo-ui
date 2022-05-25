@@ -12,7 +12,7 @@ export class AuthLoggedGuard implements CanActivate {
     if (!this.util.isLoggedIn()) {
       return true;
     }
-    if(this.util.isLoggedIn() && this.util.hasOrgValue()){
+    if(this.util.isLoggedIn()){
       this.router.navigate(['/repo']);
       return false;  
     }

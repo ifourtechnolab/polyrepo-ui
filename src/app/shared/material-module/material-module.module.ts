@@ -21,10 +21,33 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatListModule,
+    MatAutocompleteModule,
+    MatCardModule,
+    AngularMultiSelectModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatMenuModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   exports:[
     MatFormFieldModule,
@@ -45,9 +68,10 @@ import {MatMenuModule} from '@angular/material/menu';
     AngularMultiSelectModule,
     MatTabsModule,
     MatDialogModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatCheckboxModule
   ],
 })
-export class MaterialModuleModule { }
+export class  MaterialModuleModule { }

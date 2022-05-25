@@ -31,6 +31,7 @@ export class SavequeryComponent implements OnInit {
       .set('userId', this.util.getUserId())
       .set('title', this.fform.value.title)
       .set('queryKey', this.data.queryKey)
+      .set('type', this.data.type)
       .set('orgName', localStorage.getItem('orgLogin'));
     if (this.data.days != null) {
       params = params.append('days', this.data.days);
@@ -41,8 +42,9 @@ export class SavequeryComponent implements OnInit {
       params = params.append("label", this.data.label);
       this.repoList = this.util.getCollectiveRepoData();
       this.repoListObject = { "repoNames": this.repoList };
+      debugger
     }
-    this.http.SaveQueryCall(this.repoListObject, params).subscribe((SaveQueryData: any) => {
+    this.http.saveQueryCall(this.repoListObject, params).subscribe((SaveQueryData: any) => {
       if (SaveQueryData.message == 'Query saved successfully') {
         this.toastr.success('Query saved succefully', '', {
           positionClass: 'toast-top-center',

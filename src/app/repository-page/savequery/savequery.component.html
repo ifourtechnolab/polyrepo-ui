@@ -2,12 +2,15 @@
         <form [formGroup]="fform">
             <input type="text" placeholder="Title" formControlName="title">
         </form>
-    <div class="actionBTN">
-        <div id="saveBTN">
-            <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Ok</button>
-        </div>
-        <div id="closeBTN">
-            <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
-        </div>
+        <mat-checkbox class="example-margin">Pin</mat-checkbox>
+        <mat-checkbox class="example-margin">Trend</mat-checkbox>
     </div>
+            <div class="actionBTN">
+                <div id="saveBTN">
+                <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Ok</button>
+                </div>
+                <div id="closeBTN">
+                <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
+                </div>
+            </div>
 </div>

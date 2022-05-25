@@ -82,9 +82,7 @@ export class ShowqueryresultComponent implements OnInit {
     }
   }
 
-  public showQueryData(){
-    console.log(this.data.query);
-    
+  public showQueryData(){    
     this.queryDetail = this.data.query;
     this.paramList = this.queryDetail.paramList;
     this.orgName = this.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;

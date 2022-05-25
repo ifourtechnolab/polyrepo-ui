@@ -40,6 +40,7 @@ export class RepositoryPageComponent implements OnInit {
       this.util.setQueryKey(this.receiveData.data.queryKey)
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
         this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
+        this.util.setQueryOrg(this.orgName);
       }
 
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })).length > 0) {
@@ -82,10 +83,17 @@ export class RepositoryPageComponent implements OnInit {
       this.orgLogin = localStorage.getItem('orgLogin');
       this.getOrgProfile(this.orgLogin);
       this.util.setCollectiveRepoData([]);
+      this.util.setQueryDays(null);
+      this.util.setQueryType(null);
+      this.util.setQueryKey(null);
+      this.util.setQueryLabel(null);
+      this.util.setQueryTitle(null);
+      this.util.setQueryOrg(null);
+
       if(this.filters[0].selected == true){
         this.router.navigate(['repo/issue']);
       }
-      if(this.filters[1].selected == true){
+      else if(this.filters[1].selected == true){
         this.router.navigate(['repo/pr']);
       }
     }

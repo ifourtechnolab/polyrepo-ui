@@ -42,7 +42,6 @@ export class SavequeryComponent implements OnInit {
       params = params.append("label", this.data.label);
       this.repoList = this.util.getCollectiveRepoData();
       this.repoListObject = { "repoNames": this.repoList };
-      debugger
     }
     this.http.saveQueryCall(this.repoListObject, params).subscribe((SaveQueryData: any) => {
       if (SaveQueryData.message == 'Query saved successfully') {

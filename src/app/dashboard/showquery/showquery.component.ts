@@ -55,7 +55,6 @@ export class ShowqueryComponent implements OnInit {
           paramList:x.queryParameterList
         }
       })
-      console.log(this.queryDataList);
       this.dataSource = new MatTableDataSource<QueryData>(this.queryDataList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

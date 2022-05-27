@@ -5,3 +5,9 @@
 .btn-action{
     color: #664983;
 }
+.actionButtons{
+    display: flex;
+}
+.actionBTN{
+    margin-right: 3%;
+}

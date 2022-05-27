@@ -71,12 +71,11 @@ export class ShowqueryComponent implements OnInit {
   }
 
   getResult(querydata: any) {
-    // const openDialog = this.matDialog.open(ShowqueryresultComponent, { disableClose:true,hasBackdrop: true, data: { query: querydata }, width:'55%', height:'80%' });
     this.router.navigate(['repo'],{state : {data: querydata}});
   }
 
   getQueryDetails(querydata: any) {
-    const openDialog = this.matDialog.open(ShowquerydetailsComponent, { disableClose: false, hasBackdrop: true, data: { query: querydata } });
+    const openDialog = this.matDialog.open(ShowquerydetailsComponent, { disableClose: true, hasBackdrop: true, data: { query: querydata }});
   }
 
 }

@@ -148,17 +148,24 @@ export class AddrepositoryComponent implements OnInit {
       if (key.id === item.id) this.jsonArr.splice(value, 1);
     });
     this.repoListObject = { "repoNames": this.jsonArr };
+    if(this.jsonArr.length==0){
+      this.isdisable = true;
+    }
   }
 
   //deselect all function
   onDeSelectAll(items: any) {
     this.jsonArr.splice(0, this.jsonArr.length);
+    if(this.jsonArr.length==0){
+      this.isdisable = true;
+    }
+
   }
 
   //add button click inside dialog
   addRepo() {
     clearInterval(this.test);
-    this.matDialog.close({ data: this.jsonArr });
+    this.matDialog.close({ data: this.jsonArr });    
   }
   
   close(){

@@ -111,60 +111,60 @@ a {
   }
 }
   
-  .mat-column-issue{
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50% !important;
-    width: 52% !important;
-    overflow-wrap: break-word;
-    padding: 0% 2%;
-  }
+.mat-column-issue{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 52% !important;
+  overflow-wrap: break-word;
+  padding: 0% 2%;
+}
 
-  .mat-column-issueRepository{
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50% !important;
-    width: 16% !important;
-    overflow-wrap: break-word;
-    padding: 0% 2%;
-  }
+.mat-column-issueRepository{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 16% !important;
+  overflow-wrap: break-word;
+  padding: 0% 2%;
+}
 
-  .mat-column-createdAt{
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50% !important;
-    width: 16% !important;
-    overflow-wrap: break-word;
-    padding: 0% 2%;
-  }
+.mat-column-createdAt{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 16% !important;
+  overflow-wrap: break-word;
+  padding: 0% 2%;
+}
 
-  .mat-column-authorLogin{
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50% !important;
-    width: 16% !important;
-    overflow-wrap: break-word;
-    padding: 0% 2%;
-  }
+.mat-column-authorLogin{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 16% !important;
+  overflow-wrap: break-word;
+  padding: 0% 2%;
+}
 
-  .mat-column-title{
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50% !important;
-    width: 75% !important;
-    overflow-wrap: break-word;
-    padding: 0% 2%;
-  }
+.mat-column-title{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 75% !important;
+  overflow-wrap: break-word;
+  padding: 0% 2%;
+}
 
-  .mat-column-labelRepository{
-    word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 50% !important;
-    width: 25% !important;
-    overflow-wrap: break-word;
-    padding: 0% 2%;
-  }
+.mat-column-labelRepository{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 25% !important;
+  overflow-wrap: break-word;
+  padding: 0% 2%;
+}
 
-  .colOne{
-    padding-right: 10px;
-  }
+.colOne{
+  padding-right: 10px;
+}

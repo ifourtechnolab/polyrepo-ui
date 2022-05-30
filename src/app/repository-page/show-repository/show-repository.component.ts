@@ -31,6 +31,7 @@ export class ShowRepositoryComponent implements OnInit {
   repoName!:string ;
   receiveData:any;
   nameOfItem: repoList[] = [];
+  repoList: boolean = false;
 
   constructor(private http: HttpService, public matDialog: MatDialog,private util: UtilService) {  }
 
@@ -45,10 +46,17 @@ export class ShowRepositoryComponent implements OnInit {
     openDialog.afterClosed().subscribe((result)=>{
       this.nameOfItem= _.uniqBy([...this.nameOfItem, ...result.data], JSON.stringify);
       this.util.setCollectiveRepoData(this.nameOfItem);
+      if(this.nameOfItem.length <= 0)
+        this.repoList = false;
+      else
+        this.repoList = true;
     })
   }
   remove(index : any){
     this.nameOfItem.splice(index, 1);
+    if(this.nameOfItem.length <= 0){
+      this.repoList = false;
+    }
   }
 
 }

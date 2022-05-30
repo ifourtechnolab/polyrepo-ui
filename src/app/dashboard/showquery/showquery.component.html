@@ -22,8 +22,10 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action </th>
         <td mat-cell *matCellDef="let row"> 
-          <button mat-icon-button class="btn-action" (click)="getQueryDetails(row)"><mat-icon>info</mat-icon></button>
-          <button mat-icon-button class="btn-action"><mat-icon>delete</mat-icon></button>
+          <div class="actionButtons">
+            <button class="btn btn-sm btn-primary actionBTN" (click)="getQueryDetails(row)">Info</button>
+            <button class="btn btn-sm btn-danger actionBTN">Delete</button>
+        </div>
         </td>
       </ng-container>
 

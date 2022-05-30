@@ -1,5 +1,8 @@
 <div class="showContainer">
   <div class="overflow-auto showRepo up">
+    <div id="noDataText">
+      <h3 *ngIf="!repoList" style="color: #aaaaaa;">No Repository Selected</h3>
+    </div>
     <div class="repoList d-flex justify-content-between" *ngFor="let i of nameOfItem; let index = index">
       <div class="labelName">
         <h4>{{i.name}}</h4>

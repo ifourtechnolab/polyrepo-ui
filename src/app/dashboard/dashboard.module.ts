@@ -7,7 +7,6 @@ import { PinnedqueryComponent } from './pinnedqueryresult/pinnedqueryresult.comp
 import { TrendcaptureComponent } from './trendcapture/trendcapture.component';
 import { MaterialModuleModule } from '../shared/material-module/material-module.module';
 import { ShowqueryComponent } from './showquery/showquery.component';
-import { ShowqueryresultComponent } from './showqueryresult/showqueryresult.component';
 import { ShowquerydetailsComponent } from './showquerydetails/showquerydetails.component';
 
 
@@ -17,7 +16,6 @@ import { ShowquerydetailsComponent } from './showquerydetails/showquerydetails.c
     ShowqueryComponent,
     TrendcaptureComponent,
     DashboardComponent,
-    ShowqueryresultComponent,
     ShowquerydetailsComponent
   ],
   imports: [

@@ -22,6 +22,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+// import { ChartModule } from 'angular2-chartjs';
+import { NgChartsModule } from 'ng2-charts'; 
 @NgModule({
   declarations: [],
   imports: [
@@ -47,7 +49,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgChartsModule
   ],
   exports:[
     MatFormFieldModule,
@@ -71,7 +74,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgChartsModule
   ],
 })
 export class  MaterialModuleModule { }

@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SavequeryComponent } from '../savequery/savequery.component';
+import { EditSavequeryComponent } from '../edit-savequery/edit-savequery.component';
 
 interface repoList {
   id: string;
@@ -88,6 +89,7 @@ export class PranalysisComponent implements OnInit {
     this.authToken = this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
     if(this.util.getQueryKey()!=null){
+      this.orgLogin = this.util.getQueryOrg();
       if(this.util.getQueryKey() == 'getPullRequestNotUpdatedByDaysQuery'){
         this.tabIndex = 0;
         this.queryTitleActivity=this.util.getQueryTitle();
@@ -132,7 +134,6 @@ export class PranalysisComponent implements OnInit {
   }
 
   getNoActivityPrData(org:any,day:any,repo:any){
-debugger;
     this.http.idlePr(org, day, repo)
         .subscribe((PRData: any) => {
           this.prLastActivity = PRData;
@@ -210,6 +211,21 @@ debugger;
       if (result.data == true) {
         this.isSaveUnmergd = true;
       }
+    });
+  }
+  openDialogEditIdle()
+  {
+    const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.fform.value.ActivityPrDay,type: 'pr',queryId:this.util.getQueryId() } });
+    openDialog.afterClosed().subscribe((result) => {
+      this.queryTitleActivity=this.util.getQueryTitle();
+    });
+  }
+
+  openDialogEditUnmerged()
+  {
+    const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.fform2.value.MergePrDay,type: 'pr',queryId:this.util.getQueryId() } });
+    openDialog.afterClosed().subscribe((result) => {
+      this.queryTitleUnmerged=this.util.getQueryTitle();
     });
   }
 }

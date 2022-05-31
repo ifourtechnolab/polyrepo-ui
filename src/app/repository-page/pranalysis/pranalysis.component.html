@@ -6,16 +6,19 @@
         <div *ngIf="queryTitleActivity"><h4>{{queryTitleActivity}}</h4></div>
         <h4>Is there any Pull Request where there is no activity since days
           <input type="text" placeholder="Days" formControlName="ActivityPrDay">
-          <button  *ngIf="queryTitleActivity" class="btn btn-sm" type="button" (click)="noActivityPR()">
+          <button class="btn btn-sm" type="button" (click)="noActivityPR()">
             GO
           </button> ?
-  
-          <button class="btn btn-sm" type="button" (click)="openDialogIdle()">
+            
+          <button  *ngIf="!queryTitleActivity" class="btn btn-sm" type="button" (click)="openDialogIdle()" [disabled]="isSaveIdle">
             Save Analysis
+          </button>
+
+          <button *ngIf="queryTitleActivity" class="btn btn-sm" type="button" (click)="openDialogEditIdle()">
+            Edit
           </button>
   
           <button class="btn btn-sm" type="button" >
-          
             <img src="assets\icons\pin-angle-fill.svg" class="svg"/>
           </button>
           
@@ -90,8 +93,16 @@
             GO
           </button> ?
   
-          <button class="btn btn-sm" type="button" (click)="openDialogUnmerged()">
+          <button *ngIf="!queryTitleUnmerged" class="btn btn-sm" type="button" (click)="openDialogUnmerged()" [disabled]="isSaveUnmergd">
             Save Analysis
+          </button>
+
+          <button *ngIf="queryTitleUnmerged" class="btn btn-sm" type="button" (click)="openDialogEditUnmerged()">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button class="btn btn-sm" type="button" >
+            <img src="assets\icons\pin-angle-fill.svg" class="svg"/>
           </button>
         </h4>
       </form>

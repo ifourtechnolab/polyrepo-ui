@@ -7,7 +7,6 @@ import * as _ from 'lodash';
 import { HttpService } from 'src/app/shared/http.service';
 import { UtilService } from 'src/app/shared/util.service';
 import { ShowquerydetailsComponent } from '../showquerydetails/showquerydetails.component';
-import { ShowqueryresultComponent } from '../showqueryresult/showqueryresult.component';
 import { Router } from '@angular/router';
 
 export interface QueryParamData{
@@ -24,6 +23,8 @@ export interface QueryData {
   id:any;
   paramList:QueryParamData[];
   repoList:QueryRepoData[];
+  isPinned: boolean;
+  isTrend: boolean;
 }
 @Component({
   selector: 'app-showquery',
@@ -50,9 +51,11 @@ export class ShowqueryComponent implements OnInit {
         return{
           title:x.storedQuery.title,
           queryKey:x.storedQuery.queryKey,
-          id:x.storedQuery.id,
+          id:x.storedQuery.queryId,
           repoList:x.queryRepoList,
-          paramList:x.queryParameterList
+          paramList:x.queryParameterList,
+          isPinned:x.storedQuery.pinned,
+          isTrend:x.storedQuery.trendCaptured
         }
       })
       this.dataSource = new MatTableDataSource<QueryData>(this.queryDataList);

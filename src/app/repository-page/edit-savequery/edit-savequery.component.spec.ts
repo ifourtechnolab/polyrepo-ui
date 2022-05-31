@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowqueryresultComponent } from './showqueryresult.component';
+import { EditSavequeryComponent } from './edit-savequery.component';
 
-describe('ShowqueryresultComponent', () => {
-  let component: ShowqueryresultComponent;
-  let fixture: ComponentFixture<ShowqueryresultComponent>;
+describe('EditSavequeryComponent', () => {
+  let component: EditSavequeryComponent;
+  let fixture: ComponentFixture<EditSavequeryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShowqueryresultComponent ]
+      declarations: [ EditSavequeryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShowqueryresultComponent);
+    fixture = TestBed.createComponent(EditSavequeryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

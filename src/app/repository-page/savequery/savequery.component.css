@@ -1,10 +1,44 @@
-.actionBTN{
-    display: flex;
-    margin-top: 25%;
-    justify-content: space-around;
+.actionBTN {
+  display: flex;
+  margin-top: 9%;
+  justify-content: space-around;
 }
 
-.btn-sm{
-    background-color: #664983;
-    color: white;
+.btn-sm {
+  background-color: #664983;
+  color: white;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.7%;
+}
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #664983 !important;
+}
+.addedItems {
+  height: 8rem !important; 
+  border: 1px solid rgb(193, 192, 192);
+  border-radius: 5px;
+  margin-top: 3%;
+  margin-left: 0.3%;
+  margin-right: 0.3%;
+  padding: 3%;
+}
+
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.fa {
+  color: rgb(185, 57, 57);
+}
+
+button.btn.trash-btn {
+  padding: 0;
+  height: 10px;
 }

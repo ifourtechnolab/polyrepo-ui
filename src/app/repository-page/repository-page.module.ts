@@ -10,6 +10,7 @@ import { PranalysisComponent } from './pranalysis/pranalysis.component';
 import { ShowRepositoryComponent } from './show-repository/show-repository.component';
 import { AddrepositoryComponent } from './addrepository/addrepository.component';
 import { SavequeryComponent } from './savequery/savequery.component';
+import { EditSavequeryComponent } from './edit-savequery/edit-savequery.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +19,15 @@ import { SavequeryComponent } from './savequery/savequery.component';
     IssueanalysisComponent,
     PranalysisComponent,
     ShowRepositoryComponent,
-    SavequeryComponent
+    SavequeryComponent,
+    EditSavequeryComponent,
   ],
   imports: [
     CommonModule,
     RepositoryPageRoutingModule,
     RouterModule,
     HttpClientModule,
-    MaterialModuleModule
+    MaterialModuleModule,
   ],
 })
 export class RepositoryPageModule { }

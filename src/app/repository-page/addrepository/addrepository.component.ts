@@ -38,8 +38,13 @@ export class AddrepositoryComponent implements OnInit {
   constructor(private http: HttpService, public matDialog: MatDialogRef<AddrepositoryComponent>,private util:UtilService) { }
 
   ngOnInit(): void {
+    if(this.util.getQueryKey()!=null){
+      this.orgLogin = this.util.getQueryOrg();
+    }
+    else{
+      this.orgLogin = localStorage.getItem('orgLogin');
+    }
     this.authToken = this.util.getToken();
-    this.orgLogin = localStorage.getItem('orgLogin');
     this.dropdownSettings = {
       singleSelection: false,
       primaryKey: 'id',

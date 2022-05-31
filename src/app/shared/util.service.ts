@@ -18,6 +18,10 @@ export class UtilService {
   queryKey: any;
   queryOrg:any;
   queryTitle :any;
+  queryId:any;
+  isPin:boolean;
+  isTrend:boolean;
+  queryUpdateStatus:boolean=false;
   constructor(private util: HttpClient) { }
 
   //set data from showrepository
@@ -108,5 +112,40 @@ export class UtilService {
   
   public getQueryOrg(){
     return this.queryOrg;
+  }
+
+  public setUpdateQuery(status:boolean)
+  {
+    this.queryUpdateStatus=status;
+  }
+
+  public getUpdateQuery()
+  {
+    return this.queryUpdateStatus;
+  }
+
+  public setQueryId(queryId:any)
+  {
+    this.queryId=queryId;
+  }
+  public getQueryId()
+  {
+    return this.queryId;
+  }
+  public setIsPinned(pin:boolean)
+  {
+    this.isPin=pin;
+  }
+  public getIsPinned()
+  {
+    return this.isPin;
+  }
+  public setIsTrendCapture(trend:boolean)
+  {
+    this.isTrend=trend;
+  }
+  public getIsTrendCapture()
+  {
+    return this.isTrend;
   }
 }

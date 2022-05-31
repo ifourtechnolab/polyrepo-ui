@@ -8,6 +8,7 @@ import { TrendcaptureComponent } from './trendcapture/trendcapture.component';
 const routes: Routes = [
   { path:'', component:DashboardComponent,
   children:[
+    {path:'',component:PinnedqueryComponent},
     {path:'pinned',component:PinnedqueryComponent},
     {path:'showquery',component:ShowqueryComponent},
     {path:'trendcapture',component:TrendcaptureComponent},

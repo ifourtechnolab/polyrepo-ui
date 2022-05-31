@@ -1,0 +1,12 @@
+#closeIcon{
+    float: right;
+    font-size: 150%;
+    color: #3b3b3b;
+}
+tr{
+    font-size: medium;
+}
+.savedQueryResult{
+    width: auto;
+    height: max-content;
+}

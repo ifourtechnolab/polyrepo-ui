@@ -78,7 +78,7 @@ export class ShowqueryComponent implements OnInit {
   }
 
   getQueryDetails(querydata: any) {
-    const openDialog = this.matDialog.open(ShowquerydetailsComponent, { disableClose: false, hasBackdrop: true, data: { query: querydata } });
+    const openDialog = this.matDialog.open(ShowquerydetailsComponent, { disableClose: true, hasBackdrop: true, data: { query: querydata }});
   }
 
 }

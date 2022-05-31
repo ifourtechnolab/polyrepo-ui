@@ -8,7 +8,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ShowquerydetailsComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  queryDetail: any;
+  paramList : any;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
+    this.queryDetail = this.data.query;
+    this.paramList = this.queryDetail.paramList;
+   }
 
   ngOnInit(): void {
   }

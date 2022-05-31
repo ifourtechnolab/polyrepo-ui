@@ -136,7 +136,7 @@
   <mat-tab label="Search By Label">
     <h4 *ngIf="labelTitle">{{queryTitle}}</h4>
     <button class="btn headBtn btn-sm labelButton" (click)="getlabels()">Get Labels</button>
-    <a class="btn" *ngIf="selectedLabel">{{selectedLabel}}</a>
+    <a *ngIf="selectedLabel">Selelected Label : {{selectedLabel}}</a>
     
     <div class="content"> 
       <div *ngIf="dataloading==true" class="loader">

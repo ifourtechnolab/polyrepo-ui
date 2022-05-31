@@ -1,1 +1,25 @@
-<p>showquerydetails works!</p>
+<div class="savedQueryResult">
+    <div id="closeIcon">
+        <i class="fa-solid fa-xmark" mat-dialog-close></i>
+    </div><br>
+    <div id="details">
+        <table>
+            <tr>
+                <td>Title</td>
+                <td> : {{queryDetail.title}}</td>
+            </tr>
+            <tr>
+                <td>Organization</td>
+                <td> : {{queryDetail.paramList[0].paramValue}}</td>
+            </tr>
+            <tr>
+                <td>Selected Repositories</td>
+                <td> : {{queryDetail.repoList[0].repoName}}</td>
+            </tr>
+            <tr *ngIf="paramList[2].paramValue">
+                <td>Days</td>
+                <td> : {{paramList[2].paramValue}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

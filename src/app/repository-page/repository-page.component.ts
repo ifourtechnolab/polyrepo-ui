@@ -34,8 +34,11 @@ export class RepositoryPageComponent implements OnInit {
   constructor(private http: HttpService, public router: Router, private util:UtilService) { 
     if((this.router.getCurrentNavigation().extras.state) != null){
       this.receiveData = this.router.getCurrentNavigation().extras.state;
-      this.util.setQueryTitle(this.receiveData.data.title)
-      this.util.setQueryKey(this.receiveData.data.queryKey)
+      this.util.setQueryId(this.receiveData.data.id);
+      this.util.setQueryTitle(this.receiveData.data.title);
+      this.util.setQueryKey(this.receiveData.data.queryKey);
+      this.util.setIsPinned(this.receiveData.data.isPinned);
+      this.util.setIsTrendCapture(this.receiveData.data.isTrend);
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })).length > 0) {
         this.orgName = this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue;
         this.util.setQueryOrg(this.orgName);
@@ -53,11 +56,8 @@ export class RepositoryPageComponent implements OnInit {
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'type'); })).length > 0) {
         this.util.setQueryType(this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'type'); })[0].paramValue);
       }
-
     }
-
    }
-
   ngOnInit(): void {
     if(this.orgName!=null){
       this.getOrgProfile(this.orgName);
@@ -84,7 +84,9 @@ export class RepositoryPageComponent implements OnInit {
       this.util.setQueryLabel(null);
       this.util.setQueryTitle(null);
       this.util.setQueryOrg(null);
-
+      this.util.setQueryId(null);
+      this.util.setIsPinned(null);
+      this.util.setIsTrendCapture(null);
       if(this.filters[0].selected == true){
         this.router.navigate(['repo/issue']);
       }

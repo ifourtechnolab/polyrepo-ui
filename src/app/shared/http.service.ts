@@ -109,4 +109,14 @@ export class HttpService {
   public getSaveQueryResult(repoList: any,params:HttpParams,queryId:any): Observable<any>{
     return this.http.post<any>(environment.apiUrl + '/user/queryResult/' + queryId,repoList,{params});
   }
+
+  // trend result
+  public getTrendResult(userID){
+    return this.http.get(environment.apiUrl+'/user/'+ userID +'/getTrendResults');
+  }
+
+  // trend list
+  public getTrendList(userID){
+    return this.http.get(environment.apiUrl+'/user/'+ userID +'/getListOfTrendCapturedQueries');
+  }
 }

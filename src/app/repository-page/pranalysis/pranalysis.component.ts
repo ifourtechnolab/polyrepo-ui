@@ -132,7 +132,6 @@ export class PranalysisComponent implements OnInit {
   }
 
   getNoActivityPrData(org:any,day:any,repo:any){
-debugger;
     this.http.idlePr(org, day, repo)
         .subscribe((PRData: any) => {
           this.prLastActivity = PRData;

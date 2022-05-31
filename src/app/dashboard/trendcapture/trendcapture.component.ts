@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType, ChartDataset } from 'chart.js';
 import { HttpService } from 'src/app/shared/http.service';
+import { UtilService } from 'src/app/shared/util.service';
+
 
 @Component({
   selector: 'app-trendcapture',
@@ -9,7 +11,7 @@ import { HttpService } from 'src/app/shared/http.service';
 })
 export class TrendcaptureComponent implements OnInit {
 
-  userID = 1;
+  userID = this.util.getUserId();
   trendResult1 : any[] = [];
   trendResult2 : any[] = [];
   trendResult3 : any[] = [];
@@ -30,21 +32,23 @@ export class TrendcaptureComponent implements OnInit {
 
   dataArray = new Array();
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private util:UtilService) { }
 
   ngOnInit(): void {
-    this.trendCaptureResutl();
+    console.log("user id : ",this.userID);
+    this.trendCaptureResult();
     this.trendList();
   }
   
-  trendCaptureResutl(){
+  trendCaptureResult(){
     this.http.getTrendResult(this.userID).subscribe((result:any) => { 
-      for(let i=0; i < 3; i++){
+      for(let i=0; i < Object.values(result).length; i++){
         this.dataArray.push(Object.values(result)[i]);
       }      
-      for(let i=0; i < 3; i++){
+      for(let i = 0; i < Object.values(result).length; i++){
         if(i == 0){
           for(let j = 0; j < this.dataArray[i].length; j++){ 
+            debugger
             this.trendResult1.push(this.dataArray[i][j].result);
             this.trendDate1.push(this.dataArray[i][j].dateOfResult);
           }

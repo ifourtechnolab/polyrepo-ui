@@ -1,17 +1,55 @@
 <div class="container">
-    <div>
-        <form [formGroup]="fform">
-            <input type="text" placeholder="Title" formControlName="title">
-        </form>
-        <mat-checkbox class="example-margin">Pin</mat-checkbox>
-        <mat-checkbox class="example-margin">Trend</mat-checkbox>
+  <div>
+    <form [formGroup]="fform">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input type="text" placeholder="Title" matInput formControlName="title">
+      </mat-form-field><br>
+      <mat-form-field appearance="outline">
+        <mat-label>Organisation</mat-label>
+        <input type="text" placeholder="Organisation" matInput formControlName="org">
+      </mat-form-field><br>
+      <mat-form-field appearance="outline" *ngIf="showDays" >
+        <mat-label>Day</mat-label>
+        <input type="text" placeholder="Day" matInput formControlName="day">
+      </mat-form-field>
+      <mat-form-field appearance="outline" *ngIf="showLabel">
+        <mat-label>Label</mat-label>
+        <input type="text" placeholder="Label" matInput formControlName="label">
+      </mat-form-field>
+    </form>
+
+    <div class="overflow-auto addedItems" *ngIf="showRepo">
+      <mat-label><b>Repositoies</b></mat-label>
+      <mat-divider></mat-divider>
+      <div class=" d-flex justify-content-between" *ngFor="let i of nameOfItem; let index = index">
+        <div class="repoName">
+          <h4>{{i.name}}</h4>
+        </div>
+        <div class="trashButton">
+          <button class="btn trash-btn" (click)="remove(index)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
     </div>
-            <div class="actionBTN">
-                <div id="saveBTN">
-                <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Ok</button>
-                </div>
-                <div id="closeBTN">
-                <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
-                </div>
-            </div>
+    
+    <div class="row check-box" >
+    <div class="col" >
+    <mat-checkbox  (change)="onChangePin($event)" *ngIf="showDays && !showLabel">Pin</mat-checkbox>
+    </div>
+    <div class="col">
+    <mat-checkbox  (change)="onChangeTrend($event)" *ngIf="showDays && !showLabel">Trend</mat-checkbox>
+    </div>
+    </div>
+  </div>
+  <div class="actionBTN">
+    <div id="saveBTN">
+      <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="SaveQuery()">Save</button>
+    </div>
+    <div id="closeBTN">
+      <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
+    </div>
+  </div>
 </div>

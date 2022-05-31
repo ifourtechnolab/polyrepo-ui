@@ -109,4 +109,29 @@ export class HttpService {
   public getSaveQueryResult(repoList: any,params:HttpParams,queryId:any): Observable<any>{
     return this.http.post<any>(environment.apiUrl + '/user/queryResult/' + queryId,repoList,{params});
   }
+
+  //pin query
+  public pinQuery(userId:any,queryId:any): Observable<any>{
+    return this.http.get(environment.apiUrl+ '/user/'+ userId +'/setPinned/' + queryId);
+  }
+
+  //unset pin query
+  public unsetPinQuery(queryId:any): Observable<any>{
+    return this.http.get(environment.apiUrl+'/user/unsetPinned/'+queryId);
+  }
+
+  //trend query
+  public trendQuery(userId:any,queryId:any): Observable<any>{
+    return this.http.get(environment.apiUrl+ '/user/'+ userId +'/setTrendCapture/' + queryId);
+  }
+
+  //unset trend query
+  public unsetTrendQuery(queryId:any): Observable<any>{
+    return this.http.get(environment.apiUrl+'/user/unsetTrendCapture/'+queryId);
+  }
+
+  //edit saved result
+  public editSaveQuery(repoList: any,params:HttpParams,queryId:any): Observable<any>{
+    return this.http.post<any>(environment.apiUrl+ '/user/updateQuery/'+ queryId, repoList,{params});
+  }
 }

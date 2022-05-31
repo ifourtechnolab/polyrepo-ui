@@ -10,10 +10,12 @@ import { HttpService } from 'src/app/shared/http.service';
 export class TrendcaptureComponent implements OnInit {
 
   userID = 1;
-  // trendResult = new Array();
   trendResult1 : any[] = [];
   trendResult2 : any[] = [];
   trendResult3 : any[] = [];
+  trendDetails1 : any;
+  trendDetails2 : any;
+  trendDetails3 : any;
   trendDate1 : any[] = [];
   trendDate2 : any[] = [];
   trendDate3 : any[] = [];
@@ -32,6 +34,7 @@ export class TrendcaptureComponent implements OnInit {
 
   ngOnInit(): void {
     this.trendCaptureResutl();
+    this.trendList();
   }
   
   trendCaptureResutl(){
@@ -48,7 +51,7 @@ export class TrendcaptureComponent implements OnInit {
           this.barChartLabels1 = this.trendDate1
           this.barChartData1 = [{ 
           data: this.trendResult1, 
-          label: 'Organization', 
+          label: 'Count', 
           backgroundColor: 'rgba(255, 0, 0,0.5)', 
           hoverBackgroundColor: 'rgba(255, 0, 0,0.7)', 
           borderColor: '#664983',
@@ -62,7 +65,7 @@ export class TrendcaptureComponent implements OnInit {
           this.barChartLabels2 = this.trendDate2
           this.barChartData2 = [{ 
           data: this.trendResult2, 
-          label: 'Organization', 
+          label: 'Count', 
           backgroundColor: 'rgba(0, 175, 0,0.5)', 
           hoverBackgroundColor: 'rgba(0, 175, 0,0.7)', 
           borderColor: '#664983',
@@ -76,7 +79,7 @@ export class TrendcaptureComponent implements OnInit {
           this.barChartLabels3 = this.trendDate3
           this.barChartData3 = [{ 
           data: this.trendResult3, 
-          label: 'Organization', 
+          label: 'Count', 
           backgroundColor: 'rgba(0, 0, 255,0.5)', 
           hoverBackgroundColor: 'rgba(0, 0, 255,0.7)', 
           borderColor: '#664983',
@@ -84,5 +87,13 @@ export class TrendcaptureComponent implements OnInit {
         }
       }
     });
+  }
+
+  trendList(){
+    this.http.getTrendList(this.userID).subscribe((list : any) => {
+      this.trendDetails1 = Object.values(list)[0]      
+      this.trendDetails2 = Object.values(list)[1]      
+      this.trendDetails3 = Object.values(list)[2]      
+    })
   }
 }

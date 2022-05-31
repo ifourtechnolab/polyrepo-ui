@@ -114,4 +114,9 @@ export class HttpService {
   public getTrendResult(userID){
     return this.http.get(environment.apiUrl+'/user/'+ userID +'/getTrendResults');
   }
+
+  // trend list
+  public getTrendList(userID){
+    return this.http.get(environment.apiUrl+'/user/'+ userID +'/getListOfTrendCapturedQueries');
+  }
 }

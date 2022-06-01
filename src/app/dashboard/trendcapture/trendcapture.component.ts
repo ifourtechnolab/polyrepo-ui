@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartEvent, ChartType, ChartDataset } from 'chart.js';
+import { ChartType, ChartDataset } from 'chart.js';
 import { HttpService } from 'src/app/shared/http.service';
 import { UtilService } from 'src/app/shared/util.service';
-
+import { DatePipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-trendcapture',
   templateUrl: './trendcapture.component.html',
-  styleUrls: ['./trendcapture.component.css']
+  styleUrls: ['./trendcapture.component.css'],
+  providers: [DatePipe]
 })
 export class TrendcaptureComponent implements OnInit {
 
@@ -31,15 +32,12 @@ export class TrendcaptureComponent implements OnInit {
   public barChartLegend = true;
 
   dataArray = new Array();
-
-  constructor(private http: HttpService, private util:UtilService) { }
+  constructor(private http: HttpService, private util:UtilService, private datepipe : DatePipe) { }
 
   ngOnInit(): void {
-    console.log("user id : ",this.userID);
     this.trendCaptureResult();
     this.trendList();
   }
-  
   trendCaptureResult(){
     this.http.getTrendResult(this.userID).subscribe((result:any) => { 
       for(let i=0; i < Object.values(result).length; i++){
@@ -48,9 +46,9 @@ export class TrendcaptureComponent implements OnInit {
       for(let i = 0; i < Object.values(result).length; i++){
         if(i == 0){
           for(let j = 0; j < this.dataArray[i].length; j++){ 
-            debugger
             this.trendResult1.push(this.dataArray[i][j].result);
-            this.trendDate1.push(this.dataArray[i][j].dateOfResult);
+            let changedDate = this.datepipe.transform(this.dataArray[i][j].dateOfResult, 'dd/MM')
+            this.trendDate1.push(changedDate);
           }
           this.barChartLabels1 = this.trendDate1
           this.barChartData1 = [{ 
@@ -64,7 +62,8 @@ export class TrendcaptureComponent implements OnInit {
         if(i == 1){
           for(let j = 0; j < this.dataArray[i].length; j++){ 
             this.trendResult2.push(this.dataArray[i][j].result);
-            this.trendDate2.push(this.dataArray[i][j].dateOfResult);
+            let changedDate = this.datepipe.transform(this.dataArray[i][j].dateOfResult, 'dd/MM')
+            this.trendDate2.push(changedDate);          
           }
           this.barChartLabels2 = this.trendDate2
           this.barChartData2 = [{ 
@@ -78,7 +77,8 @@ export class TrendcaptureComponent implements OnInit {
         if(i == 2){
           for(let j = 0; j < this.dataArray[i].length; j++){ 
             this.trendResult3.push(this.dataArray[i][j].result);
-            this.trendDate3.push(this.dataArray[i][j].dateOfResult);
+            let changedDate = this.datepipe.transform(this.dataArray[i][j].dateOfResult, 'dd/MM')
+            this.trendDate3.push(changedDate);          
           }
           this.barChartLabels3 = this.trendDate3
           this.barChartData3 = [{ 

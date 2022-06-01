@@ -1,0 +1,29 @@
+.pinnedTitle{
+    text-align: center;
+}
+
+.closeBTN{
+    float: right;
+}
+
+.row1,.row2{
+    display: flex;
+}
+
+.pinnedCharts{
+    width: 46em;
+}
+
+.right{
+    margin-right: 2em;
+    float: left;
+}
+
+.upper{
+    margin-bottom: 2em;
+}
+
+.dataCol{
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(161, 161, 161, 0.9);
+}

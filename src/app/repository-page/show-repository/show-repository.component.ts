@@ -26,7 +26,6 @@ export class ShowRepositoryComponent implements OnInit {
   orgLogin: any;
   authToken: any;
   selectedI: any = [];
-  jsonArr: any = [];
   repoListObject: any;
   repoName!:string ;
   receiveData:any;
@@ -39,6 +38,10 @@ export class ShowRepositoryComponent implements OnInit {
     this.authToken =this.util.getToken();
     this.orgLogin = localStorage.getItem('orgLogin');
     this.nameOfItem = this.util.getCollectiveRepoData();
+    if(this.nameOfItem.length <= 0)
+        this.repoList = false;
+      else
+        this.repoList = true;
   }
 
   openDialog() {
@@ -60,3 +63,5 @@ export class ShowRepositoryComponent implements OnInit {
   }
 
 }
+
+

@@ -135,6 +135,7 @@ export class HttpService {
   public editSaveQuery(repoList: any,params:HttpParams,queryId:any): Observable<any>{
     return this.http.post<any>(environment.apiUrl+ '/user/updateQuery/'+ queryId, repoList,{params});
   }
+
   // trend result
   public getTrendResult(userID){
     return this.http.get(environment.apiUrl+'/user/'+ userID +'/getTrendResults');
@@ -147,5 +148,14 @@ export class HttpService {
 
   public deleteQuery(queryId:any){
     return this.http.get(environment.apiUrl+'/user/deleteQuery/'+queryId);
+
+  // pinned query result
+  public getPinnedResult(userID){
+    return this.http.get(environment.apiUrl+'/user/'+ userID +'/getPinnedResults')
   }
+
+  // remove pinned query
+  public unsetPinnedResult(queryID){
+    return this.http.get(environment.apiUrl+'/user/unsetPinned/'+ queryID)
+  } 
 }

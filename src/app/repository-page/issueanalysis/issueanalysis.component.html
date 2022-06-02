@@ -3,7 +3,7 @@
   <!-- Critical Issues -->
   <mat-tab label="Critical Issue">
     <div class="criticalIssueList">
-      <h4 *ngIf="criticalTitle">{{queryTitle}}</h4>
+      <h4 *ngIf="criticalTitle">{{criticalTitle}}</h4>
       <form [formGroup]="criticalIssuesForm">
         <h4>
           This will list all the Open Priority-1 issues across selected
@@ -12,8 +12,12 @@
             class="btn headBtn criticalButton btn-sm" (click)="criticalIssueList()">List
           </button>
 
-          <button class="btn btn-sm" type="button" (click)="openDialogCriticalIssue()" [disabled]="isCritic">
-            <mat-icon>save</mat-icon>
+          <button *ngIf="!criticalTitle" class="btn btn-sm" type="button" (click)="openDialogCriticalIssue()" [disabled]="isCritic">
+            Save Analysis
+          </button>
+
+          <button *ngIf="criticalTitle" class="btn btn-sm" type="button" (click)="openDialogEditCriticalIssue()">
+            Edit
           </button>
 
           <button class="btn btn-sm" type="button">
@@ -103,7 +107,7 @@
   <!-- average time -->
   <mat-tab label="Average Resolving Time">
     <div class="avgTimeList">
-      <h4 *ngIf="priorityTitle">{{queryTitle}}</h4>
+      <h4 *ngIf="priorityTitle">{{priorityTitle}}</h4>
       <form [formGroup]="AvgTimeForm">
         <h4>
           How much average time needed for resolving
@@ -114,8 +118,12 @@
           </button>
           issues?
 
-          <button class="btn btn-sm" type="button" (click)="openDialogAverageIssue()" [disabled]="isAverage">
+          <button *ngIf="!priorityTitle" class="btn btn-sm" type="button" (click)="openDialogAverageIssue()" [disabled]="isAverage">
             Save Analysis
+          </button>
+
+          <button *ngIf="priorityTitle" class="btn btn-sm" type="button" (click)="openDialogEditAverageIssue()">
+            Edit
           </button>
 
           <button class="btn btn-sm" type="button">
@@ -134,7 +142,7 @@
 
   <!-- Search By Label -->
   <mat-tab label="Search By Label">
-    <h4 *ngIf="labelTitle">{{queryTitle}}</h4>
+    <h4 *ngIf="labelTitle">{{labelTitle}}</h4>
     <button class="btn headBtn btn-sm labelButton" (click)="getlabels()">Get Labels</button>
     <a *ngIf="selectedLabel">Selelected Label : {{selectedLabel}}</a>
     
@@ -165,11 +173,15 @@
 
           <div class="queryBTN">
               <div id="saveBTN" >
-                <button class="btn btn-sm" type="button" (click)="openDialogLabelIssue()" [disabled]="isLabel">
+                <button *ngIf="!labelTitle" class="btn btn-sm" type="button" (click)="openDialogLabelIssue()" [disabled]="isLabel">
                   Save 
                 </button>
               </div>
-        
+              
+              <button *ngIf="labelTitle" class="btn btn-sm" type="button" (click)="openDialogEditLabelIssue()">
+                Edit
+              </button>
+
               <div id="pinBTN">
                 <button class="btn btn-sm" type="button">
                   <img src="assets\icons\pin-angle-fill.svg" class="svg" />

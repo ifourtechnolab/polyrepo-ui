@@ -11,3 +11,28 @@
 .actionBTN{
     margin-right: 3%;
 }
+.btn-sm1 {
+    background-color: #664983;
+    color: white;
+    border-radius: 5px;
+  }
+.btn-no{
+    margin-left: 66%;
+}
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.actionBTN{
+    border-radius: 50%;
+}
+
+.deleteBTN{
+    color: red;
+}
+
+.infoBTN{
+    background-color: #0047ab;
+    color: white;
+}

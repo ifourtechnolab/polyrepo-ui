@@ -1,7 +1,8 @@
 <div class="container-fluid resultsCharts">
-  <div class="row1">
-    <div class="col1">
-      <div>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="barChartData1">
+        <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID1)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
         <h1 class="trendTitle">{{this.trendDetails1.title}}</h1>
         <div style="display: block">
           <canvas baseChart
@@ -14,8 +15,9 @@
       </div>
     </div><br>
 
-    <div class="col1">
-      <div>
+    <div class="col">
+      <div *ngIf="barChartData2">
+        <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID2)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
         <h1 class="trendTitle">{{this.trendDetails2.title}}</h1>
         <div style="display: block">
           <canvas baseChart
@@ -28,8 +30,9 @@
       </div>
     </div><br>
 
-    <div class="col1">
-      <div>
+    <div class="col">
+      <div *ngIf="barChartData3">
+        <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID3)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
         <h1 class="trendTitle">{{this.trendDetails3.title}}</h1>
         <div style="display: block">
           <canvas baseChart

@@ -41,6 +41,8 @@ export class SavequeryComponent implements OnInit {
     public matDialog: MatDialogRef<SavequeryComponent>) { }
 
   ngOnInit(): void {
+
+    //display code for org
     if (this.util.getQueryOrg() != null) {
       this.fform.get('org').setValue(this.util.getQueryOrg());
       this.fform.controls['org'].disable();
@@ -48,6 +50,8 @@ export class SavequeryComponent implements OnInit {
       this.fform.controls['org'].disable();
       this.fform.get('org').setValue(localStorage.getItem('orgLogin'));
     }
+
+    //display code for repo
     this.nameOfItem = this.util.getCollectiveRepoData();
     if (this.nameOfItem.length > 0) {
       this.showRepo = true;
@@ -55,6 +59,8 @@ export class SavequeryComponent implements OnInit {
     else {
       this.showRepo = false;
     }
+
+    //display code for label
     if (this.util.getQueryLabel() != null) {
       this.fform.get('label').setValue(this.util.getQueryLabel());
       this.showLabel = true;
@@ -69,6 +75,7 @@ export class SavequeryComponent implements OnInit {
       this.showLabel = false;
     }
 
+    //display code for days
     if (this.util.getQueryDays() != null) {
       this.fform.get('day').setValue(this.util.getQueryDays());
       this.showDays = true;
@@ -136,7 +143,7 @@ export class SavequeryComponent implements OnInit {
             }
           });
         }
-        else {
+        else if (this.isTrend){
           this.http.trendQuery(this.util.getUserId(), this.queryId).subscribe((trendRes: any) => {
             if (trendRes.message == 'Query Set For Trend Capture') {
               //saved
@@ -148,8 +155,11 @@ export class SavequeryComponent implements OnInit {
             }
           });
         }
+        
+        else{this.saveQueryToast('Analysis saved successfully.');}
         this.matDialog.close({ data: true });
       }
+      
     });
   }
   close() {

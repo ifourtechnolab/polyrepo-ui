@@ -5,7 +5,7 @@
       <form [formGroup]="fform">
         <div *ngIf="queryTitleActivity"><h4>{{queryTitleActivity}}</h4></div>
         <h4>Is there any Pull Request where there is no activity since days
-          <input type="text" placeholder="Days" formControlName="ActivityPrDay">
+          <input type="number" placeholder="Days" formControlName="ActivityPrDay">
           <button class="btn btn-sm" type="button" (click)="noActivityPR()">
             GO
           </button> ?
@@ -88,7 +88,7 @@
       <form [formGroup]="fform2">
         <div *ngIf="queryTitleUnmerged"><h4>{{queryTitleUnmerged}}</h4></div>
         <h4>Is there any PR which is not merged since days
-          <input type="text" placeholder="Days" formControlName="MergePrDay">
+          <input type="number" placeholder="Days" formControlName="MergePrDay">
           <button class="btn btn-sm" type="button" (click)="unmergedPr()">
             GO
           </button> ?
@@ -98,7 +98,7 @@
           </button>
 
           <button *ngIf="queryTitleUnmerged" class="btn btn-sm" type="button" (click)="openDialogEditUnmerged()">
-            <mat-icon>edit</mat-icon>
+            Edit
           </button>
 
           <button class="btn btn-sm" type="button" >

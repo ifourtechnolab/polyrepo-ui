@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SavequeryComponent } from '../savequery/savequery.component';
 import { Router } from '@angular/router';
+import { EditSavequeryComponent } from '../edit-savequery/edit-savequery.component';
 
 export interface issueData {
   title: any;
@@ -61,11 +62,11 @@ export class IssueanalysisComponent implements OnInit {
   queryLabel: any;
   tabIndex = 0 ;
   receiveData: any;
-  queryTitle : any;
   selectedLabel: any;
-  criticalTitle : boolean = false;
-  priorityTitle : boolean = false;
-  labelTitle : boolean = false;
+  queryTitleTab1:any;
+  criticalTitle : any;
+  priorityTitle : any;
+  labelTitle : any;
 
   @ViewChild('page1') paginator1: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;
@@ -94,17 +95,18 @@ export class IssueanalysisComponent implements OnInit {
       avgIssues: new FormControl(''),
     });
     if(this.util.getQueryKey() != null){
-      this.queryTitle = this.util.getQueryTitle();
+      
+      this.orgName=this.util.getQueryOrg();
       if(this.util.getQueryKey() == 'getPriority1IssuesOpenedBeforeXDaysQuery'){
         this.tabIndex = 0;
-        this.criticalTitle = true;
+        this.criticalTitle = this.util.getQueryTitle();
         this.criticalIssuesForm.get('criticalIssues').setValue(this.util.getQueryDays());
         let repo = {"repoNames": this.util.getCollectiveRepoData()};
         this.criticalData(this.util.getQueryOrg(), this.util.getQueryDays(), repo)
       }
       else if(this.util.getQueryKey() == 'getClosedP1IssuesTimeQuery'|| this.util.getQueryKey() == 'getClosedP2IssuesTimeQuery'){
         this.tabIndex = 1;
-        this.priorityTitle = true;
+        this.priorityTitle = this.util.getQueryTitle();
         if(this.util.getQueryKey() == 'getClosedP1IssuesTimeQuery'){
           this.getAvgP1(this.util.getQueryOrg())
         }
@@ -114,11 +116,15 @@ export class IssueanalysisComponent implements OnInit {
       }
       else if(this.util.getQueryKey() == 'getOpenIssueNamesByLabel'){
         this.tabIndex = 2;
-        this.labelTitle = true;
+        this.labelTitle = this.util.getQueryTitle();
         let repo = {"repoNames": this.util.getCollectiveRepoData()}; 
         this.selectedLabel = this.util.getQueryLabel();
         this.getLabelData(this.util.getQueryOrg(), repo, this.util.getQueryLabel())
       }
+    }
+    else
+    {
+      this.orgName = localStorage.getItem('orgLogin');
     }
   }
 
@@ -148,7 +154,7 @@ export class IssueanalysisComponent implements OnInit {
     this.dataloading = true;
     this.isCritic = false;
     this.authToken = this.util.getToken();
-    this.orgName = localStorage.getItem('orgLogin');
+    
     this.days = this.criticalIssuesForm.value.criticalIssues;
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
@@ -199,7 +205,7 @@ export class IssueanalysisComponent implements OnInit {
   // average time for priority-1 issues
   avg1() {
     this.isAverage = false;
-    this.orgName = localStorage.getItem('orgLogin');
+   
     this.http.getAvgTimeP1(this.orgName).subscribe((res: any) => {
       this.priorityOne = res.message;
       this.priorityQueryKey = res.queryKey;  
@@ -209,7 +215,6 @@ export class IssueanalysisComponent implements OnInit {
   // average time for priority-2 issues
   avg2() {
     this.isAverage = false;
-    this.orgName = localStorage.getItem('orgLogin');
     this.http.getAvgTimeP2(this.orgName).subscribe((res: any) => {
       this.priorityTwo = res.message;
       this.priorityQueryKey = res.queryKey;
@@ -222,7 +227,6 @@ export class IssueanalysisComponent implements OnInit {
   getlabels() {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
-    this.orgName = localStorage.getItem('orgLogin');
     this.dataloading = true;
     if (this.selectedRepoList.length === 0) {
       this.dataloading = false;
@@ -245,7 +249,9 @@ export class IssueanalysisComponent implements OnInit {
   getlebelissue(label: any) {
     this.selectedRepoList = this.util.getCollectiveRepoData();
     this.repoListObject = { repoNames: this.selectedRepoList };
-    this.orgName = localStorage.getItem('orgLogin');
+    this.selectedLabel = label;
+    this.util.setQueryLabel(label);
+    
     this.dataloading = true
     if (!label) {
       this.dataloading = false;
@@ -307,6 +313,31 @@ export class IssueanalysisComponent implements OnInit {
       }
     });
   }
+
+  openDialogEditCriticalIssue()
+  {
+    const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.CriticalIssueQueryKey, days: this.criticalIssuesForm.value.criticalIssues,type: 'issue',queryId:this.util.getQueryId() } });
+    openDialog.afterClosed().subscribe((result) => {
+      this.criticalTitle=this.util.getQueryTitle();
+      this.criticalIssuesForm.get('criticalIssues').setValue(this.util.getQueryDays());
+    });
+  }
+
+  openDialogEditAverageIssue() {
+    const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.priorityQueryKey,queryId:this.util.getQueryId(),type: 'issue' } });
+    openDialog.afterClosed().subscribe((result) => {
+      this.priorityTitle=this.util.getQueryTitle();
+    });
+  }
+
+  openDialogEditLabelIssue() {
+    const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.labelDataQueryKey,queryId:this.util.getQueryId(), label: this.queryLabel, type: 'issue' } });
+    openDialog.afterClosed().subscribe((result) => {
+      this.labelTitle=this.util.getQueryTitle();
+      this.selectedLabel = this.util.getQueryLabel();
+    });
+  }
+
 
   criticalData(orgname, days, repo){
     this.http

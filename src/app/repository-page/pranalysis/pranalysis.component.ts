@@ -64,7 +64,8 @@ export class PranalysisComponent implements OnInit {
   @ViewChild('page2') paginator2: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('sort2') sort2: MatSort;
-  constructor(private http: HttpService, private util: UtilService, private toastr: ToastrService, public matDialog: MatDialog) { }
+  constructor(private http: HttpService, private util: UtilService, private toastr: ToastrService, 
+    public matDialog: MatDialog) { }
 
   //search filter for idle pr
   applyFilter(event: Event) {
@@ -218,6 +219,7 @@ export class PranalysisComponent implements OnInit {
     const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.idlePrQueryKey, days: this.fform.value.ActivityPrDay,type: 'pr',queryId:this.util.getQueryId() } });
     openDialog.afterClosed().subscribe((result) => {
       this.queryTitleActivity=this.util.getQueryTitle();
+      this.fform.get('ActivityPrDay').setValue(this.util.getQueryDays());
     });
   }
 
@@ -226,6 +228,7 @@ export class PranalysisComponent implements OnInit {
     const openDialog = this.matDialog.open(EditSavequeryComponent, { disableClose: true, hasBackdrop: true, data: { queryKey: this.unmergedPrQueryKey, days: this.fform2.value.MergePrDay,type: 'pr',queryId:this.util.getQueryId() } });
     openDialog.afterClosed().subscribe((result) => {
       this.queryTitleUnmerged=this.util.getQueryTitle();
+      this.fform2.get('MergePrDay').setValue(this.util.getQueryDays());
     });
   }
 }

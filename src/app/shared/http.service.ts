@@ -134,7 +134,7 @@ export class HttpService {
   //edit saved result
   public editSaveQuery(repoList: any,params:HttpParams,queryId:any): Observable<any>{
     return this.http.post<any>(environment.apiUrl+ '/user/updateQuery/'+ queryId, repoList,{params});
-
+  }
   // trend result
   public getTrendResult(userID){
     return this.http.get(environment.apiUrl+'/user/'+ userID +'/getTrendResults');
@@ -143,6 +143,9 @@ export class HttpService {
   // trend list
   public getTrendList(userID){
     return this.http.get(environment.apiUrl+'/user/'+ userID +'/getListOfTrendCapturedQueries');
+  }
 
+  public deleteQuery(queryId:any){
+    return this.http.get(environment.apiUrl+'/user/deleteQuery/'+queryId);
   }
 }

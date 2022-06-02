@@ -136,7 +136,6 @@ export class EditSavequeryComponent implements OnInit {
       this.repoListObject = { "repoNames": this.repoList };
     }
     this.http.editSaveQuery(this.repoListObject, params, this.data.queryId).subscribe((editQueryResult: any) => {
-      console.log(editQueryResult);
       if (editQueryResult.message == "Saved Analysis Updated Successfully") {
         this.util.setQueryTitle(this.fform.value.title);
        if(this.data.days != null){

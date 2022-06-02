@@ -12,29 +12,29 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PinnedqueryComponent implements OnInit {
 
-  pinnedData : any[] = [];
-  queryIDArr: any[] = [];
+  pinnedData : any[] = null;
+  queryIDArr: any[] = null;
   queryID1: any;
   queryID2: any;
   queryID3: any;
   queryID4: any;
-  titleArr : any[] = [];
+  titleArr : any[] = null;
   title1 : any;
   title2 : any;
   title3 : any;
   title4 : any;
-  demo1 : any[] = [];
-  demo2 : any[] = [];
-  demo3 : any[] = [];
-  demo4 : any[] = [];
-  total1 : any[] = [];
-  total2 : any[] = [];
-  total3 : any[] = [];
-  total4 : any[] = [];
-  repoName1 : any[] = [];  
-  repoName2 : any[] = [];  
-  repoName3 : any[] = [];  
-  repoName4 : any[] = []; 
+  demo1 : any[] = null;
+  demo2 : any[] = null;
+  demo3 : any[] = null;
+  demo4 : any[] = null;
+  total1 : any[] = null;
+  total2 : any[] = null;
+  total3 : any[] = null;
+  total4 : any[] = null;
+  repoName1 : any[] = null;  
+  repoName2 : any[] = null;  
+  repoName3 : any[] = null;  
+  repoName4 : any[] = null; 
   
   public barChartLabels1 = null;
   public barChartLabels2 = null;
@@ -49,7 +49,7 @@ export class PinnedqueryComponent implements OnInit {
   public barChartLegend = true;
   interval: any;
 
-  constructor(private http: HttpService, private util:UtilService, private toastr: ToastrService,) { }
+  constructor(private http: HttpService, private util:UtilService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.pinnedResult();
@@ -186,7 +186,6 @@ export class PinnedqueryComponent implements OnInit {
 
   removeQuery(queryID){
     this.http.unsetPinnedResult(queryID).subscribe((message : any) => {
-      console.log(message.message);
       if(message.message == "Query Removed from Pinned"){
         this.toastr.success('', 'Pinned query deleted', {
           positionClass: 'toast-top-center',

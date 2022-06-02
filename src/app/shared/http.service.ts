@@ -145,4 +145,14 @@ export class HttpService {
   public getTrendList(userID){
     return this.http.get(environment.apiUrl+'/user/'+ userID +'/getListOfTrendCapturedQueries');
   }
+
+  // pinned query result
+  public getPinnedResult(userID){
+    return this.http.get(environment.apiUrl+'/user/'+ userID +'/getPinnedResults')
+  }
+
+  // remove pinned query
+  public unsetPinnedResult(queryID){
+    return this.http.get(environment.apiUrl+'/user/unsetPinned/'+ queryID)
+  } 
 }

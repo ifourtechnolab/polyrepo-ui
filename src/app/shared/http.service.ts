@@ -153,6 +153,6 @@ export class HttpService {
 
   // remove pinned query
   public unsetPinnedResult(queryID){
-    return this.http.get(environment.apiUrl+'/user/unsetPinned'+ queryID)
+    return this.http.get(environment.apiUrl+'/user/unsetPinned/'+ queryID)
   } 
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartType, ChartDataset } from 'chart.js';
 import { HttpService } from 'src/app/shared/http.service';
 import { UtilService } from 'src/app/shared/util.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-pinnedquery',
@@ -11,7 +13,11 @@ import { UtilService } from 'src/app/shared/util.service';
 export class PinnedqueryComponent implements OnInit {
 
   pinnedData : any[] = [];
-  queryID: any = 1;
+  queryIDArr: any[] = [];
+  queryID1: any;
+  queryID2: any;
+  queryID3: any;
+  queryID4: any;
   titleArr : any[] = [];
   title1 : any;
   title2 : any;
@@ -41,25 +47,63 @@ export class PinnedqueryComponent implements OnInit {
 
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  interval: any;
 
-  constructor(private http: HttpService, private util:UtilService) { }
+  constructor(private http: HttpService, private util:UtilService, private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.pinnedResult();
   }
 
-  AfterContentInit() : void{
-    console.log("abc");
-  }
-
   pinnedResult(){
     this.http.getPinnedResult(this.util.getUserId()).subscribe((result : any) => {
-      console.log(Object.keys(result)[0]);
       
+      // for title of charts
       for(let i = 0; i < Object.values(result).length-1; i++){
         let title = Object.values(result)[i];
         this.titleArr.push(Object.values(title)[0].title);       
       }
+      
+      // for queryID of cahrts
+      for( let i = 0; i < Object.values(result).length-1; i++){
+        this.queryIDArr.push(Object.keys(result)[i])
+      }
+
+      // for label on x-axis on charts
+      for(let i = 0; i < Object.values(result).length-1; i++){
+        let allRepoDetail = Object.values(result)[i]
+        let aaa = Object.values(allRepoDetail)[3]        
+        if(i == 0){
+          this.queryID1 = this.queryIDArr[i]
+          for( let j = 0; j < Object.values(aaa).length; j++){
+            let bbb = Object.values(aaa)[j]
+            this.repoName1.push(Object.values(bbb)[1])
+          }
+        }
+        if(i == 1){
+          this.queryID2 = this.queryIDArr[i]
+          for( let j = 0; j < Object.values(aaa).length; j++){
+            let bbb = Object.values(aaa)[j]
+            this.repoName2.push(Object.values(bbb)[1])
+          }
+        }
+        if(i == 2){
+          this.queryID3 = this.queryIDArr[i]
+          for( let j = 0; j < Object.values(aaa).length; j++){
+            let bbb = Object.values(aaa)[j]
+            this.repoName3.push(Object.values(bbb)[1])
+          }
+        }
+        if(i == 3){
+          this.queryID4 = this.queryIDArr[i]
+          for( let j = 0; j < Object.values(aaa).length; j++){
+            let bbb = Object.values(aaa)[j]
+            this.repoName4.push(Object.values(bbb)[1])
+          }
+        }
+      }      
+
+      // for bar values on charts
       for( let i = 0; i < Object.values(result.pin).length; i++){
         this.pinnedData.push(Object.values(result.pin)[i])
       }      
@@ -71,12 +115,6 @@ export class PinnedqueryComponent implements OnInit {
                 let repos = Object.values(abc)[i]
                 for(let j = 0; j < Object.values(repos).length; j++){
                   this.total1.push(Object.values(repos)[j].total)         
-                }
-                for(let j = 0; j < Object.values(repos).length; j++){
-                  this.demo1.push(Object.values(repos)[j])  
-                }
-                for(let k = 0; k < Object.values(this.demo1).length; k++){
-                  this.repoName1.push(Object.values(this.demo1)[k].nodes[0].repository.name)
                 }
             }
             this.barChartLabels1 = this.repoName1
@@ -96,12 +134,6 @@ export class PinnedqueryComponent implements OnInit {
               for(let j = 0; j < Object.values(repos).length; j++){
                 this.total2.push(Object.values(repos)[j].total)         
               }
-              for(let j = 0; j < Object.values(repos).length; j++){
-                this.demo2.push(Object.values(repos)[j])  
-              }
-              for(let k = 0; k < Object.values(this.demo2).length; k++){
-                this.repoName2.push(Object.values(this.demo2)[k].nodes[0].repository.name)
-              }
           }
           this.barChartLabels2 = this.repoName2
           this.barChartData2 = [{ 
@@ -119,12 +151,6 @@ export class PinnedqueryComponent implements OnInit {
               let repos = Object.values(abc)[i]
               for(let j = 0; j < Object.values(repos).length; j++){
                 this.total3.push(Object.values(repos)[j].total)         
-              }
-              for(let j = 0; j < Object.values(repos).length; j++){
-                this.demo3.push(Object.values(repos)[j])  
-              }
-              for(let k = 0; k < Object.values(this.demo3).length; k++){
-                this.repoName3.push(Object.values(this.demo3)[k].nodes[0].repository.name)
               }
           }
           this.barChartLabels3 = this.repoName3
@@ -144,12 +170,6 @@ export class PinnedqueryComponent implements OnInit {
               for(let j = 0; j < Object.values(repos).length; j++){
                 this.total4.push(Object.values(repos)[j].total)         
               }
-              for(let j = 0; j < Object.values(repos).length; j++){
-                this.demo4.push(Object.values(repos)[j])  
-              }
-              for(let k = 0; k < Object.values(this.demo4).length; k++){
-                this.repoName4.push(Object.values(this.demo4)[k].nodes[0].repository.name)
-              }
           }
           this.barChartLabels4 = this.repoName4
           this.barChartData4 = [{ 
@@ -164,10 +184,19 @@ export class PinnedqueryComponent implements OnInit {
     })
   }
 
-  removeQuery(){
-    this.http.unsetPinnedResult(this.queryID).subscribe((message : any) => {
-      console.log(message);
+  removeQuery(queryID){
+    this.http.unsetPinnedResult(queryID).subscribe((message : any) => {
+      console.log(message.message);
+      if(message.message == "Query Removed from Pinned"){
+        this.toastr.success('', 'Pinned query deleted', {
+          positionClass: 'toast-top-center',
+          closeButton: true,
+          easeTime: 250,
+        });
+      }
     })
-    window.location.reload();
+    this.interval = setInterval(() => {
+      window.location.reload();
+    }, 1000);
   }
 }

@@ -27,3 +27,11 @@
     border-radius: 10px;
     box-shadow: 1px 1px 10px rgba(161, 161, 161, 0.9);
 }
+
+#noData{
+    position: absolute;
+    color: #bbbbbb;
+    text-align: center;
+    margin-top: 20%;
+    margin-left: 33%;
+}

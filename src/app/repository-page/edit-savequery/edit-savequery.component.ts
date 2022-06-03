@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, FormControlName, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormControl,Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpService } from 'src/app/shared/http.service';
 import { UtilService } from 'src/app/shared/util.service';
@@ -17,10 +17,10 @@ interface repoList {
 })
 export class EditSavequeryComponent implements OnInit {
   fform = new FormGroup({
-    title: new FormControl('',),
-    org: new FormControl('',),
-    day: new FormControl('',),
-    label: new FormControl('',),
+    title: new FormControl('',Validators.required),
+    org: new FormControl(''),
+    day: new FormControl(''),
+    label: new FormControl(''),
   });
   nameOfItem: repoList[] = [];
   showRepo: boolean = false;

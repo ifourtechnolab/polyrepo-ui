@@ -12,10 +12,10 @@ interface repoList {
 })
 export class ShowquerydetailsComponent implements OnInit {
   fform = new FormGroup({
-    title: new FormControl('',),
-    org: new FormControl('',),
-    day: new FormControl('',),
-    label: new FormControl('',),
+    title: new FormControl(''),
+    org: new FormControl(''),
+    day: new FormControl(''),
+    label: new FormControl(''),
   });
   queryDetail: any;
   paramList : any;
@@ -27,11 +27,7 @@ export class ShowquerydetailsComponent implements OnInit {
   trendChecked: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
-    console.log(data);
-    debugger
     this.queryDetail = this.data.query;
-    debugger
-    console.log(this.queryDetail);
     this.paramList = this.queryDetail.paramList;
    }
 

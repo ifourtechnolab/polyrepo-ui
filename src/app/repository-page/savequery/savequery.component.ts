@@ -29,10 +29,10 @@ export class SavequeryComponent implements OnInit {
   pinMsg: any;
   trendMsg: any;
   fform = new FormGroup({
-    title: new FormControl('',),
-    org: new FormControl('',),
-    day: new FormControl('',),
-    label: new FormControl('',),
+    title: new FormControl('',Validators.required),
+    org: new FormControl(''),
+    day: new FormControl(''),
+    label: new FormControl(''),
   });
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpService,

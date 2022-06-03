@@ -16,19 +16,19 @@ export class TrendcaptureComponent implements OnInit {
 
   userID = this.util.getUserId();
   interval : any;
-  queryIDArr : any[] = null;
+  queryIDArr : any[] = [];
   queryID1 : any;
   queryID2 : any;
   queryID3 : any;
-  trendResult1 : any[] = null;
-  trendResult2 : any[] = null;
-  trendResult3 : any[] = null;
+  trendResult1 : any[] = [];
+  trendResult2 : any[] = [];
+  trendResult3 : any[] = [];
   trendDetails1 : any;
   trendDetails2 : any;
   trendDetails3 : any;
-  trendDate1 : any[] = null;
-  trendDate2 : any[] = null;
-  trendDate3 : any[] = null;
+  trendDate1 : any[] = [];
+  trendDate2 : any[] = [];
+  trendDate3 : any[] = [];
   public barChartLabels1 = null;
   public barChartLabels2 = null;
   public barChartLabels3 = null;
@@ -47,13 +47,9 @@ export class TrendcaptureComponent implements OnInit {
   }
   trendCaptureResult(){
     this.http.getTrendResult(this.userID).subscribe((result:any) => { 
-      for(let i=0; i < Object.values(result).length; i++){
-        this.dataArray.push(Object.values(result)[i]);
-      }            
-      for(let i=0; i < Object.values(result).length; i++){
-        this.queryIDArr.push(Object.values(result)[i][1].queryId)
-      }
       for(let i = 0; i < Object.values(result).length; i++){
+        this.dataArray.push(Object.values(result)[i]);
+        this.queryIDArr.push(Object.values(result)[i][1].queryId)
         if(i == 0){
           for(let j = 0; j < this.dataArray[i].length; j++){ 
             this.trendResult1.push(this.dataArray[i][j].result);
@@ -103,7 +99,6 @@ export class TrendcaptureComponent implements OnInit {
          }];
         }
       }
-      console.log(this.barChartData1)
     });
   }
 

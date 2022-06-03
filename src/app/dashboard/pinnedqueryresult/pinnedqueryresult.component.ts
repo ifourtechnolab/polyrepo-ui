@@ -12,29 +12,29 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PinnedqueryComponent implements OnInit {
 
-  pinnedData : any[] = null;
-  queryIDArr: any[] = null;
+  pinnedData : any[] = [];
+  queryIDArr: any[] = [];
   queryID1: any;
   queryID2: any;
   queryID3: any;
   queryID4: any;
-  titleArr : any[] = null;
+  titleArr : any[] = [];
   title1 : any;
   title2 : any;
   title3 : any;
   title4 : any;
-  demo1 : any[] = null;
-  demo2 : any[] = null;
-  demo3 : any[] = null;
-  demo4 : any[] = null;
-  total1 : any[] = null;
-  total2 : any[] = null;
-  total3 : any[] = null;
-  total4 : any[] = null;
-  repoName1 : any[] = null;  
-  repoName2 : any[] = null;  
-  repoName3 : any[] = null;  
-  repoName4 : any[] = null; 
+  demo1 : any[] = [];
+  demo2 : any[] = [];
+  demo3 : any[] = [];
+  demo4 : any[] = [];
+  total1 : any[] = [];
+  total2 : any[] = [];
+  total3 : any[] = [];
+  total4 : any[] = [];
+  repoName1 : any[] = [];  
+  repoName2 : any[] = [];  
+  repoName3 : any[] = [];  
+  repoName4 : any[] = []; 
   
   public barChartLabels1 = null;
   public barChartLabels2 = null;
@@ -59,16 +59,15 @@ export class PinnedqueryComponent implements OnInit {
     this.http.getPinnedResult(this.util.getUserId()).subscribe((result : any) => {
       
       // for title of charts
-      for(let i = 0; i < Object.values(result).length-1; i++){
-        let title = Object.values(result)[i];
-        this.titleArr.push(Object.values(title)[0].title);       
-      }
-      
-      // for queryID of cahrts
+      for( let i = 0; i < Object.values(result).length-1; i++){
+        let title = Object.values(result)[i]        
+        this.titleArr.push(Object.values(title)[0].title)
+      } 
+
+      // for queryID of charts
       for( let i = 0; i < Object.values(result).length-1; i++){
         this.queryIDArr.push(Object.keys(result)[i])
-      }
-
+      }      
       // for label on x-axis on charts
       for(let i = 0; i < Object.values(result).length-1; i++){
         let allRepoDetail = Object.values(result)[i]

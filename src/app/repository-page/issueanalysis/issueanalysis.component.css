@@ -18,9 +18,6 @@
   display: flex;
 }
 
-.svg {
-  filter: invert(1);
-}
 .criticalButton{
   margin-left: 0.5%;
 }

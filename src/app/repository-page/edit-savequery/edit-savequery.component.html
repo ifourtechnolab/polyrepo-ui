@@ -1,10 +1,13 @@
 <div class="container">
     <div>
-      <form [formGroup]="fform">
+      <form [formGroup]="fform" (ngSubmit)="EditQuery()">
   
         <mat-form-field appearance="outline">
           <mat-label>Title</mat-label>
           <input type="text" placeholder="Title" matInput formControlName="title">
+          <mat-error *ngIf="fform.get('title').errors">
+            Title is required!
+          </mat-error>
         </mat-form-field><br>
         <mat-form-field appearance="outline">
           <mat-label>Organisation</mat-label>
@@ -45,7 +48,7 @@
     </div>
     <div class="actionBTN">
       <div id="saveBTN">
-        <button mat-button class="btn btn-sm" mat-dialog-close type="button" (click)="EditQuery()">Edit</button>
+        <button mat-button class="btn btn-sm edit" mat-dialog-close type="button" [disabled]="fform.invalid">Edit</button>
       </div>
       <div id="closeBTN">
         <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>

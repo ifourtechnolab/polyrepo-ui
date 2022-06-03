@@ -9,16 +9,12 @@ import { UtilService } from './util.service';
 export class AuthLoggedGuard implements CanActivate {
   constructor(private router: Router, private toastr: ToastrService, private util: UtilService) { }
   canActivate(){
-    if (!this.util.isLoggedIn()) {
-      return true;
-    }
     if(this.util.isLoggedIn()){
-      this.router.navigate(['/repo']);
+      this.router.navigate(['/dashboard']);
       return false;  
     }
     else{
-      this.router.navigate(['/dashboard']);
-      return false;
+      return true;
     }
   }
   

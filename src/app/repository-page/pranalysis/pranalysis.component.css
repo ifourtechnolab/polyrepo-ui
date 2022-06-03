@@ -36,10 +36,6 @@ th {
     padding: 0;
 }
 
-.svg {
-    filter: invert(1);
-}
-
 #idelPR{
     height: 33em !important;
     overflow-y: auto ;

@@ -55,10 +55,10 @@ export class PranalysisComponent implements OnInit {
   queryTitleUnmerged:any;
   selectedRepoList: repoList[] = [];
   fform = new FormGroup({
-    ActivityPrDay: new FormControl('',),
+    ActivityPrDay: new FormControl('0'),
   });
   fform2 = new FormGroup({
-    MergePrDay: new FormControl('',),
+    MergePrDay: new FormControl('0'),
   });
   @ViewChild('page1') paginator: MatPaginator;
   @ViewChild('page2') paginator2: MatPaginator;

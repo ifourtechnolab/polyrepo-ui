@@ -48,6 +48,7 @@ export class PinnedqueryComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   interval: any;
+  noResult : boolean = false;
 
   constructor(private http: HttpService, private util:UtilService, private toastr: ToastrService) { }
 
@@ -57,7 +58,9 @@ export class PinnedqueryComponent implements OnInit {
 
   pinnedResult(){
     this.http.getPinnedResult(this.util.getUserId()).subscribe((result : any) => {
-      
+      if(result.message == "No Pinned Analysis"){
+        this.noResult = true
+      }
       // for title of charts
       for( let i = 0; i < Object.values(result).length-1; i++){
         let title = Object.values(result)[i]        

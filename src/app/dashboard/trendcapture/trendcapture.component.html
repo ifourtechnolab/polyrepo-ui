@@ -1,49 +1,49 @@
-<div class="container-fluid resultsCharts">
-  <div class="row">
-    <div class="col">
-      <div *ngIf="barChartData1">
-        <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID1)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
-        <h1 class="trendTitle">{{this.trendDetails1.title}}</h1>
-        <div style="display: block">
-          <canvas baseChart
-          [datasets]="barChartData1"
-          [labels]="barChartLabels1"          
-          [legend]="barChartLegend"    
-          [type]="barChartType">
-          </canvas>
+<div class="container1">
+  <h1 *ngIf="this.noResult" id="noData">No trend query available</h1>
+    <div class="row1">
+        <div class="col11 right upper dataCol">
+            <div class="pinnedCharts" *ngIf="barChartData1 !=null">
+                <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID1)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
+                <h1 class="pinnedTitle">{{this.trendDetails1.title}}</h1>
+                <div style="display: block">
+                  <canvas baseChart
+                  [datasets]="barChartData1"
+                  [labels]="barChartLabels1"          
+                  [legend]="barChartLegend"    
+                  [type]="barChartType">
+                  </canvas>
+                </div>
+              </div>
         </div>
-      </div>
-    </div><br>
-
-    <div class="col">
-      <div *ngIf="barChartData2">
-        <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID2)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
-        <h1 class="trendTitle">{{this.trendDetails2.title}}</h1>
-        <div style="display: block">
-          <canvas baseChart
-          [datasets]="barChartData2"
-          [labels]="barChartLabels2"          
-          [legend]="barChartLegend"    
-          [type]="barChartType">
-          </canvas>
+        <div class="col12 left upper dataCol">
+            <div class="pinnedCharts" *ngIf="barChartData2 !=null">
+                <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID2)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
+                <h1 class="pinnedTitle">{{this.trendDetails2.title}}</h1>
+                <div style="display: block">
+                  <canvas baseChart
+                  [datasets]="barChartData2"
+                  [labels]="barChartLabels2"          
+                  [legend]="barChartLegend"    
+                  [type]="barChartType">
+                  </canvas>
+                </div>
+              </div>
         </div>
-      </div>
-    </div><br>
-
-    <div class="col">
-      <div *ngIf="barChartData3">
-        <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID3)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
-        <h1 class="trendTitle">{{this.trendDetails3.title}}</h1>
-        <div style="display: block">
-          <canvas baseChart
-          [datasets]="barChartData3"
-          [labels]="barChartLabels3"          
-          [legend]="barChartLegend"    
-          [type]="barChartType">
-          </canvas>
-        </div>
-      </div>
     </div>
-
-  </div>
+    <div class="row2">
+        <div class="col21 right lower dataCol">
+            <div class="pinnedCharts" *ngIf="barChartData3 !=null">
+                <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID3)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
+                <h1 class="pinnedTitle">{{this.trendDetails3.title}}</h1>
+                <div style="display: block">
+                  <canvas baseChart
+                  [datasets]="barChartData3"
+                  [labels]="barChartLabels3"          
+                  [legend]="barChartLegend"    
+                  [type]="barChartType">
+                  </canvas>
+                </div>
+              </div>
+        </div>
+    </div>
 </div>

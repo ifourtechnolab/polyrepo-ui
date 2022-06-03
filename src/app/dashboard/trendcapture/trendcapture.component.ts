@@ -37,16 +37,24 @@ export class TrendcaptureComponent implements OnInit {
   public barChartData3 : ChartDataset[] = null;
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  noResult : boolean = false;
+
 
   dataArray = new Array();
   constructor(private http: HttpService, private util:UtilService, private datepipe : DatePipe, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    console.log(this.trendResult1);
+    
     this.trendCaptureResult();
     this.trendList();
   }
   trendCaptureResult(){
     this.http.getTrendResult(this.userID).subscribe((result:any) => { 
+      if(result.message == "No Trend Result Found"){
+        this.noResult = true
+      }
+
       for(let i = 0; i < Object.values(result).length; i++){
         this.dataArray.push(Object.values(result)[i]);
         this.queryIDArr.push(Object.values(result)[i][1].queryId)
@@ -61,8 +69,8 @@ export class TrendcaptureComponent implements OnInit {
           this.barChartData1 = [{ 
           data: this.trendResult1, 
           label: 'Count', 
-          backgroundColor: 'rgba(0, 175, 0,0.5)', 
-          hoverBackgroundColor: 'rgba(0, 175, 0,0.7)', 
+          backgroundColor: 'rgba(255, 0, 0,0.5)', 
+          hoverBackgroundColor: 'rgba(255, 0, 0,0.7)', 
           borderColor: '#664983',
          }];
         }

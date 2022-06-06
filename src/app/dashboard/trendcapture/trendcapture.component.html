@@ -4,7 +4,7 @@
         <div class="col11 right upper dataCol">
             <div class="pinnedCharts" *ngIf="barChartData1 !=null">
                 <button class="btn closeBTN" (click)="removeTrendQuery(this.queryID1)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
-                <h1 class="pinnedTitle">{{this.trendDetails1.title}}</h1>
+                <h1 class="pinnedTitle">{{title}}</h1>
                 <div style="display: block">
                   <canvas baseChart
                   [datasets]="barChartData1"

@@ -20,7 +20,7 @@ export class TrendcaptureComponent implements OnInit {
   queryID1 : any;
   queryID2 : any;
   queryID3 : any;
-  trendResult1 : any[] = [];
+  trendResult1  = [];
   trendResult2 : any[] = [];
   trendResult3 : any[] = [];
   trendDetails1 : any;
@@ -41,6 +41,7 @@ export class TrendcaptureComponent implements OnInit {
 
 
   dataArray = new Array();
+  title: any;
   constructor(private http: HttpService, private util:UtilService, private datepipe : DatePipe, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -51,19 +52,28 @@ export class TrendcaptureComponent implements OnInit {
   }
   trendCaptureResult(){
     this.http.getTrendResult(this.userID).subscribe((result:any) => { 
+      console.log(result);
+      
       if(result.message == "No Trend Result Found"){
         this.noResult = true
       }
-
+else{
       for(let i = 0; i < Object.values(result).length; i++){
         this.dataArray.push(Object.values(result)[i]);
         this.queryIDArr.push(Object.values(result)[i][1].queryId)
         if(i == 0){
           for(let j = 0; j < this.dataArray[i].length; j++){ 
-            this.trendResult1.push(this.dataArray[i][j].result);
+           this.trendResult1.push(this.dataArray[i][j].result);
+          
+            // for(let i =0; this.dataArray.length >0; i++){
+            //   this.trendResult1[i] = this.dataArray[i][j].result;
+            // }
             let changedDate = this.datepipe.transform(this.dataArray[i][j].dateOfResult, 'dd/MM')
             this.trendDate1.push(changedDate);          
           }
+          console.log(this.trendResult1);
+          console.log(this.dataArray[i]);
+          
           this.queryID1 = this.queryIDArr[i]
           this.barChartLabels1 = this.trendDate1
           this.barChartData1 = [{ 
@@ -107,13 +117,15 @@ export class TrendcaptureComponent implements OnInit {
          }];
         }
       }
+    }
     });
   }
 
   
   trendList(){
     this.http.getTrendList(this.userID).subscribe((list : any) => {
-      this.trendDetails1 = Object.values(list)[0]      
+      this.trendDetails1 = Object.values(list)[0];
+      this.title =  this.trendDetails1.title;
       this.trendDetails2 = Object.values(list)[1]      
       this.trendDetails3 = Object.values(list)[2]      
     })

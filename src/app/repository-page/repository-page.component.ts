@@ -45,9 +45,11 @@ export class RepositoryPageComponent implements OnInit {
       }
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })).length > 0) {
         this.util.setQueryDays(this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'days'); })[0].paramValue);
+        this.util.setQueryLabel(null);
       }
       if ((this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'label'); })).length > 0) {
         this.util.setQueryLabel(this.receiveData.data.paramList.filter(function (obj) { return (obj.paramName == 'label'); })[0].paramValue);
+        this.util.setQueryDays(null);
       }
       if (this.receiveData.data.repoList[0].repoName != null) {
         this.util.setCollectiveRepoData(this.receiveData.data.repoList.map((x: any) => {return {id: x.repoName,name: x.repoName};}));

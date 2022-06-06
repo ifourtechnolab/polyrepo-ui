@@ -14,7 +14,6 @@ h4 {
 }
 
 .addedItems {
-    height: 8rem !important;
     border: 1px solid rgb(193, 192, 192);
     border-radius: 5px;
     margin-top: 3%;
@@ -22,6 +21,7 @@ h4 {
     margin-right: 0.3%;
     padding: 3%;
 }
+
 ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
     background-color: #664983 !important;
 }

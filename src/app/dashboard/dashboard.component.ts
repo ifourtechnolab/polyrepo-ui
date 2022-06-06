@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   organizationsData: any;
   login: any;
   isdisable: boolean = true;
-  filtersOptions: string[] = ['Pinned Query', 'Saved Query', 'Trend Capture'];
+  filtersOptions: string[] = ['Dashboard', 'Saved Query', 'Trend Capture'];
 
   constructor(private http: HttpService, public router: Router,private util:UtilService) { }
 

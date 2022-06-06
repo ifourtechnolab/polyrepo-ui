@@ -3,7 +3,7 @@
       <div class="navflex">
         <div class="appData">
           <img src="\assets\images\app_logo.png" alt="App Name" height="55px" />
-          <a href="#" class="appname">Polyrepo</a>
+          <a href="/dashboard" class="appname">Polyrepo</a>
         </div>
 
         <div class="searchBar">
@@ -25,14 +25,14 @@
             <i class="fa-solid fa-bars"></i>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="home()">
               <mat-icon>home</mat-icon>
-              <span (click)="home()">Home</span>
+              <span>Home</span>
             </button>
             
-            <button mat-menu-item>
+            <button mat-menu-item (click)="logout()">
               <mat-icon>logout</mat-icon>
-              <span (click)="logout()" >Logout</span>
+              <span>Logout</span>
             </button>
           </mat-menu>
         </div>

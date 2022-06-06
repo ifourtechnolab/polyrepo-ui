@@ -5,10 +5,10 @@
             <div class="pinnedCharts" *ngIf="barChartData1">
                 <button class="btn closeBTN" (click)="removeQuery(this.queryID1)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
                 <h1 class="pinnedTitle">{{this.title1}}</h1>
-                <div style="display: block">
+                <div (click)="chartClicked1()" style="display: block">
                   <canvas baseChart
                   [datasets]="barChartData1"
-                  [labels]="barChartLabels1"          
+                  [labels]="barChartLabels1"         
                   [legend]="barChartLegend"    
                   [type]="barChartType">
                   </canvas>
@@ -19,7 +19,7 @@
             <div class="pinnedCharts" *ngIf="barChartData2 !=null">
                 <button class="btn closeBTN" (click)="removeQuery(this.queryID2)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
                 <h1 class="pinnedTitle">{{this.title2}}</h1>
-                <div style="display: block">
+                <div (click)="chartClicked2()" style="display: block">
                   <canvas baseChart
                   [datasets]="barChartData2"
                   [labels]="barChartLabels2"          
@@ -35,7 +35,7 @@
             <div class="pinnedCharts" *ngIf="barChartData3 !=null">
                 <button class="btn closeBTN" (click)="removeQuery(this.queryID3)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
                 <h1 class="pinnedTitle">{{this.title3}}</h1>
-                <div style="display: block">
+                <div (click)="chartClicked3()" style="display: block">
                   <canvas baseChart
                   [datasets]="barChartData3"
                   [labels]="barChartLabels3"          
@@ -49,7 +49,7 @@
             <div class="pinnedCharts" *ngIf="barChartData4 !=null">
                 <button class="btn closeBTN" (click)="removeQuery(this.queryID4)"><i class="fa-solid fa-xmark" mat-dialog-close></i></button><br><br>
                 <h1 class="pinnedTitle">{{this.title4}}</h1>
-                <div style="display: block">
+                <div (click)="chartClicked4()"style="display: block">
                   <canvas baseChart
                   [datasets]="barChartData4"
                   [labels]="barChartLabels4"          

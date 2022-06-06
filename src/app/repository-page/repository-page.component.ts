@@ -119,6 +119,10 @@ export class RepositoryPageComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
+  routeToDashboard(){
+    this.router.navigate(['../../dashboard']);
+  }
+
   getOrgProfile(name: any){
     this.http
       .getOrgProfile(name)

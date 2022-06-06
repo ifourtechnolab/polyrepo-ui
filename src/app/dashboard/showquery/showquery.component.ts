@@ -92,7 +92,7 @@ export class ShowqueryComponent implements OnInit {
 
 @Component({
   selector: 'delete-query',
-  templateUrl: 'deletequery.html',
+  templateUrl: './deletequery.html',
   styleUrls: ['./showquery.component.css']
 
 })

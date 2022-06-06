@@ -1,6 +1,6 @@
 <mat-toolbar class="navigation">
   <img src="\assets\images\app_logo.png" alt="App Name" height="55px" class="appImage" />
-  <a href="#" class="appname">Polyrepo</a>
+  <a (click)="routeToDashboard()" class="appname">Polyrepo</a>
   <span class="example-spacer"></span>
   <h2 id="orgText">Organization - </h2>
   <img src="{{ orgProfileData?.organization?.avatarUrl }}" alt="App Name" height="50%" class="orgImage"/>
@@ -11,17 +11,16 @@
       <i class="fa-solid fa-bars"></i>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="dashboard()">
         <mat-icon>dashboard</mat-icon>
-        <span (click)="dashboard()">Dashboard</span>
+        <span>Dashboard</span>
       </button>
       
-      <button mat-menu-item>
+      <button mat-menu-item (click)="logout()">
         <mat-icon>logout</mat-icon>
-        <span (click)="logout()" >Logout</span>
+        <span>Logout</span>
       </button>
     </mat-menu>
-  <!-- <i class="fa fa-sign-out" (click)="logout()" aria-hidden="true"></i> -->
 </mat-toolbar>
 <div>
   <div class="content">

@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-      <form [formGroup]="fform" (ngSubmit)="EditQuery()">
+      <form [formGroup]="fform">
   
         <mat-form-field appearance="outline">
           <mat-label>Title</mat-label>
@@ -46,12 +46,14 @@
       </div>
       </div>
     </div>
+    <form [formGroup]="fform"  (ngSubmit)="EditQuery()">
     <div class="actionBTN">
       <div id="saveBTN">
-        <button mat-button class="btn btn-sm edit" mat-dialog-close type="button" [disabled]="fform.invalid">Edit</button>
+          <button mat-button class="btn btn-sm edit" mat-dialog-close type="submit" [disabled]="fform.invalid">Save</button>
+        </div>
+        <div id="closeBTN">
+          <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
+        </div>
       </div>
-      <div id="closeBTN">
-        <button class="btn" mat-button mat-dialog-close type="button" (click)="close()">Close</button>
-      </div>
-    </div>
+    </form>
   </div>

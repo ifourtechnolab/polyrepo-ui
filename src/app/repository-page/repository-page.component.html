@@ -34,7 +34,7 @@
 
       <!-- filter options -->
       <div class="filterList overflow-auto">
-        <mat-selection-list #filterr [multiple]="false" (selectionChange)="changeSpan($event)">
+        <mat-selection-list #filterr [multiple]="false" (selectionChange)="changeSpan($event)" >
           <mat-list-option *ngFor="let filter of filters" [value]="filter" [selected]="filter.selected">
             <span style="font-size: 17px" >
               {{ filter.name }}

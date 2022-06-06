@@ -24,6 +24,7 @@ export interface QueryData {
   repoList:QueryRepoData[];
   isPinned: boolean;
   isTrend: boolean;
+  type: any;
 }
 @Component({
   selector: 'app-showquery',
@@ -31,7 +32,7 @@ export interface QueryData {
   styleUrls: ['./showquery.component.css']
 })
 export class ShowqueryComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'showResult', 'action'];
+  displayedColumns: string[] = ['title','type', 'showResult', 'action'];
   dataSource!: MatTableDataSource<QueryData>;
   queryDataList:any;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,9 +57,11 @@ export class ShowqueryComponent implements OnInit {
           repoList:x.queryRepoList,
           paramList:x.queryParameterList,
           isPinned:x.storedQuery.pinned,
-          isTrend:x.storedQuery.trendCaptured
+          isTrend:x.storedQuery.trendCaptured,
+          type:x.queryParameterList.filter(function (obj) { return (obj.paramName == 'type'); })[0].paramValue
         }
       })
+      this.queryDataList.reverse();
       this.dataSource = new MatTableDataSource<QueryData>(this.queryDataList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

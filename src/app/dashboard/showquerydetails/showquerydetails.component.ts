@@ -16,6 +16,8 @@ export class ShowquerydetailsComponent implements OnInit {
     org: new FormControl(''),
     day: new FormControl(''),
     label: new FormControl(''),
+    pinned: new FormControl(''),
+    trendCaptured:new FormControl(''),
   });
   queryDetail: any;
   paramList : any;
@@ -23,8 +25,6 @@ export class ShowquerydetailsComponent implements OnInit {
   showLabel:boolean=false;
   showRepo:boolean=false;
   nameOfItem: repoList[] = [];
-  pinChecked: boolean = false;
-  trendChecked: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
     this.queryDetail = this.data.query;
@@ -48,20 +48,19 @@ export class ShowquerydetailsComponent implements OnInit {
     // if(repo)
     this.fform.get('title').setValue(this.queryDetail.title);
     this.fform.get('org').setValue(this.paramList.filter(function (obj) { return (obj.paramName == 'orgName'); })[0].paramValue);
-  
+    
     if (this.queryDetail.isPinned == true) {
-      this.pinChecked = true;
+      this.fform.get('pinned').setValue("Yes");
     }
     else {
-      this.pinChecked = false;
+      this.fform.get('pinned').setValue("No");
     }
     if (this.queryDetail.isTrend == true) {
-      this.trendChecked = true;
+      this.fform.get('trendCaptured').setValue("Yes");
     }
     else {
-      this.trendChecked = false;
+      this.fform.get('trendCaptured').setValue("No");
     }
-  
   }
 
 }

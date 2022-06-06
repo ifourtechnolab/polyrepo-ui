@@ -4,7 +4,7 @@
   justify-content: space-around;
 }
 
-.btn-sm {
+.btn-sm, .save:disabled {
   background-color: #664983;
   color: white;
 }
@@ -14,7 +14,7 @@ mat-form-field {
 }
 
 ::ng-deep .mat-form-field-wrapper {
-  padding-bottom: 0.7%;
+  padding-bottom: 6.7%;
 }
 ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
   background-color: #664983 !important;
@@ -42,3 +42,4 @@ button.btn.trash-btn {
   padding: 0;
   height: 10px;
 }
+

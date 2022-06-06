@@ -1,25 +1,99 @@
-<div class="savedQueryResult">
+<!-- <div class="savedQueryResult">
     <div id="closeIcon">
         <i class="fa-solid fa-xmark" mat-dialog-close></i>
     </div><br>
     <div id="details">
-        <table>
+        <table >
             <tr>
                 <td>Title</td>
-                <td> : {{queryDetail.title}}</td>
+                <td>  {{queryDetail.title}}</td>
             </tr>
             <tr>
                 <td>Organization</td>
-                <td> : {{queryDetail.paramList[0].paramValue}}</td>
+                <td>  {{queryDetail.paramList[0].paramValue}}</td>
             </tr>
             <tr>
                 <td>Selected Repositories</td>
-                <td> : {{queryDetail.repoList[0].repoName}}</td>
+                <td> <div class="repoList d-flex justify-content-between" *ngFor="let i of nameOfItem; let index = index">
+                    <div class="labelName">
+                      <h4>- {{i.name}}</h4>
+                    </div>
+                </div>
+                </td>
             </tr>
-            <tr *ngIf="paramList[2].paramValue">
+            <tr *ngIf="paramList[2].paramName=='days'">
                 <td>Days</td>
-                <td> : {{paramList[2].paramValue}}</td>
+                <td>  {{paramList[2].paramValue}}</td>
             </tr>
+            <tr *ngIf="paramList[2].paramName=='label'">
+                <td>Label</td>
+                <td>  {{paramList[2].paramValue}}</td>
+            </tr>
+            <tr *ngIf="queryDetail.isPinned">
+                <td>Pinned</td>
+                <td>  Yes</td>
+            </tr>
+            <tr *ngIf="!queryDetail.isPinned">
+                <td>Pinned</td>
+                <td>  No</td>
+            </tr>
+            <tr *ngIf="queryDetail.isTrend">
+                <td>Trend captured</td>
+                <td>  Yes</td>
+            </tr>
+            <tr *ngIf="!queryDetail.isTrend">
+                <td>Trend captured</td>
+                <td>  No</td>
+            </tr>
+
+            
+
         </table>
     </div>
-</div>
+</div> -->
+
+<div class="container">
+    <div id="closeIcon">
+        <i class="fa-solid fa-xmark" mat-dialog-close></i>
+    </div><br>
+    <div>
+      <form [formGroup]="fform">
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input type="text" readonly="true" tabindex="-1" placeholder="Title" matInput formControlName="title">
+        </mat-form-field><br>
+        <mat-form-field appearance="outline">
+          <mat-label>Organisation</mat-label>
+          <input type="text" readonly="true" tabindex="-1" placeholder="Organisation" matInput formControlName="org">
+        </mat-form-field><br>
+        <mat-form-field appearance="outline" *ngIf="showDays" >
+          <mat-label>Day</mat-label>
+          <input type="text" readonly="true" tabindex="-1" placeholder="Day" matInput formControlName="day">
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="showLabel">
+          <mat-label>Label</mat-label>
+          <input type="text" readonly="true" tabindex="-1" placeholder="Label" matInput formControlName="label">
+        </mat-form-field>
+      </form>
+       <div class="overflow-auto addedItems" *ngIf="showRepo">
+            <mat-label><b>Repositoies</b></mat-label>
+            <mat-divider></mat-divider>
+            <div class=" d-flex justify-content-between" *ngFor="let i of nameOfItem; let index = index">
+            <div class="repoName">
+                <h4>{{i.name}}</h4>
+            </div>
+            </div>
+        </div>
+      
+        <br>
+      <div class="row check-box" >
+      <div class="col" >
+      <mat-checkbox   [(ngModel)]="pinChecked" onclick="return false" *ngIf="showDays && !showLabel">Pin</mat-checkbox>
+      </div>
+      <div class="col">
+      <mat-checkbox   [(ngModel)]="trendChecked" onclick="return false" *ngIf="showDays && !showLabel">Trend</mat-checkbox>
+      </div>
+      </div>
+    </div>
+  </div>

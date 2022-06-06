@@ -50,6 +50,7 @@ export class TrendcaptureComponent implements OnInit {
   }
   trendCaptureResult(){
     this.http.getTrendResult(this.userID).subscribe((result:any) => {       
+
       if(result.message == "No Trend Result Found"){
         this.noResult = true
       }

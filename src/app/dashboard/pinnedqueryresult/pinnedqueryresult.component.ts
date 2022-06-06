@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType, ChartDataset } from 'chart.js';
+import { ChartType, ChartDataset, ChartConfiguration } from 'chart.js';
 import { HttpService } from 'src/app/shared/http.service';
 import { UtilService } from 'src/app/shared/util.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgChartsConfiguration } from 'ng2-charts';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -44,13 +47,43 @@ export class PinnedqueryComponent implements OnInit {
   public barChartData2 : ChartDataset[] = null;
   public barChartData3 : ChartDataset[] = null;
   public barChartData4 : ChartDataset[] = null;
+  // public barChartOptions = null;
+
+  // public barChartOptions1: any = {
+  //   // onClick: this.chartClicked1,
+  //   responsive: true,
+  //   scales: {
+  //    yAxes: [
+  //      {
+  //       display: true,
+  //      scaleLabel: {
+  //       display: true,
+  //       labelString: "Number of Reads",
+  //      },
+  //     },
+  //    ],
+  //    xAxes: [
+  //     {
+        
+  //      scaleLabel: {
+  //       display: true,
+  //       labelString: "Date",
+  //      },
+  //     },
+  //    ],
+  //   },
+  //  };
 
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   interval: any;
   noResult : boolean = false;
+  pinnedResultData1:any;
+  pinnedResultData2:any;
+  pinnedResultData3:any;
+  pinnedResultData4:any;
 
-  constructor(private http: HttpService, private util:UtilService, private toastr: ToastrService) { }
+  constructor(private http: HttpService, private util:UtilService, private toastr: ToastrService, private router:Router) { }
 
   ngOnInit(): void {
     this.pinnedResult();
@@ -58,6 +91,7 @@ export class PinnedqueryComponent implements OnInit {
 
   pinnedResult(){
     this.http.getPinnedResult(this.util.getUserId()).subscribe((result : any) => {
+      // this.setChart1Data(result);
       if(result.message == "No Pinned Analysis"){
         this.noResult = true
       }
@@ -65,8 +99,8 @@ export class PinnedqueryComponent implements OnInit {
       for( let i = 0; i < Object.values(result).length-1; i++){
         let title = Object.values(result)[i]        
         this.titleArr.push(Object.values(title)[0].title)
-      } 
-
+      }
+      
       // for queryID of charts
       for( let i = 0; i < Object.values(result).length-1; i++){
         this.queryIDArr.push(Object.keys(result)[i])
@@ -76,6 +110,7 @@ export class PinnedqueryComponent implements OnInit {
         let allRepoDetail = Object.values(result)[i]
         let aaa = Object.values(allRepoDetail)[3]        
         if(i == 0){
+          this.pinnedResultData1 = Object.values(result)[0];
           this.queryID1 = this.queryIDArr[i]
           for( let j = 0; j < Object.values(aaa).length; j++){
             let bbb = Object.values(aaa)[j]
@@ -83,6 +118,7 @@ export class PinnedqueryComponent implements OnInit {
           }
         }
         if(i == 1){
+          this.pinnedResultData2 = Object.values(result)[1];
           this.queryID2 = this.queryIDArr[i]
           for( let j = 0; j < Object.values(aaa).length; j++){
             let bbb = Object.values(aaa)[j]
@@ -90,6 +126,7 @@ export class PinnedqueryComponent implements OnInit {
           }
         }
         if(i == 2){
+          this.pinnedResultData3 = Object.values(result)[2];
           this.queryID3 = this.queryIDArr[i]
           for( let j = 0; j < Object.values(aaa).length; j++){
             let bbb = Object.values(aaa)[j]
@@ -97,6 +134,7 @@ export class PinnedqueryComponent implements OnInit {
           }
         }
         if(i == 3){
+          this.pinnedResultData4 = Object.values(result)[3];
           this.queryID4 = this.queryIDArr[i]
           for( let j = 0; j < Object.values(aaa).length; j++){
             let bbb = Object.values(aaa)[j]
@@ -121,12 +159,14 @@ export class PinnedqueryComponent implements OnInit {
             }
             this.barChartLabels1 = this.repoName1
             this.barChartData1 = [{ 
-            data: this.total1, 
-            label: 'Count', 
-            backgroundColor: 'rgba(255, 0, 0,0.5)', 
-            hoverBackgroundColor: 'rgba(255, 0, 0,0.7)', 
-            borderColor: '#664983',
-          }];
+                                    data: this.total1, 
+                                    label: 'Count', 
+                                    backgroundColor: 'rgba(255, 0, 0,0.5)', 
+                                    hoverBackgroundColor: 'rgba(255, 0, 0,0.7)', 
+                                    borderColor: '#664983',
+
+                                  }];
+            
         }
         if(i == 1){
           this.title2 = this.titleArr[i]
@@ -184,12 +224,12 @@ export class PinnedqueryComponent implements OnInit {
         }
       }
     })
-  }
+  }  
 
   removeQuery(queryID){
     this.http.unsetPinnedResult(queryID).subscribe((message : any) => {
       if(message.message == "Query Removed from Pinned"){
-        this.toastr.success('', 'Pinned query deleted', {
+        this.toastr.success('', 'Your query is unpinned', {
           positionClass: 'toast-top-center',
           closeButton: true,
           easeTime: 250,
@@ -200,4 +240,61 @@ export class PinnedqueryComponent implements OnInit {
       window.location.reload();
     }, 1000);
   }
+
+  chartClicked1() {
+    let Data1={
+        title:this.pinnedResultData1.storedQuery.title,
+        queryKey:this.pinnedResultData1.storedQuery.queryKey,
+        id:this.pinnedResultData1.storedQuery.queryId,
+        repoList:this.pinnedResultData1.queryRepoList,
+        paramList:this.pinnedResultData1.queryParameterList,
+        isPinned:this.pinnedResultData1.storedQuery.pinned,
+        isTrend:this.pinnedResultData1.storedQuery.trendCaptured
+      };
+    
+   this.router.navigate(['repo'],{state : {data: Data1}});
+  }
+
+  chartClicked2() {
+    let Data1={
+      title:this.pinnedResultData2.storedQuery.title,
+      queryKey:this.pinnedResultData2.storedQuery.queryKey,
+      id:this.pinnedResultData2.storedQuery.queryId,
+      repoList:this.pinnedResultData2.queryRepoList,
+      paramList:this.pinnedResultData2.queryParameterList,
+      isPinned:this.pinnedResultData2.storedQuery.pinned,
+      isTrend:this.pinnedResultData2.storedQuery.trendCaptured
+    };
+  
+ this.router.navigate(['repo'],{state : {data: Data1}});
+  }
+
+  chartClicked3() {
+    let Data1={
+      title:this.pinnedResultData3.storedQuery.title,
+      queryKey:this.pinnedResultData3.storedQuery.queryKey,
+      id:this.pinnedResultData3.storedQuery.queryId,
+      repoList:this.pinnedResultData3.queryRepoList,
+      paramList:this.pinnedResultData3.queryParameterList,
+      isPinned:this.pinnedResultData3.storedQuery.pinned,
+      isTrend:this.pinnedResultData3.storedQuery.trendCaptured
+    };
+  
+ this.router.navigate(['repo'],{state : {data: Data1}});
+  }
+
+  chartClicked4() {
+    let Data1={
+      title:this.pinnedResultData4.storedQuery.title,
+      queryKey:this.pinnedResultData4.storedQuery.queryKey,
+      id:this.pinnedResultData4.storedQuery.queryId,
+      repoList:this.pinnedResultData4.queryRepoList,
+      paramList:this.pinnedResultData4.queryParameterList,
+      isPinned:this.pinnedResultData4.storedQuery.pinned,
+      isTrend:this.pinnedResultData4.storedQuery.trendCaptured
+    };
+  
+ this.router.navigate(['repo'],{state : {data: Data1}});
+  }
+
 }

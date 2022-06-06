@@ -44,16 +44,12 @@ export class TrendcaptureComponent implements OnInit {
   title: any;
   constructor(private http: HttpService, private util:UtilService, private datepipe : DatePipe, private toastr: ToastrService) { }
 
-  ngOnInit(): void {
-    console.log(this.trendResult1);
-    
+  ngOnInit(): void {    
     this.trendCaptureResult();
     this.trendList();
   }
   trendCaptureResult(){
-    this.http.getTrendResult(this.userID).subscribe((result:any) => { 
-      console.log(result);
-      
+    this.http.getTrendResult(this.userID).subscribe((result:any) => {       
       if(result.message == "No Trend Result Found"){
         this.noResult = true
       }
@@ -71,8 +67,6 @@ else{
             let changedDate = this.datepipe.transform(this.dataArray[i][j].dateOfResult, 'dd/MM')
             this.trendDate1.push(changedDate);          
           }
-          console.log(this.trendResult1);
-          console.log(this.dataArray[i]);
           
           this.queryID1 = this.queryIDArr[i]
           this.barChartLabels1 = this.trendDate1
@@ -134,7 +128,7 @@ else{
   removeTrendQuery(queryId){
     this.http.unsetTrendResult(queryId).subscribe((message : any) => {
       if(message.message == "Query Removed from Trend Capture"){
-        this.toastr.success('', 'Trend query deleted', {
+        this.toastr.success('', 'Your query is removed from Trend Capture', {
           positionClass: 'toast-top-center',
           closeButton: true,
           easeTime: 250,

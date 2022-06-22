@@ -9,7 +9,7 @@
           This will list all the Open Priority-1 issues across selected
           repositories open since
           <input type="number" formControlName="criticalIssues" id="criticalIssueDays" />days.<button
-            class="btn headBtn criticalButton btn-sm" (click)="criticalIssueList()">List
+            class="btn headBtn criticalButton btn-sm" (click)="criticalIssueList()">GO
           </button>
 
           <button *ngIf="!criticalTitle" class="btn btn-sm" type="button" (click)="openDialogCriticalIssue()" [disabled]="isCritic">

@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
 
   changeSpan(value: any){
     let sel = value.option.selectionList._value[0];
-    if(sel=='Pinned Query')
+    if(sel=='Dashboard')
     {
       this.router.navigate(['dashboard/pinned']);
     }
